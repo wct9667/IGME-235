@@ -1,1 +1,2 @@
 ErrorDocument 404 /wct9667/235/error/error.html
+DirectoryIndex noterror.html
