@@ -1,0 +1,28 @@
+
+        img.Side{
+            float:right; margin: 0 12px;
+            }
+        h1 { 
+            color:red;
+            font-family: sans-serif;
+            border-bottom: 1px solid blue;
+            }
+        blockquote { 
+            background-color: lightgray;
+            padding: 1rem;
+            }
+        body{
+            background-color: lightblue;
+            }   
+        h2{
+            color:blueviolet;
+            font-family: sans-serif;
+            margin-left: 100px;
+            }
+        p{
+            margin-left: 100px;
+            }
+        ul{
+             margin-left: 100px;
+            }
+            
