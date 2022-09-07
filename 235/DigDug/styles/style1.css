@@ -1,32 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 
         img.Side{
             float:right; margin: 0 12px;
             }
-        h1 { 
-            color:red;
-            font-family: sans-serif;
-            border-bottom: 1px solid blue;
+        .Head{
+                width: 700px;  
+                height: auto; 
             }
         blockquote { 
             background-color: lightgray;
             padding: 1rem;
             }
-        body{
-            background-color: lightblue;
-            }   
+            h1 { 
+                font-family: 'Anton', sans-serif;
+                text-align: center;
+                border-bottom: 1px solid blue;      
+                }  
         h2{
+            font-family: 'Anton', sans-serif;
             color:blueviolet;
-            font-family: sans-serif;
             margin-left: 100px;
             }
+        body{
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            } 
         p{
             margin-left: 100px;
             }
         ul{
              margin-left: 100px;
             }
-        body{
-            font-family: Arial, sans-serif;
-        }
-        
+
             
