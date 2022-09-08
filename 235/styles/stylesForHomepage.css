@@ -1,0 +1,27 @@
+body{
+    background-color: darkgray;
+    font-family: Arial, sans-serif;
+}
+.middle{
+    width: 15%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px;
+    border: 1px solid lightblue;
+}
+#portrait{
+    display: block;  
+    margin-left: auto;  
+    margin-right: auto;  
+    padding: 5px;
+} 
+#information{
+    margin: 0 auto;
+    width: 30%;
+}
+#links{
+    list-style: none;  
+}
+ 
+
+
