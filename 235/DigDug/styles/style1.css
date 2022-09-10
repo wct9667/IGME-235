@@ -1,13 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 
+        main{
+            border: 1px solid black;
+            margin: 0 auto;
+            background-color: #F0AC84ff;
+            width: 80vw;
+        }
         img.Side{
             float:right; margin: 0 12px;
             }
         #Head{
-                width: auto;  
-                height: auto; 
+            position: relative;
+            left: 20%;
+            display: block;
+            margin: 0, auto;
+
             }
+        #source, #largePictureLink{
+            padding-left: 40px;
+            padding-bottom: 5px;
+        }
         #burnt{
             border: 5px solid #342A79ff;
         }
@@ -30,7 +43,7 @@
             margin-left: 100px;
             }
         body{
-            background-color: #F0AC84ff;
+            background-color: #595285ff;
             font-family: Arial, sans-serif;
             } 
         p{
