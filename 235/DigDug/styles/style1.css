@@ -4,10 +4,16 @@
         img.Side{
             float:right; margin: 0 12px;
             }
-        .Head{
-                width: 700px;  
+        #Head{
+                width: auto;  
                 height: auto; 
             }
+        #burnt{
+            border: 5px solid #342A79ff;
+        }
+        #bigPhoto{
+            border: 5px solid #342A79ff;
+        }
         blockquote { 
             background-color: lightgray;
             padding: 1rem;
@@ -15,15 +21,16 @@
             h1 { 
                 font-family: 'Anton', sans-serif;
                 text-align: center;
-                border-bottom: 1px solid blue;      
+                border-bottom: 1px solid blue;
+                color:#261C69ff;    
                 }  
         h2{
             font-family: 'Anton', sans-serif;
-            color:blueviolet;
+            color:#261C69ff;
             margin-left: 100px;
             }
         body{
-            background-color: lightblue;
+            background-color: #F0AC84ff;
             font-family: Arial, sans-serif;
             } 
         p{
@@ -35,4 +42,25 @@
         .html{
             background-color: black;
         }
+        #publishing{
+            
+            background-color: #595285ff;
+        }
+
+
+        a:link {
+            color:#261C69ff;
+          }
+          
+          a:visited {
+            color: #595285ff;
+          }
+          
+          a:hover {
+            color: #595285ff;
+          }
+          
+          a:active {
+            color: #261C69ff;
+          } 
             
