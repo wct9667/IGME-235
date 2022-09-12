@@ -1,7 +1,10 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 body{
-    font-family: 'Courier New', Courier, monospace;
+    font-family: sans-serif;
     background-color: darkgray;
+    font-size: 14pt;
 }
 .middle{
     margin-left: auto;
@@ -14,39 +17,54 @@ main{
     background-color: lightblue;
     margin-left: auto;
     margin-right:auto;
-    width:90vw;
+    width:30vw;
+    height: 100vh
 }
 #portrait{
     display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
-     border:10px lightgray;
-     border-style: solid;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    border:10px lightgray;
+    border-style: solid;
 }
 #links{
-    background-color: lightblue;
+    background-color: lightgrey;
     list-style: none;
     text-align: center;
-    font-size: 1.2em;
     margin-top: -10px;
-    padding-bottom: 3rem;
+    border: 10px dashed darkgray;
+}
+
+h1, h2{
+    text-align: center;
+
+    font-family: 'Anton', sans-serif;
 }
 h1{
-    height: auto;
-    font-size: 3rem;
-
-}
-h2{
-    box-sizing: border-box;
-    text-align: center;
     font-size: 2rem;
 }
 #mainInfo{
-    padding-left: 50px;
-    padding-right: 50px;
-    font-size:1.2em;
-    text-align: justify;
+    display: block;
+    margin-left: 15px;
+    margin-right: 15px;
+    overflow: auto;
+
+}
+a:link {
+    color: darkgreen;
+  }
+a:visited {
+    color: darkgray;
+  }
+a:focus {
+    color: darkgray;
+} 
+a:hover {
+    text-decoration: darkred;
+  }
+a:active {
+    text-decoration: darkslategrey;
 }
 
 
