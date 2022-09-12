@@ -29,6 +29,7 @@ main{
     border-style: solid;
 }
 #links{
+    display: block;
     background-color: lightgrey;
     list-style: none;
     text-align: center;
@@ -36,7 +37,7 @@ main{
     border: 10px dashed darkgray;
 }
 
-h1, h2{
+.heading{
     text-align: center;
 
     font-family: 'Anton', sans-serif;
@@ -52,20 +53,24 @@ h1{
 
 }
 a:link {
-    color: darkgreen;
+    color:darkgreen;
   }
-a:visited {
+  
+  a:visited {
     color: darkgray;
   }
-a:focus {
-    color: darkgray;
-} 
-a:hover {
-    text-decoration: darkred;
+  
+  a:hover {
+    color: darkslategray;
   }
-a:active {
-    text-decoration: darkslategrey;
-}
+  a:focus{
+    color:darkgray;
+  }
+  
+  a:active {
+    color: #261C69ff;
+  } 
+
 
 
 
