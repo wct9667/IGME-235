@@ -1,7 +1,4 @@
-*{
-    border:1px lightblue;
-    border-style: solid;
-}
+
 body{
     font-family: 'Courier New', Courier, monospace;
     background-color: darkgray;
@@ -11,25 +8,47 @@ body{
     margin-right: auto;
     padding: 5px;
     width: fit-content;
+
+}
+main{
+    background-color: lightblue;
+    margin-left: auto;
+    margin-right:auto;
+    width:90vw;
 }
 #portrait{
     display: block;
     margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+     border:10px lightgray;
+     border-style: solid;
 }
 #links{
     background-color: lightblue;
-    margin-top: -10px;
     list-style: none;
     text-align: center;
+    font-size: 1.2em;
+    margin-top: -10px;
+    padding-bottom: 3rem;
 }
 h1{
     height: auto;
+    font-size: 3rem;
 
 }
 h2{
     box-sizing: border-box;
     text-align: center;
+    font-size: 2rem;
 }
+#mainInfo{
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size:1.2em;
+    text-align: justify;
+}
+
 
 
  
