@@ -1,0 +1,25 @@
+/* Do everything in this file */
+h1, h2, h3{
+    border-bottom: 1px solid red;
+}
+figure{
+    width: 40%;
+    float: right;
+}
+figure img{
+    width: 100%;
+}
+h2{
+    clear: right;
+}
+#tetlist div tet{
+    float: left;
+    width: 100rem;
+    border: 1px black solid;
+}
+footer{
+    position: fixed;
+    top: 1vh;
+    right: 1vh;
+    z-index: -1;
+}
