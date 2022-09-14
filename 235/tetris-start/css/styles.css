@@ -1,4 +1,10 @@
-figure{
+header, main, footer {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure {
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
@@ -6,3 +12,26 @@ figure{
 figure img{
     width: 100%;
 }
+#tetlist {
+    display: flex;
+    flex-flow: row wrap;
+}
+.tet {
+    flex: 0 1 450px;
+    outline: 1px solid black;
+    text-align: center;
+}
+.tet img {
+    width: 60%;
+}
+span{
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.aliases {
+    text-align: left;
+    margin: 1em;
+}
+
+
