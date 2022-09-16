@@ -21,7 +21,7 @@ figure img{
     outline: 1px solid black;
     text-align: center;
 }
-.tet img {
+.tet img{
     width: 60%;
 }
 span{
@@ -34,4 +34,9 @@ span{
     margin: 1em;
 }
 
-
+.long img{
+    width: 80%;
+}
+.square img{
+    width: 40%;
+}
