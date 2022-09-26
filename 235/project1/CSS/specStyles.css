@@ -9,7 +9,7 @@
                          "largebox nav"
                          "smallboxes nav";
     grid-template-columns: 3fr 1fr;
-    grid-template-rows: 200px 2fr 1fr 2fr;
+    grid-template-rows: 200px 600px auto 1000px;
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
@@ -20,8 +20,10 @@
     border:1px black solid;
     grid-area: header;
 }
+.side{
+    background-color: lightgray;
+}
 #toprightcorner{
-    border:1px black solid;
     grid-area: sidetop;
     background-color: black;
 }
@@ -29,7 +31,7 @@
     color: white;
     text-align: center;
     font-size: 4rem;
-    margin-top: 55px;
+    margin-top: 15%;
 }
 #toprightcorner h2{
     color: white;
@@ -40,7 +42,23 @@
 #introduction{
     border:1px black solid;
     grid-area: introduction;
+    padding: 25px;
 }
+#introduction img{
+    float:right;
+    shape-outside: polygon(1% 100%, 1% 86%, 12% 80%, 21% 77%, 31% 72%, 36% 67%, 33% 59%, 31% 52%, 25% 42%, 25% 33%, 27% 19%, 35% 7%, 41% 3%, 49% 1%, 54% 2%, 59% 3%, 68% 7%, 71% 11%, 75% 18%, 76% 26%, 76% 33%, 77% 39%, 74% 46%, 73% 58%, 70% 66%, 68% 72%, 79% 75%, 92% 81%, 100% 88%, 99% 99%);
+}
+hr{
+    margin-top:30px;
+    margin-bottom:auto;
+    height: 3px;
+    background: black;
+}
+#introduction h2{
+   font-size: 2rem;
+   font-weight: 500;
+}
+
 #sidebar{
     border:1px black solid;
     grid-area: nav;
