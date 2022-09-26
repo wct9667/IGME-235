@@ -1,3 +1,69 @@
 * {
     box-sizing: border-box;
 }
+
+#wrapper{
+    display: grid;
+    grid-template-areas: "header sidetop"
+                         "largebox introduction"
+                         "largebox nav"
+                         "smallboxes nav";
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr 2fr;
+    max-width: 1500px;
+    max-height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.top{
+    border:1px black solid;
+    grid-area: header;
+}
+#toprightcorner{
+    border:1px black solid;
+    grid-area: sidetop;
+}
+#introduction{
+    border:1px black solid;
+    grid-area: introduction;
+}
+#sidebar{
+    border:1px black solid;
+    grid-area: nav;
+}
+#large{
+    border:1px black solid;
+    grid-area: largebox;
+}
+#boxes{
+    border:1px black solid;
+    grid-area: smallboxes;
+}
+#boxes{
+    display: grid;
+    grid-template-areas: "list topright"
+                        "list   bottomright"
+                         "bottomleft bottomright";
+    grid-template-columns: 66% 1fr;
+    grid-template-rows: 2fr 1fr 2fr;
+    
+} 
+#topright{
+    grid-area: topright;
+    border:1px black solid;
+}
+#BottomRight{
+    grid-area:bottomRight;
+    border:1px black solid;
+}
+#BottomLeft{
+    grid-area: bottomleft;
+    border:1px black solid;
+}
+#listbox{
+    grid-area: list;
+    border:1px black solid;
+}
+             
