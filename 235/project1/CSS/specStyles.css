@@ -9,9 +9,8 @@
                          "largebox nav"
                          "smallboxes nav";
     grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr 2fr;
-    max-width: 1500px;
-    max-height: 100vh;
+    grid-template-rows: 200px 2fr 1fr 2fr;
+    max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
     
@@ -29,8 +28,14 @@
 #toprightcorner h1{
     color: white;
     text-align: center;
-    margin-top: 30%;
-
+    font-size: 4rem;
+    margin-top: 55px;
+}
+#toprightcorner h2{
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    padding-top: 10px;
 }
 #introduction{
     border:1px black solid;
@@ -41,6 +46,7 @@
     grid-area: nav;
 }
 #large{
+    
     border:1px black solid;
     grid-area: largebox;
 }
