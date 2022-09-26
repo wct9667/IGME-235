@@ -24,6 +24,13 @@
 #toprightcorner{
     border:1px black solid;
     grid-area: sidetop;
+    background-color: black;
+}
+#toprightcorner h1{
+    color: white;
+    text-align: center;
+    margin-top: 30%;
+
 }
 #introduction{
     border:1px black solid;
@@ -41,6 +48,8 @@
     border:1px black solid;
     grid-area: smallboxes;
 }
+
+/*
 #boxes{
     display: grid;
     grid-template-areas: "list topright"
@@ -65,5 +74,5 @@
 #listbox{
     grid-area: list;
     border:1px black solid;
-}
+}*/
              
