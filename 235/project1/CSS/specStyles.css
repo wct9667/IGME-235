@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
+
 * {
     box-sizing: border-box;
 }
@@ -9,7 +11,7 @@
                          "largebox nav"
                          "smallboxes nav";
     grid-template-columns: 3fr 1fr;
-    grid-template-rows: 200px 600px auto 1000px;
+    grid-template-rows: 200px auto 300px auto;
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
@@ -19,9 +21,19 @@
 .top{
     border:1px black solid;
     grid-area: header;
+    display:flex;
+    flex-direction: row;
 }
+#large56{
+font-size:8rem;
+text-align: left;
+padding-left:10px;
+font-family: 'Londrina Outline', cursive, sans-serif;
+}
+
 .side{
     background-color: lightgray;
+    padding:25px;
 }
 #toprightcorner{
     grid-area: sidetop;
@@ -40,17 +52,16 @@
     padding-top: 10px;
 }
 #introduction{
-    border:1px black solid;
     grid-area: introduction;
-    padding: 25px;
 }
 #introduction img{
     float:right;
+    padding:1px;
     shape-outside: polygon(1% 100%, 1% 86%, 12% 80%, 21% 77%, 31% 72%, 36% 67%, 33% 59%, 31% 52%, 25% 42%, 25% 33%, 27% 19%, 35% 7%, 41% 3%, 49% 1%, 54% 2%, 59% 3%, 68% 7%, 71% 11%, 75% 18%, 76% 26%, 76% 33%, 77% 39%, 74% 46%, 73% 58%, 70% 66%, 68% 72%, 79% 75%, 92% 81%, 100% 88%, 99% 99%);
 }
 hr{
-    margin-top:30px;
-    margin-bottom:auto;
+    position: relative;
+    top: 40px;
     height: 3px;
     background: black;
 }
@@ -60,9 +71,26 @@ hr{
 }
 
 #sidebar{
-    border:1px black solid;
     grid-area: nav;
 }
+#table{
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+#table li{
+    height: 7vh;
+}
+#table h3{
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.sub :hover{
+    font-size: 1.5rem;
+}
+
 #large{
     
     border:1px black solid;
