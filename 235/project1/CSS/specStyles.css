@@ -12,7 +12,7 @@
                          "smallboxes nav";
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 240px auto 300px auto;
-    max-width: 1100px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     
@@ -118,6 +118,8 @@ hr{
     grid-area: nav;
 }
 #table{
+    position: relative;
+    top:-260px;
     display:flex;
     flex-direction: column;
     align-items: stretch;
@@ -136,14 +138,42 @@ hr{
 }
 
 #large{
-    
-    border:1px black solid;
+    position: relative;
     grid-area: largebox;
+    margin-left:auto;
+    margin-right: auto;
+    margin:55px;
+}
+
+#large h2{
+    display: block;
+    background-color: yellow;
+    font-size: 3rem;
+    padding-right: 280px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+#large p{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 6rem;
+
+}
+
+.box h2{
+    display: box;
+    position: absolute;
+    color: white;
 }
 #boxes{
     border:1px black solid;
     grid-area: smallboxes;
 }
+
 
 /*
 #boxes{
