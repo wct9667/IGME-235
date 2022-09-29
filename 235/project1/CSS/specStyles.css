@@ -11,11 +11,10 @@
                          "largebox nav"
                          "smallboxes nav";
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 240px auto 300px auto;
+    grid-template-rows: 240px 1fr 300px auto;
     max-width: 1200px;
     margin-left: auto;
-    margin-right: auto;
-    
+    margin-right: auto;    
 }
 
 .top{
@@ -78,6 +77,7 @@ margin-bottom: auto;
 .side{
     background-color: lightgray;
     padding:25px;
+    max-height: 100vh;
 }
 #toprightcorner{
     grid-area: sidetop;
@@ -116,10 +116,11 @@ hr{
 
 #sidebar{
     grid-area: nav;
+    margin-bottom: 55px;
 }
 #table{
     position: relative;
-    top:-260px;
+    top:-300px;
     display:flex;
     flex-direction: column;
     align-items: stretch;
@@ -154,16 +155,18 @@ hr{
     padding-bottom: 10px;
 }
 #large p{
+
+    font-size: 6rem;
+}
+
+.number{
     position: absolute;
     bottom: 0;
     right: 0;
     display: block;
     background-color: rgba(255, 255, 255, 0.3);
     color: white;
-    font-size: 6rem;
-
 }
-
 .box h2{
     display: box;
     position: absolute;
@@ -175,30 +178,38 @@ hr{
 }
 
 
-/*
+
 #boxes{
     display: grid;
     grid-template-areas: "list topright"
                         "list   bottomright"
                          "bottomleft bottomright";
-    grid-template-columns: 66% 1fr;
-    grid-template-rows: 2fr 1fr 2fr;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    border:1px black solid;
+    max-height: auto;
+    margin:55px;
+    margin-top:-10px;
     
 } 
 #topright{
     grid-area: topright;
     border:1px black solid;
+    background-color: red;
 }
 #BottomRight{
-    grid-area:bottomRight;
+    grid-area:bottomright;
     border:1px black solid;
+    background-color: red;
+
 }
 #BottomLeft{
     grid-area: bottomleft;
     border:1px black solid;
+    background-color: red;
 }
 #listbox{
     grid-area: list;
     border:1px black solid;
-}*/
+}
              
