@@ -11,10 +11,10 @@
                          "largebox nav"
                          "smallboxes nav";
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 240px 1fr 300px auto;
+    grid-template-rows: 240px 1fr 300px 610px;
     max-width: 1200px;
     margin-left: auto;
-    margin-right: auto;    
+    margin-right: auto;  
 }
 
 .top{
@@ -60,7 +60,7 @@ font-size: 1.75rem;
 .line{
     border-left: 12px solid yellow;
     height:95px;
-    margin-left: 5vw;
+    margin-left: 5px;
     padding-right: 10px;
     margin-top:30px;
     margin-bottom: auto;
@@ -87,7 +87,7 @@ margin-bottom: auto;
     color: white;
     text-align: center;
     font-size: 4rem;
-    margin-top: 15%;
+    margin-top: 50px;
 }
 #toprightcorner h2{
     color: white;
@@ -105,7 +105,7 @@ margin-bottom: auto;
 }
 hr{
     position: relative;
-    top: 40px;
+    top:5px;
     height: 3px;
     background: black;
 }
@@ -144,6 +144,7 @@ hr{
     margin-left:auto;
     margin-right: auto;
     margin:55px;
+    margin-top:40px;
 }
 
 #large h2{
@@ -184,10 +185,11 @@ hr{
                         "list   bottomright"
                          "bottomleft bottomright";
     grid-template-columns: auto auto;
-    grid-template-rows:50% auto 150px;
+    grid-template-rows:300px auto 150px;
     max-height: auto;
     margin:55px;
-    
+    position: relative;
+    top:-68px;
     
 } 
 .topLeftTitle{
@@ -207,7 +209,6 @@ hr{
     
     grid-area: topright;
     margin-left:5px;
-
 }
 
 #topright .topLeftTitle{
@@ -218,7 +219,6 @@ hr{
     grid-area:bottomright;
     margin-left:5px;
     margin-top:5px;
-
 }
 #BottomRight .topLeftTitle{
     background-color: rgba(228,76,149,255);
@@ -241,8 +241,52 @@ hr{
     background-color: rgba(255, 255, 255, 0.3);
     color: white;
     font-size: 4rem;
+    padding-left:5px;
 }
 #listbox{
     grid-area: list;
+}
+
+#listbox li{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#listbox ul{
+display: flex;
+flex-direction: column;
+align-items: stretch;
+}
+
+.numberList{
+font-size:4rem;
+text-align: left;
+position: relative;
+font-weight: bold;
+}
+.info{
+position: absolute;
+left:70px;
+top:0px;
+font-size: .75rem;
+}
+strong{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+#l46{
+    color: rgba(35,108,168,255);
+}
+#l48{
+    color: rgba(52,50,124,255)
+}
+#l50{
+    color: rgba(71,25,67,255)
+}
+#l52{
+    color:rgba(131,50,125,255);
+}
+#l54{
+    color:rgba(216,42,125,255) ;
 }
              
