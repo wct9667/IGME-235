@@ -3,6 +3,13 @@
 * {
     box-sizing: border-box;
 }
+p{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1,h2,h3{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #wrapper{
     display: grid;
     grid-template-areas: "header sidetop"
@@ -57,17 +64,19 @@ font-size: 1.75rem;
 }
 .line{
     border-left: 12px solid yellow;
-    height:50%;
-    margin-left: 5px;
+    height:75%;
+    margin-left: 20px;
     padding-right: 10px;
-    margin-top:30px;
+    margin-top:25px;
     margin-bottom: auto;
 }
 #secondPTop p{
-font-size:1.25rem;
+font-size:1.5rem;
 align-items: center;
 margin-top:25px;
 margin-bottom: auto;
+font-weight: bold;
+
 }
 
 
@@ -121,9 +130,6 @@ hr{
     flex-direction: column;
     align-items: stretch;
     row-gap: 35px;
-}
-#table li{
-    
 }
 #table h3{
     font-size: 1.25rem;
