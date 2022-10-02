@@ -142,9 +142,11 @@ hr{
 #table{
     display:flex;
     flex-direction: column;
-    align-items: stretch;
-    row-gap: 50px
+    justify-content: space-between;
+
+    height: 500px;
 }
+
 #table h3{
     font-size: 1.25rem;
     font-weight: bold;
