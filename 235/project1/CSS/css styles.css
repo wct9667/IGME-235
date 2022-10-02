@@ -22,6 +22,9 @@ h1,h2,h3{
     margin-left: auto;
     margin-right: auto;  
 }
+body{
+    background-color: rgb(37, 31, 31);
+}
 @media screen and (min-width: 900px) {
     #wrapper{
         margin-top:2rem;
@@ -29,10 +32,10 @@ h1,h2,h3{
         grid-template-areas: "header sidetop"
                              "largebox introduction"
                              "largebox nav"
-                             "smallboxes nav";
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 240px 500px 1fr 610px;
-        max-width: 1200px;
+                             "smallboxes nothing";
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: 240px 500px 1fr auto;
+        max-width: 1440px;
         margin-left: auto;
         margin-right: auto;  
     }
@@ -101,6 +104,7 @@ font-weight: bold;
 .side{
     background-color: lightgray;
     padding:25px;
+    position:sticky;
 }
 #toprightcorner{
     grid-area: sidetop;
