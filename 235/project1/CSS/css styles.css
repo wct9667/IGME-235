@@ -9,19 +9,11 @@ p{
 h1,h2,h3{
     font-family: Arial, Helvetica, sans-serif;
 }
-#wrapper{
-    display: grid;
-    grid-template-areas:"sidetop"
-                         "nav"
-                        "introduction"
-                        "largebox"
-                        "largebox"
-                        "smallboxes";
-
-    grid-template-rows: .1fr 2fr 2fr 3fr 1fr 2fr;
-    margin-left: auto;
-    margin-right: auto;  
+img{
+    max-width: 100%;
+    min-width: 40%;
 }
+
 body{
     background-color: rgb(37, 31, 31);
 }
@@ -34,8 +26,8 @@ body{
                              "largebox nav"
                              "smallboxes nothing";
         grid-template-columns: 2fr 1fr;
-        grid-template-rows: 240px 500px 1fr auto;
-        max-width: 1440px;
+        grid-template-rows: 240px 425px 1fr auto;
+        max-width: 1200px;
         margin-left: auto;
         margin-right: auto;  
     }
@@ -85,15 +77,15 @@ font-size: 1.75rem;
 .line{
     border-left: 12px solid yellow;
     height:75%;
-    margin-left: 20px;
-    padding-right: 10px;
-    margin-top:25px;
+    margin-left: 1rem;
+    padding-right: .5rem;
+    margin-top:1.5rem;
     margin-bottom: auto;
 }
 #secondPTop p{
 font-size:1.5rem;
 align-items: center;
-margin-top:25px;
+margin-top: 1rem;
 margin-bottom: auto;
 font-weight: bold;
 
@@ -104,7 +96,6 @@ font-weight: bold;
 .side{
     background-color: lightgray;
     padding:25px;
-    position:sticky;
 }
 #toprightcorner{
     grid-area: sidetop;
@@ -144,13 +135,15 @@ hr{
 #sidebar{
     grid-area: nav;
     margin-bottom: 55px;
+    position:sticky;
+    top: 0;
+    z-index: 1;
 }
 #table{
-    position: relative;
     display:flex;
     flex-direction: column;
     align-items: stretch;
-    row-gap: 35px;
+    row-gap: 50px
 }
 #table h3{
     font-size: 1.25rem;
@@ -174,7 +167,6 @@ hr{
     display: block;
     background-color: yellow;
     font-size: 3rem;
-    padding-right: 280px;
     padding-left: 10px;
     padding-bottom: 10px;
 }
@@ -192,14 +184,15 @@ hr{
 #boxes{
     grid-area: smallboxes;
     display: grid;
-    grid-template-areas: "list topright"
+    grid-template-areas: "topleft topright"
                          "bottomleft bottomright";
     grid-template-columns: auto auto;
-    grid-template-rows:300px 150px;
+    grid-template-rows:1fr 1fr;
     max-height: auto;
     position: relative;
     margin:55px;
     margin-top:0px;
+    grid-gap: 1rem;
     
 } 
 .topLeftTitle{
@@ -219,6 +212,10 @@ hr{
     
     grid-area: topright;
 }
+#topLeft{
+    grid-area: topleft;
+    position: relative;
+}
 
 #topright .topLeftTitle{
     background-color: orange;
@@ -237,24 +234,9 @@ hr{
 #BottomLeft .topLeftTitle{
     background-color: rgba(22,132,130,255);
 }
-#boxes .number{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    display: block;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: white;
-    font-size: 4rem;
-    padding-left:5px;
+#topLeft .topLeftTitle{
+    background-color: rgba(22,132,130,255);
 }
 
-
-
-
-
-strong{
-    font-size: 1.5rem;
-    font-weight: bold;
-}
 
              
