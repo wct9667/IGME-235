@@ -184,25 +184,29 @@ hr{
 #boxes{
     grid-area: smallboxes;
     display: grid;
-    grid-template-areas: "topleft topright"
-                         "bottomleft bottomright";
-    grid-template-columns: auto auto;
-    grid-template-rows:1fr 1fr;
+    grid-template-areas: "topleft"
+                        "topright"
+                         "bottomleft"
+                         " bottomright";
+    grid-template-columns: auto;
+    grid-template-rows:1fr 1fr 1fr 1fr;
     max-height: auto;
     position: relative;
     margin:55px;
     margin-top:0px;
-    grid-gap: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    grid-gap: 10px;
     
 } 
-.topLeftTitle{
+/*.topLeftTitle{
     display: box;
     position: absolute;
     color: white;
     padding-left: 10px;
     padding-right:5px;
     padding-bottom: 5px;
-}
+}*/
 .topLeftTitle h2{
     font-size: 2rem;
 }
@@ -212,14 +216,15 @@ hr{
     
     grid-area: topright;
 }
+#topright .topLeftTitle{
+    background-color: orange;
+}
+
 #topLeft{
     grid-area: topleft;
     position: relative;
 }
 
-#topright .topLeftTitle{
-    background-color: orange;
-}
 #BottomRight{
     position: relative;
     grid-area:bottomright;
