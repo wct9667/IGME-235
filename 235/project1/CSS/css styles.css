@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+p{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1,h2,h3{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#wrapper{
+    display: grid;
+    grid-template-areas:"sidetop"
+                         "nav"
+                        "introduction"
+                        "largebox"
+                        "largebox"
+                        "smallboxes";
+
+    grid-template-rows: .1fr 2fr 2fr 3fr 1fr 2fr;
+    margin-left: auto;
+    margin-right: auto;  
+}
+@media screen and (min-width: 900px) {
+    #wrapper{
+        margin-top:2rem;
+        display: grid;
+        grid-template-areas: "header sidetop"
+                             "largebox introduction"
+                             "largebox nav"
+                             "smallboxes nav";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 240px 500px 1fr 610px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;  
+    }
+  }
+
+
+.top{
+    padding:3.5rem;
+    grid-area: header;
+    display:flex;
+    flex-direction: row;
+}
+#rightContent{
+    display: flex;
+    flex-direction: row;
+}
+#large56{
+font-size:12rem;
+text-align: left;
+position: relative;
+top:-12px;
+font-family: 'Londrina Outline', cursive, sans-serif;
+}
+
+#largegreentxt{
+text-align: left;
+color: lightgreen;
+font-weight: bold;
+font-size: 3rem;
+}
+#middletxt{
+    text-align: left;
+color: black;
+font-weight: bold;
+font-size: 1.5rem;
+}
+#yellowtxt{
+text-align: left;
+color: orange;
+font-weight: bold;
+font-size: 1.75rem;
+}
+#ex{
+    color:black;
+    font-size: 2rem;
+}
+.line{
+    border-left: 12px solid yellow;
+    height:75%;
+    margin-left: 20px;
+    padding-right: 10px;
+    margin-top:25px;
+    margin-bottom: auto;
+}
+#secondPTop p{
+font-size:1.5rem;
+align-items: center;
+margin-top:25px;
+margin-bottom: auto;
+font-weight: bold;
+
+}
+
+
+
+.side{
+    background-color: lightgray;
+    padding:25px;
+}
+#toprightcorner{
+    grid-area: sidetop;
+    background-color: black;
+}
+#toprightcorner h1{
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 50px;
+}
+#toprightcorner h2{
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    padding-top: 10px;
+}
+#introduction{
+    grid-area: introduction;    
+}
+#introduction img{
+    float:right;
+    padding:1px;
+    shape-outside: polygon(1% 100%, 1% 86%, 12% 80%, 21% 77%, 31% 72%, 36% 67%, 33% 59%, 31% 52%, 25% 42%, 25% 33%, 27% 19%, 35% 7%, 41% 3%, 49% 1%, 54% 2%, 59% 3%, 68% 7%, 71% 11%, 75% 18%, 76% 26%, 76% 33%, 77% 39%, 74% 46%, 73% 58%, 70% 66%, 68% 72%, 79% 75%, 92% 81%, 100% 88%, 99% 99%);
+}
+hr{
+    position: relative;
+    top:5px;
+    height: 3px;
+    background: black;
+}
+#introduction h2{
+   font-size: 2rem;
+   font-weight: 500;
+}
+
+#sidebar{
+    grid-area: nav;
+    margin-bottom: 55px;
+}
+#table{
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: 35px;
+}
+#table h3{
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.sub :hover{
+    font-size: 1.5rem;
+}
+
+#large{
+    position: relative;
+    grid-area: largebox;
+    margin-left:auto;
+    margin-right: auto;
+    margin:55px;
+    margin-top:40px;
+}
+#large h2{
+    display: block;
+    background-color: yellow;
+    font-size: 3rem;
+    padding-right: 280px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+
+.box h2{
+    display: box;
+    position: absolute;
+    color: white;
+}
+
+
+
+
+#boxes{
+    grid-area: smallboxes;
+    display: grid;
+    grid-template-areas: "list topright"
+                         "bottomleft bottomright";
+    grid-template-columns: auto auto;
+    grid-template-rows:300px 150px;
+    max-height: auto;
+    position: relative;
+    margin:55px;
+    margin-top:0px;
+    
+} 
+.topLeftTitle{
+    display: box;
+    position: absolute;
+    color: white;
+    padding-left: 10px;
+    padding-right:5px;
+    padding-bottom: 5px;
+}
+.topLeftTitle h2{
+    font-size: 2rem;
+}
+
+#topright{
+    position: relative;
+    
+    grid-area: topright;
+}
+
+#topright .topLeftTitle{
+    background-color: orange;
+}
+#BottomRight{
+    position: relative;
+    grid-area:bottomright;
+}
+#BottomRight .topLeftTitle{
+    background-color: rgba(228,76,149,255);
+}
+#BottomLeft{
+    grid-area: bottomleft;
+    position: relative; 
+}
+#BottomLeft .topLeftTitle{
+    background-color: rgba(22,132,130,255);
+}
+#boxes .number{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 4rem;
+    padding-left:5px;
+}
+
+
+
+
+
+strong{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+             
