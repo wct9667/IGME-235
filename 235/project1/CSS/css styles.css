@@ -16,16 +16,24 @@ img{
 body{
     background-color: rgb(37, 31, 31);
 }
-@media screen and (min-width: 900px) {
+#wrapper{
+    margin-top:2rem;
+    display: grid;
+    grid-template-areas:  "sidetop"
+                        "introduction"
+                         "smallboxes"
+                         "contact";
+grid-template-rows: .74fr 1fr 7fr 1fr; 
+}
+@media screen and (min-width: 1000px) {
     #wrapper{
         margin-top:2rem;
         display: grid;
         grid-template-areas: "introduction sidetop"
-                             "largebox largebox"
-                             "largebox largebox"
-                             "smallboxes smallboxes";
+                             "smallboxes smallboxes"
+                             "contact contact";
         grid-template-columns: 2fr 1fr;
-        grid-template-rows: auto 425px 1fr auto;
+        grid-template-rows: auto auto 200px;
         max-width: 1200px;
         margin-left: auto;
         margin-right: auto;  
@@ -34,12 +42,13 @@ body{
 
 
 .side{
-    background-color: lightgray;
+    background-color: darkgray;
     padding:25px;
 }
 #toprightcorner{
     grid-area: sidetop;
-    background-color: black;
+    background-color: darkgray;
+    border: 10px solid lightgrey;
 }
 #toprightcorner h1{
     color: white;
@@ -54,7 +63,9 @@ body{
     padding-top: 10px;
 }
 #introduction{
-    grid-area: introduction;    
+    grid-area: introduction;  
+    border:10px solid lightgray;  
+    border-right: 0px solid lightgray;
 }
 #introduction img{
     float:right;
@@ -72,16 +83,19 @@ body{
     top: 0;
     z-index: 1;
     background-color: grey;
+    border: darkgray solid 5px;
+    opacity: .75;
 }
 #table{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-
+    justify-content: space-around;
     align-items: center;
 }
 #table li{
-    width: 25%;
+width:25%;
+
 }
 
 #table a{
@@ -91,6 +105,7 @@ body{
     padding: 10px;
     color: white;
     text-decoration: none;
+
 }
 #table a:hover {
     transform:scale(1.05);
@@ -100,74 +115,137 @@ body{
 
 
 
-.box h2{
-    display: box;
-    position: absolute;
-    color: white;
-}
 
 
+
+
+/*Projects*/
 
 
 #boxes{
     grid-area: smallboxes;
     display: grid;
-    grid-template-areas: "topleft topright"
-                        "bottomleft bottomright";
-
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows:auto;
+    grid-template-areas: "topleft"
+                        "topright"
+                        "bottomleft"  
+                        "bottomright";
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     max-height: auto;
-    position: relative;
-    margin:55px;
-    margin-top:0px;
+    margin-top: 10%;
+    margin-bottom: 10%;
     margin-left: auto;
     margin-right: auto;
-    grid-gap: 10px;
+    grid-gap: 20px;    
+}  
+
+
+@media screen and (min-width: 1000px) {
+    #boxes{
+        grid-area: smallboxes;
+        display: grid;
+        grid-template-areas: "topleft topright"
+                            "bottomleft bottomright";
     
-} 
-.topLeftTitle{
-    padding-left: 10px;
-    padding-right:5px;
-    padding-bottom: 5px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows:620px auto;
+        max-height: auto;
+        margin-top: 10%;
+        margin-bottom: 10%;
+        margin-left: auto;
+        margin-right: auto;
+        grid-gap: 20px;      
+    } 
 }
-.topLeftTitle h2{
-    font-size: 2rem;
+
+
+/*project Boxes*/
+.box{
+    border:5px lightgray solid;
 }
+
+.box p{
+    background-color: lightgrey;
+    opacity: .8;
+    margin: 10%;
+    padding: 15px;
+}
+
+#FOWGAME{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: darkgray solid 5px;
+}
+
 
 #topright{
-    position: relative;
-    
+    background-image: url("../images/TestOfWills.png");
     grid-area: topright;
 }
-#topright .topLeftTitle{
-    background-color: orange;
-}
+
 
 #topLeft{
-    grid-area: topleft;
-    position: relative;
+    background-image: url("../images/TestOfWills.png");
 }
 
 #BottomRight{
-    position: relative;
     grid-area:bottomright;
     background-image: url("../images/TestOfWills.png");
     height:700px;
 }
-#BottomRight .topLeftTitle{
-    background-color: rgba(228,76,149,255);
-}
+
+
 #BottomLeft{
     grid-area: bottomleft;
-    position: relative; 
+    background-image: url("../images/TestOfWills.png");
+
 }
+
+
+/*Project Titles*/
+
+.topLeftTitle h2{
+    padding-top: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    color: white;
+}
+
 #BottomLeft .topLeftTitle{
     background-color: rgba(22,132,130,255);
+    border-bottom: 5px solid lightgray;
 }
 #topLeft .topLeftTitle{
     background-color: rgba(22,132,130,255);
+    border-bottom: 5px solid lightgray;
+}
+#BottomRight .topLeftTitle{
+    background-color: rgba(228,76,149,255);
+    border-bottom: 5px solid lightgray;
+}
+#topright .topLeftTitle{
+    background-color: orange;
+    border-bottom: 5px solid lightgray;
 }
 
+
+#contact{
+    grid-area: contact;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    border: 5px solid darkgrey;
+}
+#contact h2{
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+#contact #links{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 125px;
+}
 
              
