@@ -6,6 +6,10 @@
 p{
     font-family: Arial, Helvetica, sans-serif;
 }
+.top p{
+    font-family: serif;
+}
+
 h1,h2,h3{
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -62,15 +66,8 @@ font-size: 1.75rem;
     color:black;
     font-size: 2rem;
 }
-.line{
-    border-left: 12px solid yellow;
-    height:75%;
-    margin-left: 20px;
-    padding-right: 10px;
-    margin-top:25px;
-    margin-bottom: auto;
-}
-#secondPTop p{
+
+#secondPTop blockquote{
 font-size:1.5rem;
 align-items: center;
 margin-top:25px;
