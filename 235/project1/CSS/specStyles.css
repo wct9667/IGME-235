@@ -36,12 +36,15 @@ h1,h2,h3{
     display: flex;
     flex-direction: row;
 }
+.yellow{
+    color: yellow;
+}
 #large56{
 font-size:12rem;
 text-align: left;
 position: relative;
 top:-12px;
-font-family: 'Londrina Outline', cursive, sans-serif;
+font-family:  'Londrina Outline', cursive, sans-serif;
 }
 
 #largegreentxt{
