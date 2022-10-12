@@ -3,6 +3,7 @@
 * {
     box-sizing: border-box;
 }
+html {scroll-behavior: smooth;}
 h1,h2,h3,#table,p{
     font-family: Verdana, Tahoma, sans-serif
 }
