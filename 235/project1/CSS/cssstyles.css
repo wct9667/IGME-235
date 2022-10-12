@@ -253,4 +253,25 @@ width:25%;
     height: 125px;
 }
 
-             
+/*Link*/
+a:link {
+    color: purple;
+  }
+  
+
+  a:visited {
+    color: yellow;
+  }
+  
+
+  a:hover {
+    color: pink;
+  }
+  
+
+  a:active {
+    color: blue;
+  }
+  a:focus{
+    color: yellow;
+  }
