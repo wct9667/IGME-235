@@ -32,6 +32,22 @@
 let colors = ["red","green","black","purple","orange"];
 let foods = ["swordfish", "steak","tilapia","salmon"]; // add some foods
 
+let colorList = document.querySelector("#colorsList");
+let foodList = document.querySelector("#foodsList");
+
+createList(colorList, colors);
+createList(foodList, foods);
+
+function createList(listElement,array = ["puppydogs", "butterflies","lollipops"]){
+    for(let item of  array){
+	let listItem = document.createElement("li");
+	listItem.innerHTML = item;
+    listElement.appendChild(listItem);
+}
+  
+}
+
+/*
 for(let i = 0; i < colors.length; i++){
     let color = document.createElement("li");
 	color.innerHTML = colors[i];
@@ -44,7 +60,7 @@ for(let food of foods){
 	fooditem.innerHTML = food;
     let foodList = document.querySelector("#foodsList");
     foodList.appendChild(fooditem);
-}
+}*/
 
 
 
