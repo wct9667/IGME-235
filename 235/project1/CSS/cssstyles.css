@@ -20,7 +20,7 @@ body{
     grid-template-areas:  "sidetop"
                         "introduction"
                          "smallboxes";
-grid-template-rows: .74fr 1fr 8fr; 
+grid-template-rows: .74fr 1fr 2500px; 
 }
 @media screen and (min-width: 1000px) {
     #wrapper{
