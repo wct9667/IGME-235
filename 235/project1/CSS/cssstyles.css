@@ -126,7 +126,7 @@ width:25%;
                         "topright"
                         "bottomleft"  
                         "bottomright";
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: auto;
     margin-right: auto; 
     grid-template-rows: 620px 620px 620px 620px;
@@ -150,11 +150,11 @@ width:25%;
     
         grid-template-columns: 1fr 1fr;
         grid-template-rows:600px 600px;
-        margin-top: 10%;
+        margin-top: 5%;
         margin-left: auto;
         margin-right: auto;
         gap: 20px;  
-        margin-bottom: 10%;    
+        margin-bottom: 5%;    
     } 
     .FOWGAME{
         display: block;
@@ -188,7 +188,7 @@ width:25%;
 
 
 #topright{
-    background-image: url("../images/TestOfWills.png"); 
+    background-image: url("../images/backgroundProj1.png"); 
     grid-area: topright;
 }
 
