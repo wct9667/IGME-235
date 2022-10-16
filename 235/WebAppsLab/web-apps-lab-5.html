@@ -39,13 +39,22 @@
 
 <script>
 /* Write your code here! */
- let radioArray = document.querySelectorAll(name = "colorGroup");
+let radioArray = document.querySelectorAll('[name = "colorGroup"]');
 let currentColor = "none"
 
-for()
+for (let i = 0; i < radioArray.length; i++){
+	radioArray[i].onchange = radioClicked;
+}
+
+let submit = document.querySelector('#colorButton');
+submit.onclick = submitClicked;
 
  function radioClicked(){
     currentColor = this.value;
+ }
+ function submitClicked(){
+	document.querySelector('#info').innerHTML = "You have selected " + currentColor;
+	document.querySelector('legend').style.color = currentColor;
  }
 </script>
 </body>
