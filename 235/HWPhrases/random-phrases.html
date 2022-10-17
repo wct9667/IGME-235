@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
+    <link rel = "stylesheet" href = "css/styles.css">
     <title>Random Phrases HW</title>
     <script>
         window.onload = start;
         
+        let button;
+
+
         let phraseArray = [
            "There is no greater folly than standing against me.",
            "I do as I choose with what is mine. And it is all mine.",
@@ -14,8 +18,6 @@
            "Do the innocent pay for the crimes of the guilty? Of course they do. That's the fate of the weak.",
            "You will fully understand fear when you discover it is the final thing you put your faith in."
         ]
-
-        let button;
 
         function start () {
             button = document.querySelector("#button");
@@ -30,10 +32,10 @@
 </head>
 <body>
     <main>
-        <h1></h1>
+        <h1>Nicol Bolas</h1>
         <div id="phrase"></div>
         <button type="button" id="button">New Phrase</button>
-        <footer></footer>
+        <footer>By William Tallarico</footer>
     </main>
 </body>
 </html>

@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkalami&display=swap');
+
+main {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+    margin: 1rem auto auto;
+    border: 8px solid rgb(105, 105, 105);
+    background-color:  rgb(27, 24, 24);
+    background-image: url("../images/bolas.webp");
+    background-repeat: no-repeat;
+    background-size: 1300px;
+    background-position: top;
+    width: 80vw;
+    height: 90vh; 
+    padding: 1rem;
+    font-family: 'Alkalami', serif;
+}
+
+#button{
+    width: 14rem;
+    height: 3rem;
+    font-size: 1.8rem;
+    align-self: center;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 0;
+    background-color: #3c6cb0;
+    transition: 0.5s ease-in-out;
+    border: 4px outset rgb(57, 61, 61);
+    font-family: 'Alkalami', serif;
+}
+#button:hover{
+    transition-duration: .5s;
+    color: rgba(243,190,219,255);
+    background-color: rgba(74,59,78,255)
+}
+#button:active {
+    transition-duration: .1s;
+    border: 4px inset rgb(121, 114, 114);
+}
+#phrase{
+    align-self: center;
+    position: relative;
+    top: -20rem;
+}
+body{
+    background-color: rgba(14,20,36,255);
+}
+#phrase{
+    color:#eda4c8;
+    padding: 5px;
+    font-weight: bold;
+    background-color: #0f0d0d67;
+    text-align: center;
+    font-size: 1.4rem;
+}
+h1{
+    text-align: center;
+    align-self: center;
+    font-size: 3.5rem;
+    color:rgba(74,59,78,255);
+    font-weight: bold;
+    transform: translateY(-20rem);
+}
