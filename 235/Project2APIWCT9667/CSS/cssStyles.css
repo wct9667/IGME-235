@@ -9,6 +9,7 @@ img{
 .result{
     display: flex;
     flex-direction: row;
+    gap: 2vh;
 
 }
 h1{
@@ -35,16 +36,18 @@ grid-area: clickedCard;
     flex-direction: row;
 }
 #content {
-    height: 40rem;
     grid-area: results;
     border: 1px solid black;
     background-color:lightgray;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
     overflow: auto;
-    gap: 5px;
-    margin: 0 auto;
+    align-items: flex-start;
+
     margin-top: 1.75rem;
+}
+
+#content>img, #content>div{
+    margin: .5vw; /*tried using justify space around, but it did not work that well, so will aplly the same margin;*/
 }

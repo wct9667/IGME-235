@@ -80,6 +80,7 @@ function saveToBrowser(value){
        let obj = JSON.parse(xhr.responseText);
        //make sure obj exists
        if(obj.data){
+        document.querySelector("#content").innerHTML = "";
         for(let card of obj.data){
             ///////////////////////something different for double sided cards, they don't appear in search??
             //they don't have a uri like other images, they have faces that have the uri inside
@@ -127,7 +128,7 @@ function saveToBrowser(value){
         }
         else{
             document.querySelector("#searchButton").innerHTML = "Search for a card";
-            document.querySelector("h1").innerHTML = "you DOne Gooofted";
+            document.querySelector("#content").innerHTML = "No Cards Found";
         }
 
        }
