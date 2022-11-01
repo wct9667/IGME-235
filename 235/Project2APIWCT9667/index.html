@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+ 	<title>Giphy Finder</title>
+	<link rel="stylesheet" href="CSS/cssStyles.css">
+	<script src="JS/main.js"></script>
+
+  
+</head>
+<body>
+<header>
+	<h1>MTG Card Finder</h1>
+</header>
+
+<div class="search">
+	<input id="searchterm" type="text" size="20">
+	<div class="search">
+		<button id = "searchButton">Search for Card</button>
+	</div>
+</div>
+
+<div class="search" id = "colorCheck">
+	<div class="modifiers">
+		<h3 id="colors">Colors</h3>
+		<div id = "checkboxColor">
+		<input type="checkbox"name="NoColor" value="None" id = "colorCheckBox" >ColorSearch
+		</div>
+		<ul id="colorList">
+		<li>
+			<input type="checkbox"name="White" value="white">White
+		</li>
+		<li>
+			<input type="checkbox"name="Blue" value="blue">Blue
+		</li>
+		<li>
+			<input type="checkbox"name="Black" value="black">Black
+		</li>
+		<li>
+			<input type="checkbox"name="Red" value="red">Red
+		</li>
+		<li>
+			<input type="checkbox"name="Green" value="green">Green
+		</li>
+		<li>
+			<input type="checkbox"name="Colorless" value="colorless">Colorless
+		</li>
+
+		</ul>
+	</div>
+
+	<div class="modifiers" id="typeCheck">
+		<h3 id="cardTypes">Card Types</h3>
+		<div id = "typeCheck"><input type="checkbox"name="None" value="None">Type Search</div>
+		<ul id="typeList">
+			<li>
+				<input type="checkbox"name="Artifact" value="Artifact">Artifact
+			</li>
+			<li>
+				<input type="checkbox"name="Creature" value="Creature">Creature
+			</li>
+			<li>
+				<input type="checkbox"name="Enchantment" value="Enchantment">Enchantment
+			</li>
+			<li>
+				<input type="checkbox"name="Instant" value="Instant">Instant
+			</li>
+			<li>
+				<input type="checkbox"name="Planeswalker" value="Planeswalker">Planeswalker
+			</li>
+			<li>
+				<input type="checkbox"name="Land" value="Land">Land
+			</li>
+			<li>
+				<input type="checkbox"name="Sorcery" value="Sorcery">Sorcery
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+
+<h2>Results</h2>
+<div id="content">
+</div>
+ 
+
+</body>
+</html>
