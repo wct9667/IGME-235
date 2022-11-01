@@ -91,7 +91,12 @@ function saveToBrowser(value){
                     let img = document.createElement("img");
                     img.src = face["image_uris"]["small"]; //get the image link
                     img.dataset.name = card["name"];//get the name, like before (later)
+                    img.dataset.normal = face["image_uris"]["normal"];
+                    img.onclick = function(){
+                        //add it to a larger spot for in depth images
+                    }
                     div.appendChild(img);//add to the div
+                    div.classList.add("result");
                 }
                 //add the div to the content
                 content.appendChild(div);
@@ -99,15 +104,15 @@ function saveToBrowser(value){
     
             //else as it was not a two sided+ card. wonder if there are other problems and cards that might not appear?
             else{
-                    if(card["image_uris"]){
                         let img = document.createElement("img");
                         //access the small image of the card, as to display more (image_uris)(small)
                         //the google extension was very helpful in this step
                          let uri = card["image_uris"];
                          img.src = uri["small"];
+                         img.dataset.normal = card["image_uris"]["normal"];
                          img.dataset.name = card["name"]; //gonna get the name as well, may need it
                          content.appendChild(img);
-                    }                
+                         img.classList.add("result");              
                 }        
             }
           
