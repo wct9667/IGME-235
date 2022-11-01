@@ -94,6 +94,8 @@ function saveToBrowser(value){
                     img.dataset.normal = face["image_uris"]["normal"];
                     img.onclick = function(){
                         //add it to a larger spot for in depth images
+                       let imgc = document.querySelector("#cardbox").firstElementChild; 
+                       imgc.src =  img.dataset.normal;                  
                     }
                     div.appendChild(img);//add to the div
                     div.classList.add("result");
@@ -112,7 +114,12 @@ function saveToBrowser(value){
                          img.dataset.normal = card["image_uris"]["normal"];
                          img.dataset.name = card["name"]; //gonna get the name as well, may need it
                          content.appendChild(img);
-                         img.classList.add("result");              
+                         img.classList.add("result");  
+                         img.onclick = function(){
+                            //add it to a larger spot for in depth images
+                           let imgc = document.querySelector("#cardbox").firstElementChild; 
+                           imgc.src =  img.dataset.normal;                  
+                        }            
                 }        
             }
           
