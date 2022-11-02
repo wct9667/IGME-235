@@ -113,11 +113,12 @@ ul{
     flex-wrap: wrap;
     overflow: auto;
     align-items: flex-start;
+   
 
     margin-top: 1.65rem;
 }
 
 
 #content>img, #content>div{
-    margin: .5vw; /*tried using justify space around, but it did not work that well, so will aplly the same margin;*/
+    margin: .5vw; /*tried using justify space around, but it did not work that well, so will aply the same marginto each image;*/
 }
