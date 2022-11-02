@@ -17,7 +17,6 @@
  
  #status{
      font-style: italic;
-     height:32px;
  }
  
 .result{
@@ -28,6 +27,9 @@
 
 .result span{
     order: -1;
+}
+.result img {
+box-shadow: 1px 12px 13px 1px rgb(0 0 255 / 20%);
 }
 
  #content{
