@@ -69,6 +69,7 @@ function saveToBrowser(value){
    }
 
    //load the carsd and display - image, may go back and add disply of rulings and other text
+   //Note: all images belong to Wizards of the Coast
    function cardsLoaded(e){
     //delete old cards first
     let content =  document.querySelector("#content");
