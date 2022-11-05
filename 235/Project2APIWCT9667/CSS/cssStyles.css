@@ -31,7 +31,7 @@ body{
                         "searchbar  "
                         " results"
                         "clickedCard";
-    grid-template-rows:100px 300px 1fr 700px;;
+    grid-template-rows:100px 350px 1fr 700px;;
 }  
 @media screen and (min-width: 1000px) {
     body{
@@ -62,14 +62,16 @@ margin:0 auto;
 #searchstuff{
     grid-area: searchbar;
     margin: 0 auto;
-    margin-left: -1px;
+    margin-left: 10px;
     
     
+}
+.modifiers{
+    margin-left: 20px;
 }
 .search{
     display: flex;
     flex-direction: row;
-    gap: 10%;
 }
 
 #searchButton{
