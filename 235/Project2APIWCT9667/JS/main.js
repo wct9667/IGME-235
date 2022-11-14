@@ -6,16 +6,16 @@ window.onload = (e) => {
 document.querySelector("#searchButton").onclick = searchButtonClicked;
 if(storedSearch){
 
-    updatedSearch = storedSearch.replace(/["]+/g, '')
+    updatedSearch = storedSearch.replace(/["]+/g, '')//get rid of excess ""
     document.querySelector("#searchterm").value = updatedSearch;
 }
-	
+}	
 let displayTerm = "";
 
 
 
 function saveToBrowser(value){
-    localStorage.setItem(key + "prevTerm", JSON.stringify(value));
+    localStorage.setItem(key + "prevTerm", JSON.stringify(value));//save search
 }
 
 
@@ -36,7 +36,6 @@ function saveToBrowser(value){
        if(term.length < 1) return;
 
        url +=term;
-       console.log(url);//
 
        //add other appendages
        //if the colors check is checked, check for colors checked.......then add them
@@ -46,8 +45,6 @@ function saveToBrowser(value){
         url+=checkCheckBoxes(document.querySelector("#typeList"), "t")
 
        document.querySelector("#searchButton").innerHTML = "<b>Seaching for '" + displayTerm + "'</b>";
-
-       console.log(url);
 
        getData(url);
    }
@@ -123,6 +120,7 @@ function saveToBrowser(value){
             document.querySelector("#searchButton").innerHTML = "Search for a card";
         }
         else{
+            //if no results were found
             document.querySelector("#searchButton").innerHTML = "Search for a card";
             document.querySelector("#content").innerHTML = "No Cards Found";
         }
@@ -154,4 +152,4 @@ function saveToBrowser(value){
     } else {
         return "";
     }
-   }}
+   }

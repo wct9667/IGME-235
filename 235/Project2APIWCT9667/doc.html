@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+</head>
+<body>
+    <h1>Project 2 Documentation</h1>
+    <h2>Process</h2>
+    <P>I started with the gif finder js, and adapted the methods to work with Scryfall. I removed the ability to toggle amount of results, and instead added sorting by color and type, which use the AND operator.
+        These used checkboxes. I then tested to make sure everything worked well with the searching, which was corect until I discovered problems with the double sided mtg cards. The images for such are stored within another nested object.
+        This meant I had to do a check, then if the image didn't exist I went down to another object to access the images (Search 'tovolar' to see a few double sided cards), thank goodness for the google json viewer extension, made it easy to find what I needed.
+        I also included the functionality of clicking on a card to make it appear larger in a spot, this allows the user to easily see a specific card. To do so I saved the normal version of each image and when the image was clicked, I applied that to the spot where the large image goes.
+        In terms of CSS, I applied simple styles to make the cards appear in an orderly fashion, although with double sided cards, as they are nested together, can cause some visual problems.
+    </P>
+    <h2>Sources</h2>
+    <p>MTG card back is from <a href = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmtg.fandom.com%2Fwiki%2FCard_back&psig=AOvVaw2ugCGLpTgcejSNBjR0dP69&ust=1668548731416000&source=images&cd=vfe&ved=0CA4QjRxqFwoTCOC618TSrvsCFQAAAAAdAAAAABAK">source</a></p>
+    <h2>Grade</h2>
+    <ul>
+        <li>API: 10, I used the api (not all the functionality) but a majority of it, and it displays the results well</li>
+        <li>Local Storage: 10, Only did the previous search, but it works</li>
+        <li>Controls: 10, I have the searchbar, color and type checkboxes</li>
+        <li>Errors: 9, no sigificant errors, other than one being thrown at a bad search, which is dispalyed as no cards found</li>
+        <li>Code: 8 Javascript is clean and well commented, and the css is laid out logically but coudl likely use some more comments</li>
+        <li>Semantic Structure: 3, items are laid out in a logical fashion, but probably needed more semantic html</li>
+        <li>Valid HTML:4</li>
+        <li>Valid CSS:4</li>
+        <li>Visual: 8, the design looks pleasing and looks very different than the finder</li>
+        <li>Interactive: 7, the user is aware of the state, but maybe more visual changes are needed</li>
+        <li>Responsive:8 The page is responsive and set up using grid-flexbox, even works in mobile decently well</li>
+        <li>Checkpoints: 8</li>
+        <li>Doc: 6</li>
+    </ul>
+</body>
+</html>
