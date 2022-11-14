@@ -40,15 +40,10 @@ function saveToBrowser(value){
 
        //add other appendages
        //if the colors check is checked, check for colors checked.......then add them
-       let colorCheck = document.querySelector("#checkboxColor");
-       if(colorCheck.getElementsByTagName('input')[0].checked){
-        url+=checkCheckBoxes(document.querySelector("#colorList"), "c")
-       }
 
-       let typeCheck = document.querySelector("#typeCheck");
-       if(typeCheck.getElementsByTagName('input')[0].checked){
+        url+=checkCheckBoxes(document.querySelector("#colorList"), "c")
+
         url+=checkCheckBoxes(document.querySelector("#typeList"), "t")
-       }
 
        document.querySelector("#searchButton").innerHTML = "<b>Seaching for '" + displayTerm + "'</b>";
 

@@ -9,7 +9,6 @@ img{
     max-width: fit-content;
 }
 
-
 .result{
     display: flex;
     flex-direction: row;
@@ -55,6 +54,7 @@ margin:0 auto;
 #cardbox img{
     max-width: 100%;
     box-shadow: 17px 20px 15px 3px #cacaaa;
+    transform: scale(.9);
 }
 
 
@@ -72,6 +72,9 @@ margin:0 auto;
 .search{
     display: flex;
     flex-direction: row;
+}
+ul{
+    transform: translateX(-1.5rem);
 }
 
 #searchButton{
