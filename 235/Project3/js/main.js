@@ -245,11 +245,16 @@ function loadSpriteSheet(numFrames, sprite){
 //check collisions between enemies and player
 function CheckCollisions(){
     for(let enemy of enemies){
-        if(player.state != "hurt" && player.state != "dead" && player.state != "death"  && player.state != "shield" && enemy.state != "dead"){
+        if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"){
 
         if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,enemy.radius)){
             //change player state and animation
-           player.hurt();
+            if(player.state != "shield"){
+                player.hurt();
+            }
+            else if(enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death" && enemy.state != "blocked"){
+                enemy.hurt2(3);
+            }
         }
     }
  
