@@ -70,6 +70,13 @@ class Player extends PIXI.AnimatedSprite{
         }
         
     }
+    resetAttack(){
+        this.attackTime = 0;
+        this.animationSpeed = .15;
+        this.loop = true;
+        this.textures = this.animations.idle;
+        this.state = "idle"; 
+    }
     playerUpdate(dt){
 
         // Reset x speed each frame
@@ -154,29 +161,20 @@ class Player extends PIXI.AnimatedSprite{
 
             case "attack":
                 this.attackTime += dt;
-                 
+                 this.animationSpeed = .15;
                 if(this.rng == 0){
                     if(this.attackTime >= this.animationSpeed * 4.3){
-                        this.attackTime = 0;
-                        this.loop = true;
-                        this.textures = this.animations.idle;
-                        this.state = "idle"; 
+                        this.resetAttack();
                     } 
                 }
                 else if (this.rng == 1){
                     if(this.attackTime >= this.animationSpeed * 6  ){
-                        this.attackTime = 0;
-                        this.loop = true;
-                        this.textures = this.animations.idle;
-                        this.state = "idle"; 
+                        this.resetAttack();
                     } 
                 }
                 else{
                     if(this.attackTime >= this.animationSpeed * 7){
-                        this.attackTime = 0;
-                        this.loop = true;
-                        this.textures = this.animations.idle;
-                        this.state = "idle";                
+                        this.resetAttack();              
                 }
                 }
                 break;
@@ -348,15 +346,20 @@ class Player extends PIXI.AnimatedSprite{
                 this.loop = false;
                 this.dxs += .3;
                 this.immunity += dt;
-                if(this.immunity > 4* this.animationSpeed){
+                this.animationSpeed = .25;
+                if(player.textures == player.animations.attack3){
+                    this.animationSpeed = .3;
+                }
+                if(this.immunity > 3* this.animationSpeed){
 
 
                     this.loop = true;
                     this.dx = 0;
+                    this.animationSpeed = .15;
                     if(this.textures != this.animations.idle){
                         this.textures = this.animations.idle;
                     }
-                    if(this.immunity >= 6 * this.animationSpeed){
+                    if(this.immunity >= 4 * this.animationSpeed){
                         this.immunity = 0;
                         this.dxs=1;
                         this.textures = this.animations.run;
