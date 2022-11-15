@@ -272,7 +272,10 @@ class Player extends PIXI.AnimatedSprite{
         }
 
         // move enemy back to the right
-        
+        if(this.x < -1000){
+            this.x = 1000;
+            this.state = "runLeft";
+        }
 
         this.play();
        this.x += this.dx * dt;

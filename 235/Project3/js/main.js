@@ -167,16 +167,17 @@ function setup(){
     textures["shield"] = loadSpriteSheet(2, "shield");
     textures["roll"] = loadSpriteSheet(4, "roll");
 
+    let enemy= new Enemy(textures, sceneWidth);
+    enemy.play();
+    enemies.push(enemy);
+
     //player creation
     player = new Player(textures, sceneWidth/2);
     player.interactive = true;
     player.play();
-    gameScene.addChild(player)
+    gameScene.addChild(player, enemy)
+    player.zIndex = enemy.zIndex;
     
-    let enemy= new Enemy(textures, sceneWidth);
-    enemy.play();
-    gameScene.addChild(enemy);
-    enemies.push(enemy);
 
     //
 
