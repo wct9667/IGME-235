@@ -14,6 +14,12 @@ class Player extends PIXI.AnimatedSprite{
         this.frameNumber = 1;
         this.state = "idle";
         this.rng =  Math.floor(Math.random() * 3);
+        this.hitBoxRadius = 70;
+        this.attack3Rad = 300;
+        this.attakRad = 200;
+
+
+
     }
 
     dx = 0;
@@ -22,7 +28,7 @@ class Player extends PIXI.AnimatedSprite{
     rollTime = 0;
     rollDirection = 0;
     playerUpdate(dt){
-        
+
         // Reset x speed each frame
         this.dx = 0;
 
@@ -62,10 +68,11 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "shield";
                     this.textures = this.animations.shield;
                 }
+                /*
                 else if (keys[keyboard.LEFT]){
                     this.state = "runLeft";
                     this.textures = this.animations.run;
-                    }
+                    }*/
                 else if(keys[keyboard.RIGHT]){
                     this.state = "runRight";
                     this.textures = this.animations.run;
@@ -80,11 +87,11 @@ class Player extends PIXI.AnimatedSprite{
 
                 //breaks out
 
-                if (keys[keyboard.LEFT] && !keys[keyboard.RIGHT]){
+                /*if (keys[keyboard.LEFT] && !keys[keyboard.RIGHT]){
                 this.state = "runLeft";
                 this.textures = this.animations.run;
-                }
-                else if(!keys[keyboard.RIGHT]){
+                }*/
+                if(!keys[keyboard.RIGHT]){
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
@@ -169,19 +176,16 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "idle"; 
                     this.loop = true;
                 }
+            break;
+            case "damage":
+                break;
 
 
         }
 
         this.play();
-
-      
-
       // this.x += this.dx * dt;
        // this.y += this.dy * dt;
-
-
-
     }
 }
 
@@ -219,21 +223,59 @@ class Player extends PIXI.AnimatedSprite{
         else if (this.x < 0){
             this.x = this.screenWidth;
         }
-        if(this.y < 0){
+        if(this.y < 0 ||this.y > this.screenHeight ){
             this.y = 0;
         }
-        else if (this.y > this.screenHeight){
-            this.y = 0;
-        }
-
-        /*if(this.x < this.radius || this.x > (window.innerWidth - this.radius)) {
-			this.xSpeed *= -1;
-        }
-        
-        if(this.y < this.radius || this.y > (window.innerHeight - this.radius)) {
-			this.ySpeed *= -1;
-        }*/
-
 	}
   }
+
+
+  class Enemy extends PIXI.AnimatedSprite{
+    //constructor
+    constructor(animations, x = 400, y = 600){
+        super(animations.run)
+        this.anchor.set(.5,.5);
+        this.animations = animations;
+        this.scale.set(2.5);
+
+        this.animationSpeed = 0.15;
+        this.loop = true;
+        this.x = x;
+        this.y = y;
+        this.frameNumber = 1;
+        this.state = "runLeft";
+    }
+
+    dx = 0;
+    enemyUpdate(dt){
+        
+        
+        // Reset x speed each frame
+        this.dx = 0;
+
+        //switch for state machine, lots of states
+        switch(this.state){
+ 
+            case "runLeft":
+                this.dx = -200;
+                this.scale.x = -2.5;
+                break;
+
+            case "damage":
+                break;
+
+            case "dead":
+                this.dx = -200;
+                break;
+
+
+        }
+
+        // move enemy back to the right
+        
+
+        this.play();
+       this.x += this.dx * dt;
+    }
+}
 

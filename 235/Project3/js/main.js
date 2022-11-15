@@ -15,6 +15,7 @@ let bgX = 0;
     // constants
     const sceneWidth = app.view.width;
     const sceneHeight = app.view.height;	
+    let graphics = new PIXI.Graphics();
 
 
 
@@ -72,7 +73,7 @@ let stage;
 let startScene;
 let gameScene;
 let endScene;
-
+let enemies = [];
 
 //function for making particles, from the demo
 const createParticles = ()=>{
@@ -147,6 +148,7 @@ function setup(){
 	// #2 - Create the main `game` scene and make it invisible
     gameScene = new PIXI.Container();
     gameScene.addChild(container);
+    gameScene.addChild(graphics);
    // gameScene.visible = false;
     stage.addChild(gameScene);
 	
@@ -171,6 +173,10 @@ function setup(){
     player.play();
     gameScene.addChild(player)
     
+    let enemy= new Enemy(textures, sceneWidth);
+    enemy.play();
+    gameScene.addChild(enemy);
+    enemies.push(enemy);
 
     //
 
@@ -229,10 +235,13 @@ function gameLoop(){
    if (dt > 1/12) dt=1/12;
    player.playerUpdate(dt);
 
+   for(let enemy of enemies){
+    enemy.enemyUpdate(dt);
+   }
    updateBG();
 
    let sin = Math.sin(lifetime / 60);
-   let cos = Math.cos(lifetime / 60);
+   //let cos = Math.cos(lifetime / 60);
    
    let yForce  = 0; //=  cos * (120 * dt);
    let xForce = sin * (40 * dt);
@@ -241,8 +250,31 @@ function gameLoop(){
    for (let p of particles){
      p.update(dt, xForce, yForce);
    }
+
+
+   //hit box drawing
+   /*
+   graphics.beginFill(0xe74c3c); // Red
+   // Draw a circle
+   graphics.drawCircle(player.x, player.y, 300);
+   graphics.endFill();
+
+   graphics.beginFill(); // Red
+   // Draw a circle
+   graphics.drawCircle(player.x, player.y, 200);
+   graphics.endFill();
+
+   graphics.beginFill(0xe74c3ca); // Red
+   // Draw a circle
+   graphics.drawCircle(player.x, player.y, 70);
+   graphics.endFill();*/
+
+
    
    lifetime++;
+   if(lifetime > 1000){
+    lifetime = 0;
+   }
 
 
 }
