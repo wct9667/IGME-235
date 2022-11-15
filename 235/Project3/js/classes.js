@@ -16,7 +16,8 @@ class Player extends PIXI.AnimatedSprite{
         this.rng =  Math.floor(Math.random() * 3);
         this.hitBoxRadius = 70;
         this.attack3Rad = 300;
-        this.attakRad = 200;
+        this.attackRadius = 100;
+        this.health = 2;
 
 
 
@@ -26,7 +27,20 @@ class Player extends PIXI.AnimatedSprite{
     attackTime = 0;
     blockTime = 0;
     rollTime = 0;
+    immunity = 0;
     rollDirection = 0;
+
+    hurt(){
+        this.health--;
+        if(this.health <= 0){
+            this.textures = this.animations.hurt;
+            this.state = "hurt";
+        }
+        else{
+            this.state = "death";
+            this.textures = this.animations.death;
+        }
+    }
     playerUpdate(dt){
 
         // Reset x speed each frame
@@ -103,9 +117,6 @@ class Player extends PIXI.AnimatedSprite{
 
                 break;
 
-
-
-
             case "runLeft":
                 this.scale.x = -2.5;
                 this.dx -= 200;
@@ -129,7 +140,7 @@ class Player extends PIXI.AnimatedSprite{
 
             case "attack":
                 this.attackTime += dt;
-                
+                 
                 if(this.rng == 0){
                     if(this.attackTime >= this.animationSpeed * 4.3){
                         this.attackTime = 0;
@@ -177,7 +188,19 @@ class Player extends PIXI.AnimatedSprite{
                     this.loop = true;
                 }
             break;
-            case "damage":
+            case "hurt":
+                this.loop = false;
+                this.immunity += dt;
+                if(this.immunity > 3 * this.animationSpeed){
+                    this.loop = true;
+                    if(this.textures != this.animations.idle)
+                    this.textures = this.animations.idle;
+                    if(this.immunity >= 10 * this.animationSpeed){
+                        this.immunity = 0;
+
+                        this.state = "idle";
+                    }
+                }
                 break;
 
 
@@ -230,6 +253,7 @@ class Player extends PIXI.AnimatedSprite{
   }
 
 
+  
   class Enemy extends PIXI.AnimatedSprite{
     //constructor
     constructor(animations, x = 400, y = 600){
@@ -244,11 +268,27 @@ class Player extends PIXI.AnimatedSprite{
         this.y = y;
         this.frameNumber = 1;
         this.state = "runLeft";
+        this.radius = 70;
+        this.dxs = 0;
+        this.health =2;
+    }
+
+    hurt(){
+        this.health--;
+        if(this.health >  0){
+            this.textures = this.animations.hurt;
+            this.state = "hurt";
+        }
+        else{
+            this.state = "death";
+            this.textures = this.animations.hurt;
+        }
     }
 
     dx = 0;
-    enemyUpdate(dt){
-        
+    immunity = 0;
+    deathTime = 0;
+    enemyUpdate(dt){  
         
         // Reset x speed each frame
         this.dx = 0;
@@ -257,24 +297,54 @@ class Player extends PIXI.AnimatedSprite{
         switch(this.state){
  
             case "runLeft":
-                this.dx = -200;
+                this.dx += -200;
                 this.scale.x = -2.5;
                 break;
 
-            case "damage":
-                break;
+            case "hurt":
+                                         
+                this.dx += this.dxs;                             
+                this.loop = false;
+                this.dxs += .2  ;
+                this.immunity += dt;
+                if(this.immunity > 4  * this.animationSpeed){
 
-            case "dead":
-                this.dx = -200;
-                break;
 
+                    this.loop = true;
+                    if(this.textures != this.animations.idle){
+                        this.textures = this.animations.idle;
+                    }
+                    if(this.immunity >= 6 * this.animationSpeed){
+                        this.immunity = 0;
+                        this.dxs=1;
+                        this.textures = this.animations.run;
+                        this.state = "runLeft";
+                    }
+                    
+                }
+                break; 
+
+            case "death":
+                this.deathTime += dt;
+                this.loop = false;
+                if(this.deathTime > 3  * this.animationSpeed && this.deathTime < 4 * this.animationSpeed){ 
+                    this.textures = this.animations.death;
+                    this.state = "dead";
+                }
+                break;
+                case "dead":
+                    this.dx += -player.dx;
+                    break;
 
         }
-
         // move enemy back to the right
         if(this.x < -1000){
             this.x = 1000;
             this.state = "runLeft";
+            this.textures = this.animations.run;
+            this.loop = true;
+            this.health = 2; 
+            this.deathTime = 0;
         }
 
         this.play();
@@ -282,3 +352,4 @@ class Player extends PIXI.AnimatedSprite{
     }
 }
 
+ 

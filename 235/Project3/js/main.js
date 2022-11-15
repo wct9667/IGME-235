@@ -63,6 +63,8 @@ app.loader.add("attack2", "../images/playerAnimations/attack2.png");
 app.loader.add("attack3", "../images/playerAnimations/attack3.png");
 app.loader.add("shield", "../images/playerAnimations/shield.png");
 app.loader.add("roll", "../images/playerAnimations/roll.png");
+app.loader.add("hurt", "../images/playerAnimations/hurt.png");
+app.loader.add("death", "../images/playerAnimations/death.png");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -166,6 +168,8 @@ function setup(){
     textures["attack3"] = loadSpriteSheet(9, "attack3");
     textures["shield"] = loadSpriteSheet(2, "shield");
     textures["roll"] = loadSpriteSheet(4, "roll");
+    textures["hurt"] = loadSpriteSheet(4, "hurt");
+    textures["death"] = loadSpriteSheet(8, "death");
 
     let enemy= new Enemy(textures, sceneWidth);
     enemy.play();
@@ -190,6 +194,7 @@ function setup(){
 //loads sprites from a sheet
 function loadSpriteSheet(numFrames, sprite){
     let spriteSheet;
+    //will likely refactor this eventually
     if(sprite == "run"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.runSprites.url);
     }
@@ -207,6 +212,12 @@ function loadSpriteSheet(numFrames, sprite){
     }
     else if (sprite == "roll"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.roll.url);
+    }
+    else if (sprite == "hurt"){
+        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.hurt.url);
+    }
+    else if(sprite == "death"){
+        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.death.url);
     }
     else{
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.idleSprites.url);
@@ -226,7 +237,26 @@ function loadSpriteSheet(numFrames, sprite){
 
 
 
+//check collisions between enemies and player
+function CheckCollisions(){
+    for(let enemy of enemies){
+        if(player.state != "hurt"  && player.state != "shield" && enemy.state != "dead"){
 
+        if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,enemy.radius)){
+            //change player state and animation
+           player.hurt();
+        }
+    }
+
+            //check if the player attack hits
+            if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead"){
+                if(CircleIntersect(player.x,player.y,player.attackRadius ,enemy.x,enemy.y,enemy.radius)){
+                    //change enemy state and animation
+                   enemy.hurt();
+                }
+            }
+    }
+}
 
 
 function gameLoop(){
@@ -239,8 +269,10 @@ function gameLoop(){
    for(let enemy of enemies){
     enemy.enemyUpdate(dt);
    }
+
    updateBG();
 
+   CheckCollisions();
    let sin = Math.sin(lifetime / 60);
    //let cos = Math.cos(lifetime / 60);
    
