@@ -317,6 +317,7 @@ class Player extends PIXI.AnimatedSprite{
  
             case "runLeft":
                 this.dx += -200;
+                this.dx -= player.dx;
                 this.scale.x = -2.5;
                 break;
 
