@@ -171,16 +171,13 @@ function setup(){
     textures["hurt"] = loadSpriteSheet(4, "hurt");
     textures["death"] = loadSpriteSheet(8, "death");
 
-    let enemy= new Enemy(textures, sceneWidth);
-    enemy.play();
-    enemies.push(enemy);
 
     //player creation
     player = new Player(textures, sceneWidth/2);
     player.interactive = true;
     player.play();
-    gameScene.addChild(player, enemy)
-    player.zIndex = enemy.zIndex;
+    gameScene.addChild(player);
+    SpawnEnemeies(10, textures);
     
 
     //
@@ -189,7 +186,15 @@ function setup(){
     app.ticker.add(gameLoop);
 }
 
-
+//function to spawn a bunch of enemies
+function SpawnEnemeies(number, textures){
+    for(let i = 0; i < number; i++){
+        let enemy= new Enemy(textures, getRandom(sceneWidth, 10000));
+        enemy.play();
+        enemies.push(enemy);
+        gameScene.addChild(enemy);
+    }
+}
 
 //loads sprites from a sheet
 function loadSpriteSheet(numFrames, sprite){
@@ -250,7 +255,13 @@ function CheckCollisions(){
  
             //check if the player attack hits
             if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death"){
-                if(CircleIntersect(player.x,player.y,player.attackRadius ,enemy.x,enemy.y,enemy.radius)){
+                if(player.textures == player.animations.attack3){
+                    if(CircleIntersect(player.x,player.y,player.attack3Rad ,enemy.x,enemy.y,enemy.radius)){
+                        //change enemy state and animation
+                       enemy.hurt();
+                    }
+                }
+                else if(CircleIntersect(player.x,player.y,player.attackRadius ,enemy.x,enemy.y,enemy.radius)){
                     //change enemy state and animation
                    enemy.hurt();
                 }

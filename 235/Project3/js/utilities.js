@@ -38,5 +38,9 @@ function CircleIntersect(x1,y1,rad1,x2,y2,rad2){
   return(a*a > ((x*x) + (y*y)));
 }
 
+//random
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 

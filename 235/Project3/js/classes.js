@@ -15,8 +15,8 @@ class Player extends PIXI.AnimatedSprite{
         this.state = "idle";
         this.rng =  Math.floor(Math.random() * 3);
         this.hitBoxRadius = 70;
-        this.attack3Rad = 300;
-        this.attackRadius = 100;
+        this.attack3Rad = 150;
+        this.attackRadius = 125;
         this.health = 30;
 
 
@@ -92,6 +92,11 @@ class Player extends PIXI.AnimatedSprite{
                 else if(keys[keyboard.RIGHT]){
                     this.state = "runRight";
                     this.textures = this.animations.run;
+                }
+                else if (keys[keyboard.R]){
+                    this.state = "roll";
+                    this.textures = this.animations.roll;
+                    this.rollDirection = 200;
                 }
                 break;
 
@@ -319,12 +324,13 @@ class Player extends PIXI.AnimatedSprite{
                                          
                 this.dx += this.dxs;                             
                 this.loop = false;
-                this.dxs += .2  ;
+                this.dxs += .3;
                 this.immunity += dt;
-                if(this.immunity > 4  * this.animationSpeed){
+                if(this.immunity > 4* this.animationSpeed){
 
 
                     this.loop = true;
+                    this.dx = 0;
                     if(this.textures != this.animations.idle){
                         this.textures = this.animations.idle;
                     }
@@ -353,7 +359,7 @@ class Player extends PIXI.AnimatedSprite{
         }
         // move enemy back to the right
         if(this.x < -1000){
-            this.x = 1000;
+            this.x = getRandom(sceneWidth, 10000);
             this.state = "runLeft";
             this.textures = this.animations.run;
             this.loop = true;
