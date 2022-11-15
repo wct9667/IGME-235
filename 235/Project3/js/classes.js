@@ -17,7 +17,7 @@ class Player extends PIXI.AnimatedSprite{
         this.hitBoxRadius = 70;
         this.attack3Rad = 300;
         this.attackRadius = 100;
-        this.health = 2;
+        this.health = 30;
 
 
 
@@ -25,20 +25,22 @@ class Player extends PIXI.AnimatedSprite{
 
     dx = 0;
     attackTime = 0;
+    deathTime = 0;
     blockTime = 0;
     rollTime = 0;
     immunity = 0;
     rollDirection = 0;
 
     hurt(){
-        this.health--;
-        if(this.health <= 0){
+        if(this.state != "roll"){
+            this.health--;
+            if(this.health > 0){
+                this.state = "hurt";
+            }
+            else{
+                this.state = "death";
+            }
             this.textures = this.animations.hurt;
-            this.state = "hurt";
-        }
-        else{
-            this.state = "death";
-            this.textures = this.animations.death;
         }
     }
     playerUpdate(dt){
@@ -181,7 +183,7 @@ class Player extends PIXI.AnimatedSprite{
                 this.rollTime += dt;
                 this.dx += this.rollDirection;
 
-                if(this.rollTime > 3.5 * this.animationSpeed){
+                if(this.rollTime > 5 * this.animationSpeed){
                     this.rollTime = 0; 
                     this.textures = this.animations.idle;
                     this.state = "idle"; 
@@ -202,6 +204,18 @@ class Player extends PIXI.AnimatedSprite{
                     }
                 }
                 break;
+             case "death":
+                this.deathTime += dt;
+                this.loop = false;
+                if(this.deathTime > 3  * this.animationSpeed){ 
+                    this.textures = this.animations.death;
+                    this.state = "dead";
+                }
+                break;
+                case "dead":
+                    break;
+
+
 
 
         }
@@ -333,7 +347,7 @@ class Player extends PIXI.AnimatedSprite{
                 }
                 break;
                 case "dead":
-                    this.dx += -player.dx;
+                    this.dx += - player.dx;
                     break;
 
         }

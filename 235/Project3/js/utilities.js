@@ -32,6 +32,9 @@ function CircleIntersect(x1,y1,rad1,x2,y2,rad2){
   x = x1 - x2;
   y = y1 - y2 ;
 
+  if(x > 0){
+    return false;
+  }
   return(a*a > ((x*x) + (y*y)));
 }
 
