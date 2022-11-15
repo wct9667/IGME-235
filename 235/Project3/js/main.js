@@ -1,4 +1,10 @@
 "use strict";
+
+let container, particles, numberOfParticles = 1000;
+let particleTexture =  PIXI.Texture.from('images/particle-6x6.png');
+let lifetime = 0;
+let player;
+
     const app = new PIXI.Application({
         width: 800,
         height: 800
@@ -9,10 +15,7 @@
     const sceneWidth = app.view.width;
     const sceneHeight = app.view.height;	
 
-let player;
 
-let particleTexture
-let lifetime = 0;
 
 //need the keys
 const keys = [];
@@ -44,7 +47,34 @@ let startScene;
 let gameScene;
 let endScene;
 
+
+//function for making particles, from the demo
+const createParticles = ()=>{
+    particles = [];
+    container = new PIXI.ParticleContainer();
+    container.maxSize = 30000;
+    app.stage.addChild(container);
+    for (let i = 0; i < numberOfParticles; i++) {
+	    let p = new Particle(
+      	  Math.random() * 2 + 1,
+      	  Math.random() * sceneWidth,
+          Math.random() * sceneHeight,
+          Math.random() *180-90 ,
+          Math.random() * 300,
+          sceneWidth,
+          sceneHeight);
+      	particles.push(p);
+     	container.addChild(p);
+    }
+}
+
+
 function setup(){
+
+    //make the particles 
+    createParticles(); 
+
+
     stage = app.stage;
 	// #1 - Create the `start` scene
     startScene = new PIXI.Container();
@@ -53,6 +83,7 @@ function setup(){
 	
 	// #2 - Create the main `game` scene and make it invisible
     gameScene = new PIXI.Container();
+    gameScene.addChild(container);
    // gameScene.visible = false;
     stage.addChild(gameScene);
 	
@@ -116,6 +147,36 @@ function loadSpriteSheet(numFrames, sprite){
 
 
 
+
+
+
+
+
+function gameLoop(){
+   
+   // #1 - Calculate "delta time"
+   let dt = 1/app.ticker.FPS;
+   if (dt > 1/12) dt=1/12;
+   player.playerUpdate(dt);
+
+   let sin = Math.sin(lifetime / 60);
+   let cos = Math.cos(lifetime / 60);
+   
+   let yForce  = 0; //=  cos * (120 * dt);
+   let xForce = sin * (40 * dt);
+
+
+   for (let p of particles){
+     p.update(dt, xForce, yForce);
+   }
+   
+   lifetime++;
+
+
+}
+
+
+
 //check inputs
 window.onkeyup = (e) => {
     keys[e.keyCode] = false;
@@ -157,21 +218,3 @@ window.onkeydown = (e) => {
     }
 
 };
-
-
-
-
-function gameLoop(){
-   
-   // #1 - Calculate "delta time"
-   let dt = 1/app.ticker.FPS;
-   if (dt > 1/12) dt=1/12;
-   player.playerUpdate(dt);
-
-
-
-   
-
- 
- 
-}

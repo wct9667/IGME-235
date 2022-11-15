@@ -137,26 +137,53 @@ class Player extends PIXI.AnimatedSprite{
 
 
 
-class Tile extends PIXI.Graphics {
-    constructor(type, x, y, width, height, color) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.type = type;
-        this.mouseLock = false;
-        this.xLock = false;
-        this.yLock = false;
-        this.maxSpeed = 300;
-        this.lockPos = { x: 0, y: 0 };
-        this.lastPos = { x: x, y: y };
-        this.basePos = { x: x, y: y };
-        this.beginFill(color);
-        this.drawRect(0, 0, width, height);
-        this.endFill();
-    }
-}
+ // ES6 Particle Class, similar to the demo, but I changed it to add screenwrapping
+ class Particle extends PIXI.Sprite{
+	constructor(radius, x, y, xSpeed, ySpeed, screenWidth, screenHeight){
+		super(particleTexture);
+		this.x = x;
+		this.y = y;
+		this.anchor.set(.5,.5);
+		this.width = radius*2;
+ 		this.height = radius*2;
+		this.radius = radius;
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+	}
+	
+	update(dt, xForce, yForce){
+		this.x += this.xSpeed * dt;
+		this.y += this.ySpeed * dt;
+        
+        this.x += xForce;
+        this.y += yForce;
+        
 
 
+        //wrap around the screen
+        if(this.x > this.screenWidth){
+            this.x = 0;
+        }
+        else if (this.x < 0){
+            this.x = this.screenWidth;
+        }
+        if(this.y < 0){
+            this.y = 0;
+        }
+        else if (this.y > this.screenHeight){
+            this.y = 0;
+        }
+
+        /*if(this.x < this.radius || this.x > (window.innerWidth - this.radius)) {
+			this.xSpeed *= -1;
+        }
+        
+        if(this.y < this.radius || this.y > (window.innerHeight - this.radius)) {
+			this.ySpeed *= -1;
+        }*/
+
+	}
+  }
 
