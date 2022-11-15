@@ -1,11 +1,11 @@
 //player class
 class Player extends PIXI.AnimatedSprite{
     //constructor
-    constructor(animations, x = 300, y = 600){
+    constructor(animations, x = 400, y = 600){
         super(animations.idle)
         this.anchor.set(.5,.5);
         this.animations = animations;
-        this.scale.set(1.5);
+        this.scale.set(2.5);
 
         this.animationSpeed = 0.15;
         this.loop = true;
@@ -17,20 +17,31 @@ class Player extends PIXI.AnimatedSprite{
     }
 
     dx = 0;
-     attackTime = 0;
-
+    attackTime = 0;
+    blockTime = 0;
+    rollTime = 0;
+    rollDirection = 0;
     playerUpdate(dt){
         
         // Reset x speed each frame
         this.dx = 0;
 
-        //switch for state
+        //switch for state machine, lots of states
         switch(this.state){
             case "idle":
 
 
                 if(keys[keyboard.SPACE]){
-                    this.rng = Math.floor(Math.random() * 3);
+                    let x = Math.floor(Math.random() * 3);
+                    if(x == this.rng){
+                        this.rng += 1;
+                        if(this.rng > 2){
+                            this.rng = 0;
+                        }
+                    }
+                    else{
+                        this.rng = x;
+                    }
 
                     console.log(this.rng);
 
@@ -47,6 +58,10 @@ class Player extends PIXI.AnimatedSprite{
                     }
                     
                 }
+                else if (keys[keyboard.SHIFT]){
+                    this.state = "shield";
+                    this.textures = this.animations.shield;
+                }
                 else if (keys[keyboard.LEFT]){
                     this.state = "runLeft";
                     this.textures = this.animations.run;
@@ -61,7 +76,7 @@ class Player extends PIXI.AnimatedSprite{
 
             case "runRight":
                 this.dx += 200;
-                this.scale.x = 1.5;
+                this.scale.x = 2.5;
 
                 //breaks out
 
@@ -73,6 +88,11 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
+                else if (keys[keyboard.R]){
+                    this.state = "roll";
+                    this.textures = this.animations.roll;
+                    this.rollDirection = 200;
+                }
 
                 break;
 
@@ -80,7 +100,7 @@ class Player extends PIXI.AnimatedSprite{
 
 
             case "runLeft":
-                this.scale.x = -1.5;
+                this.scale.x = -2.5;
                 this.dx -= 200;
 
                 if(keys[keyboard.RIGHT] && !keys[keyboard.LEFT]){
@@ -91,6 +111,12 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
+                else if (keys[keyboard.R]){
+                    this.state = "roll";
+                    this.textures = this.animations.roll;
+                    this.rollDirection = -200;
+                }
+
 
                 break;
 
@@ -98,7 +124,7 @@ class Player extends PIXI.AnimatedSprite{
                 this.attackTime += dt;
                 
                 if(this.rng == 0){
-                    if(this.attackTime >= this.animationSpeed * 4.4){
+                    if(this.attackTime >= this.animationSpeed * 4.3){
                         this.attackTime = 0;
                         this.textures = this.animations.idle;
                         this.state = "idle"; 
@@ -117,17 +143,41 @@ class Player extends PIXI.AnimatedSprite{
                         this.textures = this.animations.idle;
                         this.state = "idle";                
                 }
-            }
-                 
+                }
                 break;
-                
+
+            case "shield":
+
+                this.blockTime += dt;
+
+                this.loop = false;
+                if(!keys[keyboard.SHIFT]){
+                    this.blockTime = 0; 
+                    this.textures = this.animations.idle;
+                    this.state = "idle"; 
+                    this.loop = true;
+                }
+                break;
+            case "roll":
+                this.loop = false;
+                this.rollTime += dt;
+                this.dx += this.rollDirection;
+
+                if(this.rollTime > 3.5 * this.animationSpeed){
+                    this.rollTime = 0; 
+                    this.textures = this.animations.idle;
+                    this.state = "idle"; 
+                    this.loop = true;
+                }
+
+
         }
 
         this.play();
 
       
 
-       this.x += this.dx * dt;
+      // this.x += this.dx * dt;
        // this.y += this.dy * dt;
 
 
