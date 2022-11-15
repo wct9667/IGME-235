@@ -188,7 +188,7 @@ class Player extends PIXI.AnimatedSprite{
                 this.rollTime += dt;
                 this.dx += this.rollDirection;
 
-                if(this.rollTime > 5 * this.animationSpeed){
+                if(this.rollTime > 3.5 * this.animationSpeed){
                     this.rollTime = 0; 
                     this.textures = this.animations.idle;
                     this.state = "idle"; 
