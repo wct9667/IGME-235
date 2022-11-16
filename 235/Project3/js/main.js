@@ -5,6 +5,7 @@ let particleTexture =  PIXI.Texture.from('images/particle-6x6.png');
 let lifetime = 0;
 let player;
 let bgX = 0;
+let paused = true;
 
     const app = new PIXI.Application({
         width: 800,
@@ -65,6 +66,21 @@ app.loader.add("shield", "../images/playerAnimations/shield.png");
 app.loader.add("roll", "../images/playerAnimations/roll.png");
 app.loader.add("hurt", "../images/playerAnimations/hurt.png");
 app.loader.add("death", "../images/playerAnimations/death.png");
+/////////////////////load sounds
+//app.loader.add("idle",  "../sounds/playerAnimations/hurtEnemy.wav");
+//app.loader.add("run",  "../sounds/playerAnimations/hurtEnemy.wav");
+app.loader.add("attack1S",  "../sounds/attack1.wav");
+app.loader.add("attack2S",  "../sounds/attack2.wav");
+app.loader.add("attack3S",  "../sounds/attack3.wav");
+app.loader.add("blockS",  "../sounds/block.wav");
+app.loader.add("deathS",  "../sounds/death.wav");
+app.loader.add("hurtS", "../sounds/hurt.wav" );
+app.loader.add("hurtEnemyS", "../sounds/hurtEnemy.wav");
+app.loader.add("foot1S", "../sounds/foot1.wav" );
+app.loader.add("foot2S", "../sounds/foot2.wav");
+app.loader.add("rollS", "../sounds/roll.wav");
+app.loader.add("guitar", "../sounds/Guitar_instrumental.mp3");
+app.loader.add("outdoorWinter", "../sounds/outdoorWinter.mp3");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -76,6 +92,9 @@ let startScene;
 let gameScene;
 let endScene;
 let enemies = [];
+let bgMusic;
+let ambience;
+
 
 //function for making particles, from the demo
 const createParticles = ()=>{
@@ -146,18 +165,70 @@ function setup(){
     startScene = new PIXI.Container();
     stage.addChild(startScene);
     startScene.visible = false; //temp
-	
 	// #2 - Create the main `game` scene and make it invisible
     gameScene = new PIXI.Container();
     gameScene.addChild(container);
     gameScene.addChild(graphics);
    // gameScene.visible = false;
     stage.addChild(gameScene);
-	
+	paused = false;
     // #3 - Create the `gameOver` scene and make it invisible
 	endScene = new PIXI.Container();
     endScene.visible = false;
     stage.addChild(endScene);
+
+    //load up the sounds
+    let sounds = [];
+    sounds["attack1"] = new Howl({
+        src: [app.loader.resources.attack1S.url],
+        volume: 0.15
+    });
+    sounds["attack2"] = new Howl({
+        src: [app.loader.resources.attack2S.url],
+        volume: 0.15
+    });
+    sounds["attack3"] = new Howl({
+        src: [app.loader.resources.attack3S.url],
+        volume: 0.15
+    });
+    sounds["block"] = new Howl({
+        src: [app.loader.resources.blockS.url],
+        volume: 0.15
+    });
+    sounds["death"] = new Howl({
+        src: [app.loader.resources.deathS.url],
+        volume: 0.15
+    });
+    sounds["hurt"] = new Howl({
+        src: [app.loader.resources.hurtS.url],
+        volume: 0.15
+    });
+    sounds["hurtEnemy"] = new Howl({
+        src: [app.loader.resources.hurtEnemyS.url],
+        volume: 0.15
+    });
+    sounds["roll"] = new Howl({
+        src: [app.loader.resources.rollS.url],
+        volume: 0.15
+    });
+    sounds["foot1"] = new Howl({
+        src: [app.loader.resources.foot1S.url],
+        volume: 0.15
+    });
+    sounds["foot2"] = new Howl({
+        src: [app.loader.resources.foot2S.url],
+        volume: 0.15
+    });
+    bgMusic = new Howl({
+        src: [app.loader.resources.guitar.url],
+        volume: .1
+    })
+    ambience = new Howl({
+        src: [app.loader.resources.outdoorWinter.url],
+        volume: 1
+    })
+
+
 
     //load up the sprites
     let textures = [];
@@ -173,11 +244,11 @@ function setup(){
 
 
     //player creation
-    player = new Player(textures, sceneWidth/2);
+    player = new Player(textures, sceneWidth/2, 600, sounds);
     player.interactive = true;
     player.play();
     gameScene.addChild(player);
-    SpawnEnemies(50, textures);
+    SpawnEnemies(20, textures, sounds);
     
 
     //
@@ -187,9 +258,9 @@ function setup(){
 }
 
 //function to spawn a bunch of enemies
-function SpawnEnemies(number, textures){
+function SpawnEnemies(number, textures, sounds){
     for(let i = 0; i < number; i++){
-        let enemy= new Enemy(textures, getRandom(sceneWidth, 100000));
+        let enemy= new Enemy(textures, getRandom(sceneWidth, 100000), 600, sounds);
         enemy.play();
         enemies.push(enemy);
         gameScene.addChild(enemy);
@@ -243,17 +314,26 @@ function loadSpriteSheet(numFrames, sprite){
 
 //check collisions between enemies and player
 function CheckCollisions(dt){
+    console.log(player.state);
     for(let enemy of enemies){
-        if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"){
+        if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"&& enemy.state != "death" && enemy.state != "hurt" ){
 
         if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,50)){
             //change player state and animation
-                enemy.attack();
-            if(player.state != "shield" && player.state != "attack"){
-                player.hurt();
+
+            if((player.state == "shield" || player.state == "roll")){
+                //change enemy state to blocked
+                if(enemy.state != "blocked"){
+                   enemy.blocked(false);
+                   enemy.ToIdleAnim();
+                }
             }
-            else if(enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death" && enemy.state != "blocked"){
-                enemy.hurt2();
+            else if(enemy.state != "blocked"){     
+                enemy.attack();          
+                enemy.AttackSound();
+                if(player.state != "attack"){
+                    player.hurt();
+                }
             }
         }
         else if(player.x > enemy.x){
@@ -262,7 +342,7 @@ function CheckCollisions(dt){
     }
  
             //check if the player attack hitsd
-            if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death"&& enemy.state != "attack"){
+            if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death"){
                 if(player.textures == player.animations.attack3){
                     if(CircleIntersect(player.x,player.y,player.attack3Rad ,enemy.x,enemy.y,enemy.radius)){
                         //change enemy state and animation
@@ -279,56 +359,61 @@ function CheckCollisions(dt){
 
 
 function gameLoop(){
+ // #1 - Calculate "delta time"
+ let dt = 1/app.ticker.FPS;
+ if (dt > 1/12) dt=1/12;
+
+ if(paused) return;
+ if (!bgMusic.playing()) bgMusic.play();
+ if (!ambience.playing()) ambience .play();
+ player.playerUpdate(dt);
+
+ for(let enemy of enemies){
+  enemy.enemyUpdate(dt);
+ }
+
+ updateBG();
+
+ CheckCollisions(dt);
+ let sin = Math.sin(lifetime / 60);
+ //let cos = Math.cos(lifetime / 60);
+ 
+ let yForce  = 0; //=  cos * (120 * dt);
+ let xForce = sin * (40 * dt);
+
+
+ for (let p of particles){
+   p.update(dt, xForce, yForce);
+ }
+
+
+ //hit box drawing
+ /*
+ graphics.beginFill(0xe74c3c); // Red
+ // Draw a circle
+ graphics.drawCircle(player.x, player.y, 300);
+ graphics.endFill();
+
+ graphics.beginFill(); // Red
+ // Draw a circle
+ graphics.drawCircle(player.x, player.y, 200);
+ graphics.endFill();
+
+ graphics.beginFill(0xe74c3ca); // Red
+ // Draw a circle
+ graphics.drawCircle(player.x, player.y, 70);
+ graphics.endFill();*/
+
+
+ 
+ lifetime++;
+ if(lifetime > 1000){
+  lifetime = 0;
+ }
+
+
    
-   // #1 - Calculate "delta time"
-   let dt = 1/app.ticker.FPS;
-   if (dt > 1/12) dt=1/12;
-   player.playerUpdate(dt);
-
-   for(let enemy of enemies){
-    enemy.enemyUpdate(dt);
-   }
-
-   updateBG();
-
-   CheckCollisions(dt);
-   let sin = Math.sin(lifetime / 60);
-   //let cos = Math.cos(lifetime / 60);
-   
-   let yForce  = 0; //=  cos * (120 * dt);
-   let xForce = sin * (40 * dt);
-
-
-   for (let p of particles){
-     p.update(dt, xForce, yForce);
-   }
-
-
-   //hit box drawing
-   /*
-   graphics.beginFill(0xe74c3c); // Red
-   // Draw a circle
-   graphics.drawCircle(player.x, player.y, 300);
-   graphics.endFill();
-
-   graphics.beginFill(); // Red
-   // Draw a circle
-   graphics.drawCircle(player.x, player.y, 200);
-   graphics.endFill();
-
-   graphics.beginFill(0xe74c3ca); // Red
-   // Draw a circle
-   graphics.drawCircle(player.x, player.y, 70);
-   graphics.endFill();*/
-
-
-   
-   lifetime++;
-   if(lifetime > 1000){
-    lifetime = 0;
-   }
-
-
+  
 }
 
 
