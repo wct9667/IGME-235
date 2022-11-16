@@ -17,12 +17,13 @@ class Player extends PIXI.AnimatedSprite{
         this.hitBoxRadius = 70;
         this.attack3Rad = 150;
         this.attackRadius = 125;
-        this.health = 30;
+        this.health = 200;
 
 
 
     }
 
+    chargeTime = 0;
     dx = 0;
     attackTime = 0;
     deathTime = 0;
@@ -30,6 +31,12 @@ class Player extends PIXI.AnimatedSprite{
     rollTime = 0;
     immunity = 0;
     rollDirection = 0;
+    attackCharge(){
+        if(this.chargeTime > 2){
+            this.attack();
+            this.chargeTime = 0;
+        }
+    }
 
     hurt(){
         if(this.state != "roll"){
@@ -54,9 +61,6 @@ class Player extends PIXI.AnimatedSprite{
         else{
             this.rng = x;
         }
-
-        console.log(this.rng);
-
         this.state = "attack";
 
         if(this.rng == 0){
@@ -82,13 +86,16 @@ class Player extends PIXI.AnimatedSprite{
         // Reset x speed each frame
         this.dx = 0;
 
+        //add to the attack charge
+        this.chargeTime += dt;
+
         //switch for state machine, lots of states
         switch(this.state){
             case "idle":
 
 
                 if(keys[keyboard.SPACE]){
-                    this.attack();
+                    this.attackCharge();
                 }
                 else if (keys[keyboard.SHIFT]){
                     this.state = "shield";
@@ -122,10 +129,7 @@ class Player extends PIXI.AnimatedSprite{
                 this.state = "runLeft";
                 this.textures = this.animations.run;
                 }*/
-                if(keys[keyboard.SPACE]){
-                    this.attack();
-                }
-                else if(!keys[keyboard.RIGHT]){
+                 if(!keys[keyboard.RIGHT]){
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
@@ -191,14 +195,14 @@ class Player extends PIXI.AnimatedSprite{
                     this.loop = true;
                 }
                 if (keys[keyboard.SPACE]){
-                    this.attack();
+                    this.attackCharge();
                 }
                 
                 break;
             case "roll":
                 this.loop = false;
                 this.rollTime += dt;
-                this.dx += this.rollDirection;
+                this.dx += this.rollDirection * 1.5;
 
                 if(this.rollTime > 3.5 * this.animationSpeed){
                     this.rollTime = 0; 
@@ -210,7 +214,11 @@ class Player extends PIXI.AnimatedSprite{
             case "hurt":
                 this.loop = false;
                 this.immunity += dt;
-                if(this.immunity > 3 * this.animationSpeed){
+                if (keys[keyboard.SHIFT]){
+                    this.state = "shield";
+                    this.textures = this.animations.shield;
+                }
+                else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
                     if(this.textures != this.animations.idle)
                     this.textures = this.animations.idle;
@@ -221,7 +229,7 @@ class Player extends PIXI.AnimatedSprite{
                     }
                 }
                 break;
-             case "death":
+            case "death":
                 this.deathTime += dt;
                 this.loop = false;
                 if(this.deathTime > 3  * this.animationSpeed){ 
@@ -229,7 +237,7 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "dead";
                 }
                 break;
-                case "dead":
+            case "dead":
                     break;
 
 
@@ -292,7 +300,6 @@ class Player extends PIXI.AnimatedSprite{
         this.anchor.set(.5,.5);
         this.animations = animations;
         this.scale.set(2.5);
-
         this.animationSpeed = 0.15;
         this.loop = true;
         this.x = x;
@@ -301,13 +308,12 @@ class Player extends PIXI.AnimatedSprite{
         this.state = "runLeft";
         this.radius = 70;
         this.dxs = 0;
-        this.health =2;
+        this.health = getRandom(1,5);
     }
 
-    hurt2(xChange){
-        this.dxs = xChange;
-        this.x += xChange;
-        this.textures = this.animations.hurt;
+    hurt2(){
+        this.x += 3;
+        this.textures = this.animations.attack1;
         this.state = "blocked";
     }
     hurt(){
@@ -322,14 +328,31 @@ class Player extends PIXI.AnimatedSprite{
         }
     }
 
+    run(){
+        if(this.textures != this.animations.run){
+            this.loop = true;
+            this.state = "runLeft";
+            this.textures = this.animations.run;   
+        }    
+    }
+
     dx = 0;
     immunity = 0;
     deathTime = 0;
     blockTime = 0;
+    attackTime = 0;
+
+    attack(){
+        if(this.state != "attack"){
+            this.state = "attack";
+            this.textures = this.animations.attack1;
+        }
+    }
     enemyUpdate(dt){  
         
         // Reset x speed each frame
         this.dx = 0;
+        this.attackTime += dt;
 
         //switch for state machine, lots of states
         switch(this.state){
@@ -340,47 +363,50 @@ class Player extends PIXI.AnimatedSprite{
                 this.scale.x = -2.5;
                 break;
 
-            case "hurt":
-                                         
-                this.dx += this.dxs;                             
+            case "hurt":                        
                 this.loop = false;
-                this.dxs += .3;
                 this.immunity += dt;
-                this.animationSpeed = .25;
-                if(player.textures == player.animations.attack3){
-                    this.animationSpeed = .3;
-                }
-                if(this.immunity > 3* this.animationSpeed){
+                if(this.immunity > 3 * this.animationSpeed){
 
-
-                    this.loop = true;
+                    this.loop = false;
                     this.dx = 0;
-                    this.animationSpeed = .15;
-                    if(this.textures != this.animations.idle){
-                        this.textures = this.animations.idle;
-                    }
-                    if(this.immunity >= 4 * this.animationSpeed){
-                        this.immunity = 0;
-                        this.dxs=1;
+                    if(this.textures != this.animations.idle)
+                    this.textures = this.animations.idle;
+                    if(this.immunity > 7  * this.animationSpeed){ 
                         this.textures = this.animations.run;
                         this.state = "runLeft";
+                        this.loop = false;
+                        this.immunity = 0;
                     }
-                    
                 }
                 break; 
+            case "attack":  
+            this.loop = false;
+            if(player.state == "roll"){
+                this.dx -= player.dx;
+                this.loop = true;
+            } 
+            if(this.attackTime > 5* this.animationSpeed){               
+                this.attackTime = 0; 
+                this.loop = false;
+                this.textures = this.animations.attack2;               
+            }
+            break;
+        
+
             case "blocked":
                                             
                 this.loop = false;
-                this.dx += 100;
+                this.dx += 10;
                 this.blockTime += dt;
 
-
+                
 
                 if(this.blockTime > 3 * this.animationSpeed){
-                    this.loop = true;
+                    this.loop = false;
                     this.dx = 0;
                     this.blockTime = 0;
-                        this.textures = this.animations.idle;
+
                         this.textures = this.animations.run;
                         this.state = "runLeft";
                     
@@ -403,11 +429,11 @@ class Player extends PIXI.AnimatedSprite{
         }
         // move enemy back to the right
         if(this.x < -1000){
-            this.x = getRandom(sceneWidth, 10000);
+            this.x = getRandom(sceneWidth, 100000);
             this.state = "runLeft";
             this.textures = this.animations.run;
             this.loop = true;
-            this.health = 2; 
+            this.health = getRandom(1,5); 
             this.deathTime = 0;
         }
 

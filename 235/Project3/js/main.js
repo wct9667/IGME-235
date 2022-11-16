@@ -177,7 +177,7 @@ function setup(){
     player.interactive = true;
     player.play();
     gameScene.addChild(player);
-    SpawnEnemeies(10, textures);
+    SpawnEnemies(50, textures);
     
 
     //
@@ -187,9 +187,9 @@ function setup(){
 }
 
 //function to spawn a bunch of enemies
-function SpawnEnemeies(number, textures){
+function SpawnEnemies(number, textures){
     for(let i = 0; i < number; i++){
-        let enemy= new Enemy(textures, getRandom(sceneWidth, 10000));
+        let enemy= new Enemy(textures, getRandom(sceneWidth, 100000));
         enemy.play();
         enemies.push(enemy);
         gameScene.addChild(enemy);
@@ -241,25 +241,28 @@ function loadSpriteSheet(numFrames, sprite){
 
 
 
-
 //check collisions between enemies and player
-function CheckCollisions(){
+function CheckCollisions(dt){
     for(let enemy of enemies){
         if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"){
 
-        if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,enemy.radius)){
+        if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,50)){
             //change player state and animation
-            if(player.state != "shield"){
+                enemy.attack();
+            if(player.state != "shield" && player.state != "attack"){
                 player.hurt();
             }
             else if(enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death" && enemy.state != "blocked"){
-                enemy.hurt2(3);
+                enemy.hurt2();
             }
+        }
+        else if(player.x > enemy.x){
+            enemy.run();
         }
     }
  
-            //check if the player attack hits
-            if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death"){
+            //check if the player attack hitsd
+            if(player.state ==  "attack" && enemy.state != "hurt" && enemy.state != "dead" && enemy.state != "death"&& enemy.state != "attack"){
                 if(player.textures == player.animations.attack3){
                     if(CircleIntersect(player.x,player.y,player.attack3Rad ,enemy.x,enemy.y,enemy.radius)){
                         //change enemy state and animation
@@ -288,7 +291,7 @@ function gameLoop(){
 
    updateBG();
 
-   CheckCollisions();
+   CheckCollisions(dt);
    let sin = Math.sin(lifetime / 60);
    //let cos = Math.cos(lifetime / 60);
    
