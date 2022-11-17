@@ -139,7 +139,7 @@ class Player extends PIXI.AnimatedSprite{
         switch(this.state){
             case "idle":
 
-
+ 
                 if(keys[keyboard.SPACE]){
                     this.attackCharge();
                 }

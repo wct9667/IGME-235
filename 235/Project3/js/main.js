@@ -82,6 +82,7 @@ app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
 app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 /////////////////////////////ui
 app.loader.add("swordUI", "images/ui/Sword.png");
+app.loader.add("directionsUI", "images/ui/directions.png");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -270,7 +271,6 @@ function setup(){
         volume: .8
     })
 
-
     //load up the sprites
     let textures = [];
     textures["idle"] = loadSpriteSheet(4, "idle");
@@ -422,6 +422,7 @@ function gameLoop(){
  updateBG();
 
  if(paused) return;
+
 updateButtonsAndText();
  if (!bgMusic.playing())  bgMusic.play();
  for(let enemy of enemies){
@@ -469,6 +470,28 @@ function createButtonsAndText(){
      title.x = sceneWidth / 2 - title.width / 2;
      title.y = 125;
      startScene.addChild(title);
+
+     let instructions = new PIXI.Text("Click the screen to begin!");
+     instructions.style = new PIXI.TextStyle({
+         fill: 0xFFFFFF,
+         fontSize: 40,
+         fontFamily: 'Arial',//will change temp
+         fontStyle: 'bold'
+         
+     });
+     instructions.x = sceneWidth / 2 - instructions.width / 2;
+     instructions.y = 100 + title.y;
+     startScene.addChild(instructions);
+
+     
+     let directions = new PIXI.Sprite.from(app.loader.resources.directionsUI.url);
+     directions.x = sceneWidth / 2 - instructions.width / 2;
+     directions.y = 200 + title.y;
+     directions.scale.set(.25);
+     startScene.addChild(directions);
+
+
+    
 
       sword1=  PIXI.Sprite.from(app.loader.resources.swordUI.url);
      sword1.x = sceneWidth/20;
