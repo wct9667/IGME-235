@@ -381,7 +381,7 @@ class Player extends PIXI.AnimatedSprite{
         else{
             this.state = "death";
             this.textures = this.animations.hurt;
-            this.diff ++;
+            this.diff += .25;
             this.sounds["death"].play();
         }
     }
