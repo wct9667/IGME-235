@@ -33,7 +33,7 @@ class Player extends PIXI.AnimatedSprite{
     runTime = 0;
     prevSound = 0;
     rollDirection = 0;
-    shieldCharge = 5;
+    shieldCharge = 6;
 
     //checks if the player can attack before attackinh
     attackCharge(){
@@ -100,7 +100,7 @@ class Player extends PIXI.AnimatedSprite{
     //set the player to a shield state if their charge is high enough
     shield(){
 
-        if(this.shieldCharge > 3){
+        if(this.shieldCharge >= 2){
             this.state = "shield";
             this.textures = this.animations.shield;
         }
@@ -133,7 +133,7 @@ class Player extends PIXI.AnimatedSprite{
             this.chargeTime = 0;
         }
         if(this.state != "shield") this.shieldCharge += .25 * dt;
-        if(this.shieldCharge > 5) this.shieldCharge = 5;
+        if(this.shieldCharge > 6) this.shieldCharge = 6;
 
         //switch for state machine, lots of states
         switch(this.state){
@@ -241,9 +241,10 @@ class Player extends PIXI.AnimatedSprite{
             case "shield":
 
                 this.shieldCharge -= dt;
+                if(this.shieldCharge < 0) this.shieldCharge = 0;
 
                 this.loop = false;
-                if(!keys[keyboard.SHIFT]){
+                if(!keys[keyboard.SHIFT] || this.shieldCharge <= 0){
                     this.textures = this.animations.idle;
                     this.state = "idle"; 
                     this.loop = true;
@@ -481,6 +482,7 @@ class Player extends PIXI.AnimatedSprite{
             case "blocked":
                 if(player.state == "roll"){
                     this.dx -= player.dx;
+                    if(this.textures != this.animations.attack1) this.textures = this.animations.attack1, this.AttackSound();
                 }                                               
                 if(player.state != "roll" && player.state != "shield"){
                     this.run();

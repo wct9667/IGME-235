@@ -84,6 +84,7 @@ app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 /////////////////////////////ui
 app.loader.add("swordUI", "images/ui/Sword.png");
 app.loader.add("directionsUI", "images/ui/directions.png");
+app.loader.add("shieldUI", "images/ui/Shield.png");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -104,6 +105,7 @@ window.onclick = startGame;
 function startGame(){
     startScene.visible = false;
     gameSceneUpdate.visible = true;
+    player.charges = 3;
     paused = false;
 }
 //function for making particles, from the demo
@@ -458,6 +460,9 @@ updateButtonsAndText();
 let sword3;
 let sword1;
 let sword2;
+let shield1;
+let shield2;
+let shield3;
 function createButtonsAndText(){
      // 1 - set up startscene
      let title = new PIXI.Text("Winter's Dawn");
@@ -486,15 +491,35 @@ function createButtonsAndText(){
 
      
      let directions = new PIXI.Sprite.from(app.loader.resources.directionsUI.url);
-     directions.x = sceneWidth / 2 - instructions.width / 2;
+     directions.x = sceneWidth / 2 - instructions.width * 5/8;
      directions.y = 200 + title.y;
      directions.scale.set(.25);
      startScene.addChild(directions);
 
 
-    
+         //shields
+    shield1=  PIXI.Sprite.from(app.loader.resources.shieldUI.url);
+    shield1.x = sceneWidth/20;
+    shield1.y = sceneHeight/10;
+    shield1.scale.set(1.5);
+    gameSceneUpdate.addChild(shield1);
 
-      sword1=  PIXI.Sprite.from(app.loader.resources.swordUI.url);
+    shield2 =  PIXI.Sprite.from(app.loader.resources.shieldUI.url);
+    shield2.x = shield1.x + sceneWidth/20;
+    shield2.y = sceneHeight/10;
+    shield2.scale.set(1.5);
+    gameSceneUpdate.addChild(shield2);
+
+    shield3 =  PIXI.Sprite.from(app.loader.resources.shieldUI.url);
+    shield3.x = shield2.x + sceneWidth/20;
+    shield3.y = sceneHeight/10;
+    shield3.scale.set(1.5);
+    gameSceneUpdate.addChild(shield3);
+ 
+ 
+    
+    //swords 
+     sword1=  PIXI.Sprite.from(app.loader.resources.swordUI.url);
      sword1.x = sceneWidth/20;
      sword1.y = sceneHeight/10;
      sword1.scale.set(2);
@@ -511,8 +536,9 @@ function createButtonsAndText(){
      sword3.y = sceneHeight/10;
      sword3.scale.set(2);
      gameSceneUpdate.addChild(sword3);
- 
- 
+
+
+        
     //gamescene setup
     /*let healthBar = new PIXI.Sprite.from("images/healthbarpng.png");
     healthBar.x = 1/20 * sceneWidth;
@@ -530,21 +556,32 @@ function createButtonsAndText(){
 
 //update the labels
 function updateButtonsAndText(){
+    //this is not as complicated as it seems
     sword1.visible = false;
     if(player.charges >= 1){
         sword1.visible = true;
         sword2.visible = false;
-       sword3.visible = false;
+        sword3.visible = false;
         if(player.charges >=2){
-
-           sword1.visible = true;
-          sword2.visible = true;
-            sword3.visible = false;
+            sword1.visible = true;
+            sword2.visible = true;
             if(player.charges >= 3){
-              sword1.visible = true;
-               sword2.visible = true;
                sword3.visible = true;
 
+            }
+        }
+    }
+    //update shield visibility
+    shield1.visible = false;
+    if(player.shieldCharge >= 2){
+        shield1.visible = true;
+        shield2.visible = false;
+        shield3.visible = false;
+        if(player.shieldCharge >=4){
+            shield1.visible = true;
+            shield2.visible = true;
+            if(player.shieldCharge >= 6){
+               shield3.visible = true;
             }
         }
     }
@@ -595,7 +632,7 @@ window.onkeydown = (e) => {
     if (e.keyCode == 32) {
         keys[keyboard.SPACE] = true;
     }
-    if (s == "r" || c == "S") {
+    if (c == "s" || c == "S") {
         keys[keyboard.S] = true;
     }
     if(e.keyCode == 16){
