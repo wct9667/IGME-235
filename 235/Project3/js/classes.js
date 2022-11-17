@@ -27,12 +27,14 @@ class Player extends PIXI.AnimatedSprite{
     dx = 0;
     attackTime = 0;
     deathTime = 0;
-    blockTime = 0;
     rollTime = 0;
     immunity = 0;
     runTime = 0;
     prevSound = 0;
     rollDirection = 0;
+    shieldCharge = 10;
+
+    //checks if the player can attack before attackinh
     attackCharge(){
         if(this.chargeTime > 2){
             this.attack();
@@ -40,6 +42,7 @@ class Player extends PIXI.AnimatedSprite{
         }
     }
 
+    //plays sounds and sets animations based on the player health
     hurt(){
         if(this.state != "roll"){
             this.health--;
@@ -54,6 +57,7 @@ class Player extends PIXI.AnimatedSprite{
             this.textures = this.animations.hurt;
         }
     }
+    //function that radnomizes the attack animation and sets a sound
     attack(){
         let x = Math.floor(Math.random() * 3);
         if(x == this.rng){
@@ -81,6 +85,7 @@ class Player extends PIXI.AnimatedSprite{
         }
         
     }
+    //resets the player back to idle
     resetAttack(){
         this.attackTime = 0;
         this.animationSpeed = .15;
@@ -88,10 +93,15 @@ class Player extends PIXI.AnimatedSprite{
         this.textures = this.animations.idle;
         this.state = "idle"; 
     }
+    //set the player to a shield state if their charge is high enough
     shield(){
-        this.state = "shield";
-        this.textures = this.animations.shield;
+
+        if(this.shieldCharge > 3){
+            this.state = "shield";
+            this.textures = this.animations.shield;
+        }
     }
+    //set the player to a roll state
     roll(){
 
         this.state = "roll";
@@ -99,10 +109,12 @@ class Player extends PIXI.AnimatedSprite{
         this.rollDirection = 200;
         this.sounds["roll"].play();
     }
+    //sets the player to a roll right state
     runRight(){
         this.state = "runRight";
         this.textures = this.animations.run;
     }
+    //call in gameloop
     playerUpdate(dt){
 
         // Reset x speed each frame
@@ -110,6 +122,8 @@ class Player extends PIXI.AnimatedSprite{
 
         //add to the attack charge
         this.chargeTime += dt;
+        if(this.chargeTime > 10) this.chargeTime = 10;
+        if(this.state != "shield") this.shieldCharge += .25 * dt;
 
         //switch for state machine, lots of states
         switch(this.state){
@@ -216,11 +230,10 @@ class Player extends PIXI.AnimatedSprite{
 
             case "shield":
 
-                this.blockTime += dt;
+                this.shieldCharge -= dt;
 
                 this.loop = false;
                 if(!keys[keyboard.SHIFT]){
-                    this.blockTime = 0; 
                     this.textures = this.animations.idle;
                     this.state = "idle"; 
                     this.loop = true;
@@ -228,6 +241,7 @@ class Player extends PIXI.AnimatedSprite{
                 if (keys[keyboard.SPACE]){
                     this.attackCharge();
                 }
+
                 
                 break;
             case "roll":
@@ -245,9 +259,11 @@ class Player extends PIXI.AnimatedSprite{
             case "hurt":
                 this.loop = false;
                 this.immunity += dt;
+                if (keys[keyboard.R]){
+                    this.roll();
+                }
                 if (keys[keyboard.SHIFT]){
-                    this.state = "shield";
-                    this.textures = this.animations.shield;
+                    this.shield();
                 }
                 else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
@@ -343,6 +359,7 @@ class Player extends PIXI.AnimatedSprite{
         this.sounds = sounds;
     }
 
+    //sets the hurt state/check for death
     hurt(){
         this.health--;
         if(this.health >  0){
@@ -357,11 +374,13 @@ class Player extends PIXI.AnimatedSprite{
         }
     }
 
+    //sets the blocked state
     blocked(move){
         if(move)
         this.x += 3;
             this.state = "blocked"
     }
+    //sets the run state
     run(){
         if(this.textures != this.animations.run){
             this.loop = true;
@@ -369,6 +388,7 @@ class Player extends PIXI.AnimatedSprite{
             this.textures = this.animations.run;   
         }    
     }
+    //sets the attack sound
     AttackSound(){
         if(!this.sounds["attack1"].isPlaying)
         this.sounds["attack1"].play();
@@ -380,16 +400,19 @@ class Player extends PIXI.AnimatedSprite{
     blockTime = 0;
     attackTime = 0;
 
+    //sets attack state
     attack(){
         if(this.state != "attack"){
             this.state = "attack";
             this.textures = this.animations.attack1;
         }
     }
+    //goes to idle animation but not state
     ToIdleAnim(){
         this.loop = true;
         this.textures = this.animations.idle;   
     }
+    //does to idle state
     Idle(){
 
         this.loop = true;

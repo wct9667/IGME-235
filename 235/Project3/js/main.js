@@ -48,39 +48,39 @@ let eightParallax;
 
 
 app.loader
-        .add("background", "../images/Sunset/Background.png")
-        .add("1", "../images/Sunset/1.png")
-        .add("2", "../images/Sunset/2.png")
-        .add("3", "../images/Sunset/3.png")
-        .add("4", "../images/Sunset/4.png")
-        .add("5", "../images/Sunset/5.png")
-        .add("6", "../images/Sunset/6.png")
-        .add("7", "../images/Sunset/7.png")
-        .add("8", "../images/Sunset/8.png")
-app.loader.add("idleSprites", "../images/playerAnimations/idle.png");
-app.loader.add("runSprites", "../images/playerAnimations/run.png");
-app.loader.add("attack1", "../images/playerAnimations/attack1.png");
-app.loader.add("attack2", "../images/playerAnimations/attack2.png");
-app.loader.add("attack3", "../images/playerAnimations/attack3.png");
-app.loader.add("shield", "../images/playerAnimations/shield.png");
-app.loader.add("roll", "../images/playerAnimations/roll.png");
-app.loader.add("hurt", "../images/playerAnimations/hurt.png");
-app.loader.add("death", "../images/playerAnimations/death.png");
+        .add("background", "images/Sunset/Background.png")
+        .add("1", "images/Sunset/1.png")
+        .add("2", "images/Sunset/2.png")
+        .add("3", "images/Sunset/3.png")
+        .add("4", "images/Sunset/4.png")
+        .add("5", "images/Sunset/5.png")
+        .add("6", "images/Sunset/6.png")
+        .add("7", "images/Sunset/7.png")
+        .add("8", "images/Sunset/8.png")
+app.loader.add("idleSprites", "images/playerAnimations/idle.png");
+app.loader.add("runSprites", "images/playerAnimations/run.png");
+app.loader.add("attack1", "images/playerAnimations/attack1.png");
+app.loader.add("attack2", "images/playerAnimations/attack2.png");
+app.loader.add("attack3", "images/playerAnimations/attack3.png");
+app.loader.add("shield", "images/playerAnimations/shield.png");
+app.loader.add("roll", "images/playerAnimations/roll.png");
+app.loader.add("hurt", "images/playerAnimations/hurt.png");
+app.loader.add("death", "images/playerAnimations/death.png");
 /////////////////////load sounds
 //app.loader.add("idle",  "../sounds/playerAnimations/hurtEnemy.wav");
 //app.loader.add("run",  "../sounds/playerAnimations/hurtEnemy.wav");
-app.loader.add("attack1S",  "../sounds/attack1.wav");
-app.loader.add("attack2S",  "../sounds/attack2.wav");
-app.loader.add("attack3S",  "../sounds/attack3.wav");
-app.loader.add("blockS",  "../sounds/block.wav");
-app.loader.add("deathS",  "../sounds/death.wav");
-app.loader.add("hurtS", "../sounds/hurt.wav" );
-app.loader.add("hurtEnemyS", "../sounds/hurtEnemy.wav");
-app.loader.add("foot1S", "../sounds/foot1.wav" );
-app.loader.add("foot2S", "../sounds/foot2.wav");
-app.loader.add("rollS", "../sounds/roll.wav");
-app.loader.add("guitar", "../sounds/Guitar_instrumental.mp3");
-app.loader.add("outdoorWinter", "../sounds/outdoorWinter.mp3");
+app.loader.add("attack1S",  "sounds/attack1.wav");
+app.loader.add("attack2S",  "sounds/attack2.wav");
+app.loader.add("attack3S",  "sounds/attack3.wav");
+app.loader.add("blockS",  "sounds/block.wav");
+app.loader.add("deathS",  "sounds/death.wav");
+app.loader.add("hurtS", "sounds/hurt.wav" );
+app.loader.add("hurtEnemyS", "sounds/hurtEnemy.wav");
+app.loader.add("foot1S", "sounds/foot1.wav" );
+app.loader.add("foot2S", "sounds/foot2.wav");
+app.loader.add("rollS", "sounds/roll.wav");
+app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
+app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -181,53 +181,54 @@ function setup(){
     let sounds = [];
     sounds["attack1"] = new Howl({
         src: [app.loader.resources.attack1S.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["attack2"] = new Howl({
         src: [app.loader.resources.attack2S.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["attack3"] = new Howl({
         src: [app.loader.resources.attack3S.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["block"] = new Howl({
         src: [app.loader.resources.blockS.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["death"] = new Howl({
         src: [app.loader.resources.deathS.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["hurt"] = new Howl({
         src: [app.loader.resources.hurtS.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["hurtEnemy"] = new Howl({
         src: [app.loader.resources.hurtEnemyS.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["roll"] = new Howl({
         src: [app.loader.resources.rollS.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["foot1"] = new Howl({
         src: [app.loader.resources.foot1S.url],
-        volume: 0.15
+        volume: 0.25
     });
     sounds["foot2"] = new Howl({
         src: [app.loader.resources.foot2S.url],
-        volume: 0.15
+        volume: 0.25
     });
     bgMusic = new Howl({
         src: [app.loader.resources.guitar.url],
+        html5: true,
         volume: .1
     })
     ambience = new Howl({
         src: [app.loader.resources.outdoorWinter.url],
-        volume: 1
+        html5: true,
+        volume: .7
     })
-
 
 
     //load up the sprites
@@ -310,17 +311,14 @@ function loadSpriteSheet(numFrames, sprite){
 }
 
 
-
-
 //check collisions between enemies and player
 function CheckCollisions(dt){
     console.log(player.state);
     for(let enemy of enemies){
-        if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"&& enemy.state != "death" && enemy.state != "hurt" ){
+        if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"&& enemy.state != "death" && enemy.state != "hurt"){
 
         if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,50)){
             //change player state and animation
-
             if((player.state == "shield" || player.state == "roll")){
                 //change enemy state to blocked
                 if(enemy.state != "blocked"){
@@ -364,13 +362,15 @@ function gameLoop(){
  if (dt > 1/12) dt=1/12;
 
  if(paused) return;
- if (!bgMusic.playing()) bgMusic.play();
- if (!ambience.playing()) ambience .play();
+
  player.playerUpdate(dt);
 
  for(let enemy of enemies){
   enemy.enemyUpdate(dt);
  }
+
+ if (!bgMusic.playing())  bgMusic.play();
+ if (!ambience.playing()) ambience.play();
 
  updateBG();
 
