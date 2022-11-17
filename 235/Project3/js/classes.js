@@ -36,7 +36,7 @@ class Player extends PIXI.AnimatedSprite{
 
     //checks if the player can attack before attackinh
     attackCharge(){
-        if(this.chargeTime > 2){
+        if(this.chargeTime > 1){
             this.attack();
             this.chargeTime = 0;
         }
@@ -262,9 +262,9 @@ class Player extends PIXI.AnimatedSprite{
                 if (keys[keyboard.R]){
                     this.roll();
                 }
-                if (keys[keyboard.SHIFT]){
+                /*if (keys[keyboard.SHIFT]){
                     this.shield();
-                }
+                }*/
                 else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
                     if(this.textures != this.animations.idle)
@@ -355,7 +355,8 @@ class Player extends PIXI.AnimatedSprite{
         this.state = "runLeft";
         this.radius = 70;
         this.dxs = 0;
-        this.health = getRandom(1,5);
+        this.health = getRandom(0,2);
+        console.log(this.health);
         this.sounds = sounds;
     }
 
@@ -370,6 +371,7 @@ class Player extends PIXI.AnimatedSprite{
         else{
             this.state = "death";
             this.textures = this.animations.hurt;
+            this.diff ++;
             this.sounds["death"].play();
         }
     }
@@ -399,6 +401,7 @@ class Player extends PIXI.AnimatedSprite{
     deathTime = 0;
     blockTime = 0;
     attackTime = 0;
+    diff = 0;
 
     //sets attack state
     attack(){
@@ -498,7 +501,8 @@ class Player extends PIXI.AnimatedSprite{
             this.state = "runLeft";
             this.textures = this.animations.run;
             this.loop = true;
-            this.health = getRandom(1,5); 
+            this.health = getRandom(0,2 + this.diff)
+            console.log(this.health);
             this.deathTime = 0;
         }
 

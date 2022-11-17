@@ -1,6 +1,5 @@
 "use strict";
-
-let container, particles, numberOfParticles = 300;
+let container, particles, numberOfParticles = 900;
 let particleTexture =  PIXI.Texture.from('images/particle-6x6.png');
 let lifetime = 0;
 let player;
@@ -8,8 +7,8 @@ let bgX = 0;
 let paused = true;
 
     const app = new PIXI.Application({
-        width: 800,
-        height: 700
+        width: screen.width * 99/100,
+        height: 675,
     });
     document.body.appendChild(app.view);
     
@@ -164,18 +163,19 @@ function setup(){
 	// #1 - Create the `start` scene
     startScene = new PIXI.Container();
     stage.addChild(startScene);
-    startScene.visible = false; //temp
+    startScene.visible = true; //temp
 	// #2 - Create the main `game` scene and make it invisible
     gameScene = new PIXI.Container();
     gameScene.addChild(container);
     gameScene.addChild(graphics);
-   // gameScene.visible = false;
+   gameScene.visible = true;
     stage.addChild(gameScene);
-	paused = false;
     // #3 - Create the `gameOver` scene and make it invisible
 	endScene = new PIXI.Container();
     endScene.visible = false;
     stage.addChild(endScene);
+
+    createButtonsAndText();
 
     //load up the sounds
     let sounds = [];
@@ -227,7 +227,7 @@ function setup(){
     ambience = new Howl({
         src: [app.loader.resources.outdoorWinter.url],
         html5: true,
-        volume: .7
+        volume: .8
     })
 
 
@@ -361,30 +361,31 @@ function gameLoop(){
  let dt = 1/app.ticker.FPS;
  if (dt > 1/12) dt=1/12;
 
- if(paused) return;
-
- player.playerUpdate(dt);
-
- for(let enemy of enemies){
-  enemy.enemyUpdate(dt);
- }
-
- if (!bgMusic.playing())  bgMusic.play();
  if (!ambience.playing()) ambience.play();
-
- updateBG();
-
- CheckCollisions(dt);
+ 
+ //update player and projectiles
  let sin = Math.sin(lifetime / 60);
  //let cos = Math.cos(lifetime / 60);
  
  let yForce  = 0; //=  cos * (120 * dt);
  let xForce = sin * (40 * dt);
-
-
+ player.playerUpdate(dt);
  for (let p of particles){
-   p.update(dt, xForce, yForce);
+    p.update(dt, xForce, yForce);
+  }
+ if(paused) return;
+
+ if (!bgMusic.playing())  bgMusic.play();
+ for(let enemy of enemies){
+  enemy.enemyUpdate(dt);
  }
+
+ updateBG();
+
+ CheckCollisions(dt);
+
+
+
 
 
  //hit box drawing
@@ -416,7 +417,29 @@ function gameLoop(){
   
 }
 
+function createButtonsAndText(){
+     // 1 - set up startscene
+     let title = new PIXI.Text("Winter's Dawn");
+     title.style = new PIXI.TextStyle({
+         fill: 0xFFFFFF,
+         fontSize: 72,
+         fontFamily: 'Arial',
+         fontStyle: 'bold'
+         
+     });
+     title.x = sceneWidth / 2 - title.width / 2;
+     title.y = 125;
+     startScene.addChild(title);
+ 
+ 
 
+ 
+    /* let instructions = new PIXI.Sprite.from("images/instructions.png");
+     instructions.anchor.set(0.5, 0.5);
+     instructions.x = sceneWidth / 2 - instructions.width / 2;
+     instructions.y = sceneHeight / 2 + sceneHeight / 2;
+     startScene.addChild(instructions);*/
+}
 
 //check inputs
 window.onkeyup = (e) => {
