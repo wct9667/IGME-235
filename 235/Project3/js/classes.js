@@ -154,7 +154,7 @@ class Player extends PIXI.AnimatedSprite{
                 else if(keys[keyboard.RIGHT]){
                     this.runRight();
                 }
-                else if (keys[keyboard.R]){
+                else if (keys[keyboard.S]){
                 this.roll();
                 }
                 break;
@@ -188,7 +188,7 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
-                else if (keys[keyboard.R]){
+                else if (keys[keyboard.S]){
                     this.roll();
                 }
                 else if(keys[keyboard.SPACE]){
@@ -209,7 +209,7 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
-                else if (keys[keyboard.R]){
+                else if (keys[keyboard.S]){
                     this.state = "roll";
                     this.textures = this.animations.roll;
                     this.rollDirection = -200;
@@ -269,19 +269,16 @@ class Player extends PIXI.AnimatedSprite{
             case "hurt":
                 this.loop = false;
                 this.immunity += dt;
-                if (keys[keyboard.R]){
+                if (keys[keyboard.S]){
                     this.roll();
                 }
-                /*if (keys[keyboard.SHIFT]){
-                    this.shield();
-                }*/
                 else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
                      if(keys[keyboard.SPACE]){
                         this.attackCharge();
                     }
-                    else if(this.textures != this.animations.idle)
-                    this.textures = this.animations.idle;
+                    else if(this.textures != this.animations.idle)this.textures = this.animations.idle;
+                    
                     if(this.immunity >= 5   * this.animationSpeed){
                         this.immunity = 0;
 

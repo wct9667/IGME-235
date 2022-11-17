@@ -30,7 +30,8 @@ const keyboard = Object.freeze({
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
-    R: 82
+    S: 83
+
 });
 
 // pre-load the images
@@ -568,8 +569,8 @@ window.onkeyup = (e) => {
         keys[keyboard.SPACE] = false;
         console.log("stopAttack");
     }
-    if (c == "r" || c == "R") {
-        keys[keyboard.R] = false;
+    if (c == "s" || c == "S") {
+        keys[keyboard.S] = false;
     }
     if(e.keyCode == 16){
         keys[keyboard.SHIFT] = false;
@@ -594,8 +595,8 @@ window.onkeydown = (e) => {
     if (e.keyCode == 32) {
         keys[keyboard.SPACE] = true;
     }
-    if (c == "r" || c == "R") {
-        keys[keyboard.R] = true;
+    if (s == "r" || c == "S") {
+        keys[keyboard.S] = true;
     }
     if(e.keyCode == 16){
         keys[keyboard.SHIFT] = true;
