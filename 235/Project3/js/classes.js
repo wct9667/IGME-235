@@ -20,7 +20,7 @@ class Player extends PIXI.AnimatedSprite{
         this.health =5;
 
 
-
+                                                    
     }
 
     chargeTime = 0;
@@ -126,7 +126,7 @@ class Player extends PIXI.AnimatedSprite{
 
         //add to the attack charge
         this.chargeTime += dt;
-        if(this.chargeTime > 4){
+        if(this.chargeTime > 5){
             this.charges++;
             if(this.charges > 3) this.charges = 3;
 

@@ -7,7 +7,7 @@ let bgX = 0;
 let paused = true;
 
     const app = new PIXI.Application({
-        width: screen.width * 99/100,
+        width: 1000,
         height: 675,
     });
     document.body.appendChild(app.view);
@@ -80,6 +80,8 @@ app.loader.add("foot2S", "sounds/foot2.wav");
 app.loader.add("rollS", "sounds/roll.wav");
 app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
 app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
+/////////////////////////////ui
+app.loader.add("swordUI", "images/ui/Sword.png");
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -90,6 +92,7 @@ let stage;
 let startScene;
 let gameScene;
 let endScene;
+let gameSceneUpdate
 let enemies = [];
 let bgMusic;
 let ambience;
@@ -98,6 +101,7 @@ window.onclick = startGame;
 
 function startGame(){
     startScene.visible = false;
+    gameSceneUpdate.visible = true;
     paused = false;
 }
 //function for making particles, from the demo
@@ -196,8 +200,16 @@ function setup(){
     gameScene = new PIXI.Container();
     gameScene.addChild(container);
     gameScene.addChild(graphics);
-   gameScene.visible = true;
+    gameScene.visible = true;
     stage.addChild(gameScene);
+
+
+    //gameUpdate scene-invisible
+    gameSceneUpdate = new PIXI.Container();
+    gameSceneUpdate.addChild(graphics);
+    gameSceneUpdate.visible = false;
+    stage.addChild(gameSceneUpdate);
+
     // #3 - Create the `gameOver` scene and make it invisible
 	endScene = new PIXI.Container();
     endScene.visible = false;
@@ -410,7 +422,7 @@ function gameLoop(){
  updateBG();
 
  if(paused) return;
-
+updateButtonsAndText();
  if (!bgMusic.playing())  bgMusic.play();
  for(let enemy of enemies){
   enemy.enemyUpdate(dt);
@@ -441,7 +453,9 @@ function gameLoop(){
  graphics.endFill();*/
   
 }
-
+let sword3;
+let sword1;
+let sword2;
 function createButtonsAndText(){
      // 1 - set up startscene
      let title = new PIXI.Text("Winter's Dawn");
@@ -455,6 +469,24 @@ function createButtonsAndText(){
      title.x = sceneWidth / 2 - title.width / 2;
      title.y = 125;
      startScene.addChild(title);
+
+      sword1=  PIXI.Sprite.from(app.loader.resources.swordUI.url);
+     sword1.x = sceneWidth/20;
+     sword1.y = sceneHeight/10;
+     sword1.scale.set(2);
+     gameSceneUpdate.addChild(sword1);
+
+     sword2 =  PIXI.Sprite.from(app.loader.resources.swordUI.url);
+     sword2.x = sword1.x + sceneWidth/20;
+     sword2.y = sceneHeight/10;
+     sword2.scale.set(2);
+     gameSceneUpdate.addChild(sword2);
+
+     sword3 =  PIXI.Sprite.from(app.loader.resources.swordUI.url);
+     sword3.x = sword2.x + sceneWidth/20;
+     sword3.y = sceneHeight/10;
+     sword3.scale.set(2);
+     gameSceneUpdate.addChild(sword3);
  
  
     //gamescene setup
@@ -470,6 +502,28 @@ function createButtonsAndText(){
      instructions.x = sceneWidth / 2 - instructions.width / 2;
      instructions.y = sceneHeight / 2 + sceneHeight / 2;
      startScene.addChild(instructions);*/
+}
+
+//update the labels
+function updateButtonsAndText(){
+    sword1.visible = false;
+    if(player.charges >= 1){
+        sword1.visible = true;
+        sword2.visible = false;
+       sword3.visible = false;
+        if(player.charges >=2){
+
+           sword1.visible = true;
+          sword2.visible = true;
+            sword3.visible = false;
+            if(player.charges >= 3){
+              sword1.visible = true;
+               sword2.visible = true;
+               sword3.visible = true;
+
+            }
+        }
+    }
 }
 
 //check inputs
