@@ -17,13 +17,14 @@ class Player extends PIXI.AnimatedSprite{
         this.hitBoxRadius = 70;
         this.attack3Rad = 150;
         this.attackRadius = 125;
-        this.health = 200;
+        this.health =5;
 
 
 
     }
 
     chargeTime = 0;
+    charges = 3;
     dx = 0;
     attackTime = 0;
     deathTime = 0;
@@ -32,13 +33,16 @@ class Player extends PIXI.AnimatedSprite{
     runTime = 0;
     prevSound = 0;
     rollDirection = 0;
-    shieldCharge = 10;
+    shieldCharge = 5;
 
     //checks if the player can attack before attackinh
     attackCharge(){
-        if(this.chargeTime > 1){
+        if(this.charges > 0){
             this.attack();
-            this.chargeTime = 0;
+            this.charges -= 1;
+            if(this,this.charges < 0){
+                this.charges = 0;
+            }
         }
     }
 
@@ -122,8 +126,14 @@ class Player extends PIXI.AnimatedSprite{
 
         //add to the attack charge
         this.chargeTime += dt;
-        if(this.chargeTime > 10) this.chargeTime = 10;
+        if(this.chargeTime > 4){
+            this.charges++;
+            if(this.charges > 3) this.charges = 3;
+
+            this.chargeTime = 0;
+        }
         if(this.state != "shield") this.shieldCharge += .25 * dt;
+        if(this.shieldCharge > 5) this.shieldCharge = 5;
 
         //switch for state machine, lots of states
         switch(this.state){
@@ -267,7 +277,10 @@ class Player extends PIXI.AnimatedSprite{
                 }*/
                 else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
-                    if(this.textures != this.animations.idle)
+                     if(keys[keyboard.SPACE]){
+                        this.attackCharge();
+                    }
+                    else if(this.textures != this.animations.idle)
                     this.textures = this.animations.idle;
                     if(this.immunity >= 5   * this.animationSpeed){
                         this.immunity = 0;
@@ -497,7 +510,7 @@ class Player extends PIXI.AnimatedSprite{
         }
         // move enemy back to the right
         if(this.x < -1000){
-            this.x = getRandom(sceneWidth, 100000);
+            this.x = getRandom(sceneWidth + 100, 100000);
             this.state = "runLeft";
             this.textures = this.animations.run;
             this.loop = true;

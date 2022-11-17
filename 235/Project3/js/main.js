@@ -94,7 +94,12 @@ let enemies = [];
 let bgMusic;
 let ambience;
 
+window.onclick = startGame;
 
+function startGame(){
+    startScene.visible = false;
+    paused = false;
+}
 //function for making particles, from the demo
 const createParticles = ()=>{
     particles = [];
@@ -138,6 +143,29 @@ function updateBG(){
     threeParallax.tilePosition.x = bgX/10;
     twoParallax.tilePosition.x = bgX/12;
     oneParallax.tilePosition.x = bgX/14;
+
+    if(player.health <= 2){
+        eightParallax.tint =  0xFF0000;
+        sevenParallax.tint =  0xFF0000;
+        sixParallax.tint =  0xFF0000;
+        fiveParallax.tint =  0xFF0000;
+        fourParallax.tint =  0xFF0000;
+        threeParallax.tint =  0xFF0000;
+        twoParallax.tint =  0xFF0000;;
+        oneParallax.tint = 0xFF0000;
+        background.tint = 0xFF0000;
+    }
+    else{
+        eightParallax.tint =  0xFFFFFF;
+        sevenParallax.tint =  0xFFFFFF;
+        sixParallax.tint =  0xFFFFFF;
+        fiveParallax.tint =  0xFFFFFF;
+        fourParallax.tint =  0xFFFFFF;
+        threeParallax.tint =  0xFFFFFF;
+        twoParallax.tint =  0xFFFFFF;;
+        oneParallax.tint = 0xFFFFFF;
+        background.tint = 0xFFFFFF;
+    }
 }
 
 
@@ -249,7 +277,7 @@ function setup(){
     player.interactive = true;
     player.play();
     gameScene.addChild(player);
-    SpawnEnemies(20, textures, sounds);
+    SpawnEnemies(40, textures, sounds);
     
 
     //
@@ -261,7 +289,7 @@ function setup(){
 //function to spawn a bunch of enemies
 function SpawnEnemies(number, textures, sounds){
     for(let i = 0; i < number; i++){
-        let enemy= new Enemy(textures, getRandom(sceneWidth, 100000), 600, sounds);
+        let enemy= new Enemy(textures, getRandom(sceneWidth + 100, 100000), 600, sounds);
         enemy.play();
         enemies.push(enemy);
         gameScene.addChild(enemy);
@@ -368,11 +396,19 @@ function gameLoop(){
  //let cos = Math.cos(lifetime / 60);
  
  let yForce  = 0; //=  cos * (120 * dt);
- let xForce = sin * (40 * dt);
- player.playerUpdate(dt);
+ let xForce = sin * (30 * dt);
+
  for (let p of particles){
     p.update(dt, xForce, yForce);
   }
+  lifetime++;
+  if(lifetime > 1000){
+   lifetime = 0;
+  }
+
+ player.playerUpdate(dt);
+ updateBG();
+
  if(paused) return;
 
  if (!bgMusic.playing())  bgMusic.play();
@@ -380,7 +416,6 @@ function gameLoop(){
   enemy.enemyUpdate(dt);
  }
 
- updateBG();
 
  CheckCollisions(dt);
 
@@ -404,16 +439,6 @@ function gameLoop(){
  // Draw a circle
  graphics.drawCircle(player.x, player.y, 70);
  graphics.endFill();*/
-
-
- 
- lifetime++;
- if(lifetime > 1000){
-  lifetime = 0;
- }
-
-
-   
   
 }
 
@@ -422,8 +447,8 @@ function createButtonsAndText(){
      let title = new PIXI.Text("Winter's Dawn");
      title.style = new PIXI.TextStyle({
          fill: 0xFFFFFF,
-         fontSize: 72,
-         fontFamily: 'Arial',
+         fontSize: 80,
+         fontFamily: 'Arial',//will change temp
          fontStyle: 'bold'
          
      });
@@ -432,7 +457,13 @@ function createButtonsAndText(){
      startScene.addChild(title);
  
  
-
+    //gamescene setup
+    /*let healthBar = new PIXI.Sprite.from("images/healthbarpng.png");
+    healthBar.x = 1/20 * sceneWidth;
+    healthBar.y = 1/10 * sceneHeight;
+    healthBar.scale.set(2);
+    gameScene.addChild(healthBar);
+      stage.hp = healthBar;*/
  
     /* let instructions = new PIXI.Sprite.from("images/instructions.png");
      instructions.anchor.set(0.5, 0.5);
