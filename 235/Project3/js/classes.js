@@ -5,7 +5,7 @@ class Player extends PIXI.AnimatedSprite{
         super(animations.idle)
         this.anchor.set(.5,.5);
         this.animations = animations;
-        this.scale.set(2.5);
+        this.scale.set(3);
         this.sounds = sounds;
         this.animationSpeed = 0.15;
         this.loop = true;
@@ -304,8 +304,8 @@ class Player extends PIXI.AnimatedSprite{
         }
 
         this.play();
+        increaseScoreBy(this.dx/10000);
       // this.x += this.dx * dt;
-       // this.y += this.dy * dt;
     }
 }
 
@@ -326,13 +326,31 @@ class Player extends PIXI.AnimatedSprite{
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 	}
-	
+	time = 0;
+    wind = 1;
 	update(dt, xForce, yForce){
+        this.time += dt;
+
+        if(this.time >= 4){
+            this.x +=   this.wind * this.xSpeed * dt;
+            
+            if(this.time > 6){
+                this.wind -= 2 * dt;
+            }
+            else{
+                this.wind += 2 * dt;
+            }
+            if(this.time > 8 ){
+                this.time = 0;
+                this.wind = 1;
+            }
+        }
 		this.x += this.xSpeed * dt;
 		this.y += this.ySpeed * dt;
         
         this.x += xForce;
         this.y += yForce;
+
         
 
 
@@ -357,7 +375,7 @@ class Player extends PIXI.AnimatedSprite{
         super(animations.run)
         this.anchor.set(.5,.5);
         this.animations = animations;
-        this.scale.set(2.5);
+        this.scale.set(3);
         this.animationSpeed = 0.15;
         this.loop = true;
         this.x = x;
@@ -380,6 +398,7 @@ class Player extends PIXI.AnimatedSprite{
             this.sounds["hurtEnemy"].play();
         }
         else{
+            increaseScoreBy(100);
             this.state = "death";
             this.textures = this.animations.hurt;
             this.diff += .25;
@@ -454,7 +473,6 @@ class Player extends PIXI.AnimatedSprite{
                 this.loop = false;
                 this.immunity += dt;
                 if(this.immunity > 3 * this.animationSpeed){
-
                     this.loop = false;
                     if(this.textures != this.animations.idle)
                     this.textures = this.animations.idle;
@@ -509,17 +527,19 @@ class Player extends PIXI.AnimatedSprite{
         }
         // move enemy back to the right
         if(this.x < -1000){
-            this.x = getRandom(sceneWidth + 100, 100000);
-            this.state = "runLeft";
-            this.textures = this.animations.run;
-            this.loop = true;
-            this.health = getRandom(0,2 + this.diff)
-            console.log(this.health);
-            this.deathTime = 0;
+            this.reset();
         }
 
         this.play();
        this.x += this.dx * dt;
+    }
+    reset(){
+        this.x = getRandom(sceneWidth + 100, 100000);
+        this.state = "runLeft";
+        this.textures = this.animations.run;
+        this.loop = true;
+        this.health = getRandom(0,2 + this.diff)
+        this.deathTime = 0;
     }
 }
 

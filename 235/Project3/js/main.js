@@ -99,14 +99,24 @@ let gameSceneUpdate
 let enemies = [];
 let bgMusic;
 let ambience;
+let score = 0;
+let scoreText;
 
-window.onclick = startGame;
 
 function startGame(){
     startScene.visible = false;
+    endScene.visible = false;
+    player.resetAttack();
     gameSceneUpdate.visible = true;
     player.charges = 3;
+    player.health = 5;
+    player.shieldCharge = 6;
     paused = false;
+    for(let enemy of enemies){
+        enemy.reset();
+        enemy.diff = 0;
+    }
+    score = 0;
 }
 //function for making particles, from the demo
 const createParticles = ()=>{
@@ -141,7 +151,7 @@ function createBg(texture) {
 
 //update background(tiling)
 function updateBG(){
-    let bGSpeed = -player.dx/2000;
+    let bGSpeed = -player.dx/1500;
     bgX = bgX + bGSpeed;
     eightParallax.tilePosition.x = bgX;
     sevenParallax.tilePosition.x = bgX/2
@@ -196,10 +206,7 @@ function setup(){
     eightParallax = createBg(app.loader.resources["8"].texture);
 
 
-	// #1 - Create the `start` scene
-    startScene = new PIXI.Container();
-    stage.addChild(startScene);
-    startScene.visible = true; //temp
+
 	// #2 - Create the main `game` scene and make it invisible
     gameScene = new PIXI.Container();
     gameScene.addChild(container);
@@ -207,6 +214,15 @@ function setup(){
     gameScene.visible = true;
     stage.addChild(gameScene);
 
+        //Create the endScene scene and make it invisible
+	endScene = new PIXI.Container();
+    endScene.visible = false;   
+    stage.addChild(endScene);
+
+    	//Create the start scene
+        startScene = new PIXI.Container();
+        stage.addChild(startScene);
+        startScene.visible = true;
 
     //gameUpdate scene-invisible
     gameSceneUpdate = new PIXI.Container();
@@ -214,10 +230,6 @@ function setup(){
     gameSceneUpdate.visible = false;
     stage.addChild(gameSceneUpdate);
 
-    // #3 - Create the `gameOver` scene and make it invisible
-	endScene = new PIXI.Container();
-    endScene.visible = false;
-    stage.addChild(endScene);
 
     createButtonsAndText();
 
@@ -292,10 +304,10 @@ function setup(){
     player.interactive = true;
     player.play();
     gameScene.addChild(player);
+
     SpawnEnemies(40, textures, sounds);
     
 
-    //
 
     //gameloop
     app.ticker.add(gameLoop);
@@ -435,27 +447,13 @@ updateButtonsAndText();
 
  CheckCollisions(dt);
 
+ if(player.state =="dead") endSceneSwap();
 
-
-
-
- //hit box drawing
- /*
- graphics.beginFill(0xe74c3c); // Red
- // Draw a circle
- graphics.drawCircle(player.x, player.y, 300);
- graphics.endFill();
-
- graphics.beginFill(); // Red
- // Draw a circle
- graphics.drawCircle(player.x, player.y, 200);
- graphics.endFill();
-
- graphics.beginFill(0xe74c3ca); // Red
- // Draw a circle
- graphics.drawCircle(player.x, player.y, 70);
- graphics.endFill();*/
-  
+}
+//change to gameover scene
+function endSceneSwap(){
+    endScene.visible = true;
+    gameSceneUpdate.visible = false;
 }
 let sword3;
 let sword1;
@@ -464,30 +462,33 @@ let shield1;
 let shield2;
 let shield3;
 function createButtonsAndText(){
+
+    //save style 
+    let style = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 40,
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+        
+    });
      // 1 - set up startscene
      let title = new PIXI.Text("Winter's Dawn");
-     title.style = new PIXI.TextStyle({
-         fill: 0xFFFFFF,
-         fontSize: 80,
-         fontFamily: 'Arial',//will change temp
-         fontStyle: 'bold'
-         
-     });
+     title.style = style;
      title.x = sceneWidth / 2 - title.width / 2;
      title.y = 125;
      startScene.addChild(title);
 
-     let instructions = new PIXI.Text("Click the screen to begin!");
-     instructions.style = new PIXI.TextStyle({
-         fill: 0xFFFFFF,
-         fontSize: 40,
-         fontFamily: 'Arial',//will change temp
-         fontStyle: 'bold'
-         
-     });
+     let instructions = new PIXI.Text("Click here to begin!");
+     instructions.style = style;
      instructions.x = sceneWidth / 2 - instructions.width / 2;
      instructions.y = 100 + title.y;
+     instructions.interactive = true;
+     instructions.buttonMode = true;
+     instructions.on("pointerup",startGame);
+     instructions.on('pointerover', e=>e.target.alpha =.7);
+     instructions.on('pointerout', e=>e.currentTarget.alpha = 1.0);
      startScene.addChild(instructions);
+
 
      
      let directions = new PIXI.Sprite.from(app.loader.resources.directionsUI.url);
@@ -538,21 +539,46 @@ function createButtonsAndText(){
      gameSceneUpdate.addChild(sword3);
 
 
-        
-    //gamescene setup
-    /*let healthBar = new PIXI.Sprite.from("images/healthbarpng.png");
-    healthBar.x = 1/20 * sceneWidth;
-    healthBar.y = 1/10 * sceneHeight;
-    healthBar.scale.set(2);
-    gameScene.addChild(healthBar);
-      stage.hp = healthBar;*/
- 
-    /* let instructions = new PIXI.Sprite.from("images/instructions.png");
-     instructions.anchor.set(0.5, 0.5);
-     instructions.x = sceneWidth / 2 - instructions.width / 2;
-     instructions.y = sceneHeight / 2 + sceneHeight / 2;
-     startScene.addChild(instructions);*/
+     //make score label
+    scoreText= new PIXI.Text();
+    scoreText.style.fill = 0xADD8E6;
+    scoreText.style = style;
+    scoreText.x = sword1.x;
+    scoreText.y = 5;
+    gameSceneUpdate.addChild(scoreText);
+    increaseScoreBy(0);
+
+
+    //game over
+    let endMessage = new PIXI.Text("YOU DIED!");
+     endMessage.style = style;
+     endMessage.x = sceneWidth / 2 - endMessage.width / 2;
+     endMessage.y = 125;
+     endScene.addChild(endMessage);
+
+     let instructionsEnd = new PIXI.Text("Click Here to Begin Anew!");
+     instructionsEnd.style = style
+     instructionsEnd.x = sceneWidth / 2 - instructionsEnd.width / 2;
+     instructionsEnd.y = 100 + endMessage.y;
+     instructionsEnd.interactive = true;
+     instructions.buttonMode = true;
+     instructionsEnd.on("pointerup",startGame);
+     instructionsEnd.on('pointerover', e=>e.target.alpha =.7);
+     instructionsEnd.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+
+     endScene.addChild(instructionsEnd);
+
+
 }
+
+//adds to the score
+function increaseScoreBy(value){
+    score += value;
+    scoreText.text = `Score:${Math.floor(score)}`;
+}
+
+
+
 
 //update the labels
 function updateButtonsAndText(){
