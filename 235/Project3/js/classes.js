@@ -278,6 +278,9 @@ class Player extends PIXI.AnimatedSprite{
                      if(keys[keyboard.SPACE]){
                         this.attackCharge();
                     }
+                    else if(keys[keyboard.SHIFT]){
+                        this.shield();
+                    }
                     else if(this.textures != this.animations.idle)this.textures = this.animations.idle;
                     
                     if(this.immunity >= 5   * this.animationSpeed){
@@ -540,6 +543,22 @@ class Player extends PIXI.AnimatedSprite{
         this.loop = true;
         this.health = getRandom(0,2 + this.diff)
         this.deathTime = 0;
+    }
+}
+
+//health powerup class
+class HealthKit extends PIXI.AnimatedSprite{
+    constructor(animations,x,y){
+
+        super(animations.idle)
+        this.anchor.set(.5,.5);
+        this.animations = animations;
+        this.scale.set(2.5);
+        this.animationSpeed = 0.15;
+        this.loop = true;
+        this.x = x;
+        this.y = y;
+        this.frameNumber = 1;
     }
 }
 
