@@ -5,7 +5,7 @@ class Player extends PIXI.AnimatedSprite{
         super(animations.idle)
         this.anchor.set(.5,.5);
         this.animations = animations;
-        this.scale.set(3);
+        this.scale.set(2.5);
         this.sounds = sounds;
         this.animationSpeed = 0.15;
         this.loop = true;
@@ -375,7 +375,7 @@ class Player extends PIXI.AnimatedSprite{
         super(animations.run)
         this.anchor.set(.5,.5);
         this.animations = animations;
-        this.scale.set(3);
+        this.scale.set(2.5);
         this.animationSpeed = 0.15;
         this.loop = true;
         this.x = x;

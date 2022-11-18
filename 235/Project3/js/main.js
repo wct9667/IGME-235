@@ -85,6 +85,12 @@ app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 app.loader.add("swordUI", "images/ui/Sword.png");
 app.loader.add("directionsUI", "images/ui/directions.png");
 app.loader.add("shieldUI", "images/ui/Shield.png");
+app.loader.add("healthUI", "images/ui/health/tile000.png");
+app.loader.add("healthUI2", "images/ui/health/tile001.png");
+app.loader.add("healthUI3", "images/ui/health/tile002.png");
+app.loader.add("healthUI4", "images/ui/health/tile003.png");
+app.loader.add("healthUI5", "images/ui/health/tile004.png");
+
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
@@ -458,9 +464,8 @@ function endSceneSwap(){
 let sword3;
 let sword1;
 let sword2;
-let shield1;
-let shield2;
-let shield3;
+let shield1, shield2,shield3;
+let health1, health2, health3, health4, health5;
 function createButtonsAndText(){
 
     //save style 
@@ -538,6 +543,38 @@ function createButtonsAndText(){
      sword3.scale.set(2);
      gameSceneUpdate.addChild(sword3);
 
+        //health 
+        health1=  PIXI.Sprite.from(app.loader.resources.healthUI.url);
+        health1.x = sword2.x
+        health1.y = sword1.y + sceneHeight/10;
+        health1.scale.set(3);
+        gameSceneUpdate.addChild(health1);
+
+        health2=  PIXI.Sprite.from(app.loader.resources.healthUI2.url);
+        health2.x = sword2.x
+        health2.y = sword1.y + sceneHeight/10;
+        health2.scale.set(3);
+        gameSceneUpdate.addChild(health2);
+
+        health3=  PIXI.Sprite.from(app.loader.resources.healthUI3.url);
+        health3.x = sword2.x
+        health3.y = sword1.y + sceneHeight/10;
+        health3.scale.set(3);
+        gameSceneUpdate.addChild(health3);
+
+        health4=  PIXI.Sprite.from(app.loader.resources.healthUI4.url);
+        health4.x = sword2.x
+        health4.y = sword1.y + sceneHeight/10;
+        health4.scale.set(3);
+        gameSceneUpdate.addChild(health4);
+
+        health5=  PIXI.Sprite.from(app.loader.resources.healthUI5.url);
+        health5.x = sword2.x
+        health5.y = sword1.y + sceneHeight/10;
+        health5.scale.set(3);
+        gameSceneUpdate.addChild(health5);
+
+   
 
      //make score label
     scoreText= new PIXI.Text();
@@ -610,6 +647,43 @@ function updateButtonsAndText(){
                shield3.visible = true;
             }
         }
+    }
+
+    //update health sprite
+    if(player.health == 5){
+        health1.visible = true;
+        health2.visible = false;
+        health3.visible = false;
+        health4.visible = false;
+        health5.visible = false;
+    }
+    else if (player.health == 4){
+        health1.visible = false;
+        health2.visible = true;
+        health3.visible = false;
+        health4.visible = false;
+        health5.visible = false;
+    }
+    else if (player.health == 3){
+        health1.visible = false;
+        health2.visible = false;
+        health3.visible = true;
+        health4.visible = false;
+        health5.visible = false;
+    }
+    else if (player.health == 2){
+        health1.visible = false;
+        health2.visible = false;
+        health3.visible = false;
+        health4.visible = true;
+        health5.visible = false;
+    }
+    else if (player.health == 1){
+        health1.visible = false;
+        health2.visible = false;
+        health3.visible = false;
+        health4.visible = false;
+        health5.visible = true;
     }
 }
 
