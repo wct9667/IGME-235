@@ -66,6 +66,8 @@ app.loader.add("shield", "images/playerAnimations/shield.png");
 app.loader.add("roll", "images/playerAnimations/roll.png");
 app.loader.add("hurt", "images/playerAnimations/hurt.png");
 app.loader.add("death", "images/playerAnimations/death.png");
+app.loader.add("campfire", "images/otherAnim/campire.png");
+
 /////////////////////load sounds
 //app.loader.add("idle",  "../sounds/playerAnimations/hurtEnemy.wav");
 //app.loader.add("run",  "../sounds/playerAnimations/hurtEnemy.wav");
@@ -103,6 +105,7 @@ let gameScene;
 let endScene;
 let gameSceneUpdate
 let enemies = [];
+let healthKits = [];
 let bgMusic;
 let ambience;
 let score = 0;
@@ -157,7 +160,7 @@ function createBg(texture) {
 
 //update background(tiling)
 function updateBG(){
-    let bGSpeed = -player.dx/1500;
+    let bGSpeed = -player.dx/500;
     bgX = bgX + bGSpeed;
     eightParallax.tilePosition.x = bgX;
     sevenParallax.tilePosition.x = bgX/2
@@ -186,7 +189,7 @@ function updateBG(){
         fiveParallax.tint =  0xFFFFFF;
         fourParallax.tint =  0xFFFFFF;
         threeParallax.tint =  0xFFFFFF;
-        twoParallax.tint =  0xFFFFFF;;
+        twoParallax.tint =  0xFFFFFF;
         oneParallax.tint = 0xFFFFFF;
         background.tint = 0xFFFFFF;
     }
@@ -304,6 +307,8 @@ function setup(){
     textures["hurt"] = loadSpriteSheet(4, "hurt");
     textures["death"] = loadSpriteSheet(8, "death");
 
+    let healthTexture = []
+    healthTexture["idle"] = loadSpriteSheet(23, "health");
 
     //player creation
     player = new Player(textures, sceneWidth/2, 600, sounds);
@@ -311,6 +316,8 @@ function setup(){
     player.play();
     gameScene.addChild(player);
 
+
+    SpawnHealth(3000, healthTexture);
     SpawnEnemies(40, textures, sounds);
     
 
@@ -326,6 +333,15 @@ function SpawnEnemies(number, textures, sounds){
         enemy.play();
         enemies.push(enemy);
         gameScene.addChild(enemy);
+    }
+}
+
+function SpawnHealth(number, texture){
+    for(let i = 0; i < number; i++){
+        let healthKit= new HealthKit(texture, getRandom(sceneWidth + 100, 100000), 600);
+        healthKit.play();
+        healthKits.push(healthKit);
+        gameScene.addChild(healthKit);
     }
 }
 
@@ -356,6 +372,9 @@ function loadSpriteSheet(numFrames, sprite){
     }
     else if(sprite == "death"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.death.url);
+    }
+    else if (sprite == "health"){
+        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.campfire.url);
     }
     else{
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.idleSprites.url);
@@ -448,6 +467,9 @@ updateButtonsAndText();
  if (!bgMusic.playing())  bgMusic.play();
  for(let enemy of enemies){
   enemy.enemyUpdate(dt);
+ }
+ for (let hk of healthKits){
+    hk.healthUpdate(dt);
  }
 
 

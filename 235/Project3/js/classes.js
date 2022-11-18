@@ -556,9 +556,24 @@ class HealthKit extends PIXI.AnimatedSprite{
         this.scale.set(2.5);
         this.animationSpeed = 0.15;
         this.loop = true;
+        this.scale.set(.25);
         this.x = x;
         this.y = y;
         this.frameNumber = 1;
+    }
+
+    reset(){
+        this.x = getRandom(sceneWidth + 100, 100000);
+    }
+    collide(){
+        
+    }
+    healthUpdate(){
+        this.x -= player.dx/1250;
+
+        if(this.x < -1000){
+            this.reset();
+        }
     }
 }
 
