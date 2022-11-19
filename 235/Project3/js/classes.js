@@ -23,6 +23,7 @@ class Player extends PIXI.AnimatedSprite{
                                                     
     }
 
+    //controls for the animations
     chargeTime = 0;
     charges = 3;
     dx = 0;
@@ -33,7 +34,9 @@ class Player extends PIXI.AnimatedSprite{
     runTime = 0;
     prevSound = 0;
     rollDirection = 0;
+    healthTime = 0;
     shieldCharge = 6;
+    healTimetoNext = 50;
 
     //checks if the player can attack before attackinh
     attackCharge(){
@@ -97,6 +100,21 @@ class Player extends PIXI.AnimatedSprite{
         this.textures = this.animations.idle;
         this.state = "idle"; 
     }
+
+    //method to swap to heal state
+    heal(){
+        if(this.healTimetoNext >=50 && this.health < 5){
+
+            this.state = "heal"
+            this.healTimetoNext = 0;
+            //play sound
+            this.sounds["heal"].play();
+            this.textures = this.animations.heal; 
+                this.health++;
+        }
+
+
+    }
     //set the player to a shield state if their charge is high enough
     shield(){
 
@@ -110,7 +128,7 @@ class Player extends PIXI.AnimatedSprite{
 
         this.state = "roll";
         this.textures = this.animations.roll;
-        this.rollDirection = 200;
+        this.rollDirection = 100;
         this.sounds["roll"].play();
     }
     //sets the player to a roll right state
@@ -124,6 +142,7 @@ class Player extends PIXI.AnimatedSprite{
         // Reset x speed each frame
         this.dx = 0;
 
+        this.healTimetoNext += dt;
         //add to the attack charge
         this.chargeTime += dt;
         if(this.chargeTime > 5){
@@ -155,7 +174,9 @@ class Player extends PIXI.AnimatedSprite{
                     this.runRight();
                 }
                 else if (keys[keyboard.S]){
-                this.roll();
+                this.roll();}
+                else if (keys[keyboard.A]){
+                    this.heal();
                 }
                 break;
 
@@ -175,7 +196,7 @@ class Player extends PIXI.AnimatedSprite{
                     }
                     this.runTime = 0;
                 }
-                this.dx += 200;
+                this.dx += 100;
                 this.scale.x = 2.5;
 
                 //breaks out
@@ -199,7 +220,7 @@ class Player extends PIXI.AnimatedSprite{
 
             case "runLeft":
                 this.scale.x = -2.5;
-                this.dx -= 200;
+                this.dx -= 100;
 
                 if(keys[keyboard.RIGHT] && !keys[keyboard.LEFT]){
                     this.state = "runRight";
@@ -212,7 +233,7 @@ class Player extends PIXI.AnimatedSprite{
                 else if (keys[keyboard.S]){
                     this.state = "roll";
                     this.textures = this.animations.roll;
-                    this.rollDirection = -200;
+                    this.rollDirection = -100;
                 }
 
 
@@ -298,6 +319,15 @@ class Player extends PIXI.AnimatedSprite{
                     this.state = "dead";
                 }
                 break;
+                case "heal":
+                    this.healthTime += dt;
+                    this.loop = false;
+                    if(this.healthTime > 6  * this.animationSpeed){ 
+                        this.healthTime = 0;
+                        this.loop = true;
+                        this.textures = this.animations.idle;
+                        this.state = "idle";
+                    }
             case "dead":
                     break;
 
@@ -556,7 +586,7 @@ class HealthKit extends PIXI.AnimatedSprite{
         this.scale.set(2.5);
         this.animationSpeed = 0.15;
         this.loop = true;
-        this.scale.set(.25);
+        this.scale.set(1);
         this.x = x;
         this.y = y;
         this.frameNumber = 1;
@@ -568,8 +598,8 @@ class HealthKit extends PIXI.AnimatedSprite{
     collide(){
         
     }
-    healthUpdate(){
-        this.x -= player.dx/1250;
+    healthUpdate(dt){
+        this.x -= player.dx * dt;
 
         if(this.x < -1000){
             this.reset();

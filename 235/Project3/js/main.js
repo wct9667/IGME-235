@@ -30,7 +30,8 @@ const keyboard = Object.freeze({
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
-    S: 83
+    S: 83,
+    A:65
 
 });
 
@@ -66,7 +67,9 @@ app.loader.add("shield", "images/playerAnimations/shield.png");
 app.loader.add("roll", "images/playerAnimations/roll.png");
 app.loader.add("hurt", "images/playerAnimations/hurt.png");
 app.loader.add("death", "images/playerAnimations/death.png");
+app.loader.add("heal", "images/playerAnimations/heal.png");
 app.loader.add("campfire", "images/otherAnim/campire.png");
+
 
 /////////////////////load sounds
 //app.loader.add("idle",  "../sounds/playerAnimations/hurtEnemy.wav");
@@ -81,6 +84,7 @@ app.loader.add("hurtEnemyS", "sounds/hurtEnemy.wav");
 app.loader.add("foot1S", "sounds/foot1.wav" );
 app.loader.add("foot2S", "sounds/foot2.wav");
 app.loader.add("rollS", "sounds/roll.wav");
+app.loader.add("healS", "sounds/heal.wav");
 app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
 app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 /////////////////////////////ui
@@ -159,8 +163,8 @@ function createBg(texture) {
 }
 
 //update background(tiling)
-function updateBG(){
-    let bGSpeed = -player.dx/500;
+function updateBG(dt){
+    let bGSpeed = -player.dx * dt;
     bgX = bgX + bGSpeed;
     eightParallax.tilePosition.x = bgX;
     sevenParallax.tilePosition.x = bgX/2
@@ -284,6 +288,10 @@ function setup(){
         src: [app.loader.resources.foot2S.url],
         volume: 0.25
     });
+    sounds["heal"] = new Howl({
+        src: [app.loader.resources.healS.url],
+        volume: 0.25
+    });
     bgMusic = new Howl({
         src: [app.loader.resources.guitar.url],
         html5: true,
@@ -306,10 +314,12 @@ function setup(){
     textures["roll"] = loadSpriteSheet(4, "roll");
     textures["hurt"] = loadSpriteSheet(4, "hurt");
     textures["death"] = loadSpriteSheet(8, "death");
+    textures["heal"] = loadSpriteSheet(8, "heal");
 
     let healthTexture = []
-    healthTexture["idle"] = loadSpriteSheet(23, "health");
+    healthTexture["idle"] = loadSpriteSheet(11, "health");
 
+    //SpawnHealth(300, healthTexture);
     //player creation
     player = new Player(textures, sceneWidth/2, 600, sounds);
     player.interactive = true;
@@ -317,7 +327,7 @@ function setup(){
     gameScene.addChild(player);
 
 
-    SpawnHealth(3000, healthTexture);
+
     SpawnEnemies(40, textures, sounds);
     
 
@@ -373,6 +383,9 @@ function loadSpriteSheet(numFrames, sprite){
     else if(sprite == "death"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.death.url);
     }
+    else if (sprite == "heal"){
+       spriteSheet = PIXI.BaseTexture.from(app.loader.resources.heal.url);
+   }
     else if (sprite == "health"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.campfire.url);
     }
@@ -381,6 +394,11 @@ function loadSpriteSheet(numFrames, sprite){
     }
     let width = 512
     let height  = 512;
+    if(sprite == "health"){
+        width = 1122/numFrames;
+        height = 102;
+    }
+
     let textures = [];
     for(let i=0;i<numFrames;i++)
     { 
@@ -389,6 +407,8 @@ function loadSpriteSheet(numFrames, sprite){
     }
     return textures;    
 }
+
+
 
 
 //check collisions between enemies and player
@@ -432,6 +452,14 @@ function CheckCollisions(dt){
                    enemy.hurt();
                 }
             }
+
+           /* for(let hk of healthKits){
+                if(!player.hasHealed){
+                    if(CircleIntersect(player.x,player.y,player.hitBoxRadius ,hk.x,hk.y,20)){
+                        player.heal();
+                    }
+                }
+            }*/
     }
 }
 
@@ -459,7 +487,7 @@ function gameLoop(){
   }
 
  player.playerUpdate(dt);
- updateBG();
+ updateBG(dt);
 
  if(paused) return;
 
@@ -734,6 +762,9 @@ window.onkeyup = (e) => {
     if(e.keyCode == 16){
         keys[keyboard.SHIFT] = false;
     }
+    if(c == "A" || c == "a"){
+        keys[keyboard.A] = false;
+    }
 };
 
 //pressed
@@ -759,6 +790,9 @@ window.onkeydown = (e) => {
     }
     if(e.keyCode == 16){
         keys[keyboard.SHIFT] = true;
+    }
+    if(c == "A" || c == "a"){
+        keys[keyboard.A] = true;
     }
 
 };
