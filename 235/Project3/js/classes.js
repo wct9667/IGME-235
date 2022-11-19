@@ -145,7 +145,7 @@ class Player extends PIXI.AnimatedSprite{
         this.healTimetoNext += dt;
         //add to the attack charge
         this.chargeTime += dt;
-        if(this.chargeTime > 8){
+        if(this.chargeTime > 7){
             this.charges++;
             if(this.charges > 4) this.charges = 4;
 
