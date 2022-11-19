@@ -129,6 +129,7 @@ function startGame(){
     player.charges = 4;
     player.health = 5;
     player.shieldCharge = 8;
+    player.healTimetoNext = 40;
     paused = false;
     for(let enemy of enemies){
         enemy.reset();
