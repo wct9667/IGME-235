@@ -8,7 +8,7 @@ let paused = true;
 
     const app = new PIXI.Application({
         width: 1000,
-        height: 675,
+        height: 675
     });
     document.body.appendChild(app.view);
     
@@ -171,6 +171,9 @@ function createBg(texture) {
 //update background(tiling)
 function updateBG(dt){
     let bGSpeed = -player.dx * dt;
+    if(player.state == "roll"){
+        bGSpeed = -(player.dx-200)/1.5 * dt;
+    }
     bgX = bgX + bGSpeed;
     eightParallax.tilePosition.x = bgX;
     sevenParallax.tilePosition.x = bgX/2
