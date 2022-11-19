@@ -128,7 +128,7 @@ class Player extends PIXI.AnimatedSprite{
 
         this.state = "roll";
         this.textures = this.animations.roll;
-        this.rollDirection = 100;
+        this.rollDirection = 200;
         this.sounds["roll"].play();
     }
     //sets the player to a roll right state
@@ -145,7 +145,7 @@ class Player extends PIXI.AnimatedSprite{
         this.healTimetoNext += dt;
         //add to the attack charge
         this.chargeTime += dt;
-        if(this.chargeTime > 7){
+        if(this.chargeTime > 8){
             this.charges++;
             if(this.charges > 4) this.charges = 4;
 
@@ -367,16 +367,16 @@ class Player extends PIXI.AnimatedSprite{
 	update(dt, xForce, yForce){
         this.time += dt;
 
-        if(this.time >= 4){
+        if(this.time >= 10){
             this.x +=   this.wind * this.xSpeed * dt;
             
-            if(this.time > 6){
-                this.wind -= 2 * dt;
+            if(this.time > 15){
+                this.wind -= 1 * dt;
             }
             else{
-                this.wind += 2 * dt;
+                this.wind += 1 * dt;
             }
-            if(this.time > 8 ){
+            if(this.time > 20 ){
                 this.time = 0;
                 this.wind = 1;
             }
@@ -557,7 +557,7 @@ class Player extends PIXI.AnimatedSprite{
                 }
                 break;
                 case "dead":
-                    this.dx += - player.dx;
+                    this.dx += - 4 * player.dx;
                     break;
 
         }

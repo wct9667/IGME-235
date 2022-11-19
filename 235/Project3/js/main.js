@@ -475,8 +475,8 @@ function gameLoop(){
  let dt = 1/app.ticker.FPS;
  if (dt > 1/12) dt=1/12;
 
+
  if (!ambience.playing()) ambience.play();
- 
  //update player and projectiles
  let sin = Math.sin(lifetime / 60);
  //let cos = Math.cos(lifetime / 60);
