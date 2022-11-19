@@ -25,7 +25,7 @@ class Player extends PIXI.AnimatedSprite{
 
     //controls for the animations
     chargeTime = 0;
-    charges = 3;
+    charges = 4;
     dx = 0;
     attackTime = 0;
     deathTime = 0;
@@ -36,7 +36,7 @@ class Player extends PIXI.AnimatedSprite{
     rollDirection = 0;
     healthTime = 0;
     shieldCharge = 6;
-    healTimetoNext = 50;
+    healTimetoNext = 40;
 
     //checks if the player can attack before attackinh
     attackCharge(){
@@ -103,7 +103,7 @@ class Player extends PIXI.AnimatedSprite{
 
     //method to swap to heal state
     heal(){
-        if(this.healTimetoNext >=50 && this.health < 5){
+        if(this.healTimetoNext >=40 && this.health < 5){
 
             this.state = "heal"
             this.healTimetoNext = 0;
@@ -145,14 +145,14 @@ class Player extends PIXI.AnimatedSprite{
         this.healTimetoNext += dt;
         //add to the attack charge
         this.chargeTime += dt;
-        if(this.chargeTime > 5){
+        if(this.chargeTime > 8){
             this.charges++;
-            if(this.charges > 3) this.charges = 3;
+            if(this.charges > 4) this.charges = 4;
 
             this.chargeTime = 0;
         }
-        if(this.state != "shield") this.shieldCharge += .25 * dt;
-        if(this.shieldCharge > 6) this.shieldCharge = 6;
+        if(this.state != "shield") this.shieldCharge += .20 * dt;
+        if(this.shieldCharge > 8) this.shieldCharge = 8;
 
         //switch for state machine, lots of states
         switch(this.state){
@@ -214,6 +214,9 @@ class Player extends PIXI.AnimatedSprite{
                 }
                 else if(keys[keyboard.SPACE]){
                     this.attackCharge();
+                }
+                else if (keys[keyboard.A]){
+                    this.heal();
                 }
 
                 break;

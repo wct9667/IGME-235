@@ -96,6 +96,11 @@ app.loader.add("healthUI2", "images/ui/health/tile001.png");
 app.loader.add("healthUI3", "images/ui/health/tile002.png");
 app.loader.add("healthUI4", "images/ui/health/tile003.png");
 app.loader.add("healthUI5", "images/ui/health/tile004.png");
+app.loader.add("healthC", "images/ui/health/hCharge0.png");
+app.loader.add("healthC1", "images/ui/health/hCharge1.png");
+app.loader.add("healthC2", "images/ui/health/hCharge2.png");
+app.loader.add("healthC3", "images/ui/health/hCharge3.png");
+app.loader.add("healthC4", "images/ui/health/hCharge4.png");
 
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
@@ -121,9 +126,9 @@ function startGame(){
     endScene.visible = false;
     player.resetAttack();
     gameSceneUpdate.visible = true;
-    player.charges = 3;
+    player.charges = 4;
     player.health = 5;
-    player.shieldCharge = 6;
+    player.shieldCharge = 8;
     paused = false;
     for(let enemy of enemies){
         enemy.reset();
@@ -513,9 +518,10 @@ function endSceneSwap(){
 }
 let sword3;
 let sword1;
-let sword2;
-let shield1, shield2,shield3;
+let sword2, sword4;
+let shield1, shield2,shield3, shield4;
 let health1, health2, health3, health4, health5;
+let healthC1,healthC2,healthC3,healthC4,healthC5;
 function createButtonsAndText(){
 
     //save style 
@@ -547,8 +553,8 @@ function createButtonsAndText(){
 
      
      let directions = new PIXI.Sprite.from(app.loader.resources.directionsUI.url);
-     directions.x = sceneWidth / 2 - instructions.width * 5/8;
-     directions.y = 200 + title.y;
+     directions.x = sceneWidth / 2 - directions.width/9;
+     directions.y = 175 + title.y;
      directions.scale.set(.25);
      startScene.addChild(directions);
 
@@ -571,6 +577,12 @@ function createButtonsAndText(){
     shield3.y = sceneHeight/10;
     shield3.scale.set(1.5);
     gameSceneUpdate.addChild(shield3);
+
+    shield4 =  PIXI.Sprite.from(app.loader.resources.shieldUI.url);
+    shield4.x = shield3.x + sceneWidth/20;
+    shield4.y = sceneHeight/10;
+    shield4.scale.set(1.5);
+    gameSceneUpdate.addChild(shield4);
  
  
     
@@ -593,36 +605,77 @@ function createButtonsAndText(){
      sword3.scale.set(2);
      gameSceneUpdate.addChild(sword3);
 
-        //health 
+     sword4 =  PIXI.Sprite.from(app.loader.resources.swordUI.url);
+     sword4.x = sword3.x + sceneWidth/20;
+     sword4.y = sceneHeight/10;
+     sword4.scale.set(2);
+     gameSceneUpdate.addChild(sword4);
+
+
+             //health 
+             healthC1=  PIXI.Sprite.from(app.loader.resources.healthC.url);
+             healthC1.x =sword1.x+ sword1.width/2;
+             healthC1.y = sword1.y + sceneHeight/9;
+             healthC1.width = healthC1.width * 2/3;
+             gameSceneUpdate.addChild(healthC1);
+     
+             healthC2=  PIXI.Sprite.from(app.loader.resources.healthC1.url);
+             healthC2.x = sword1.x+ sword1.width/2;
+             healthC2.y = sword1.y + sceneHeight/9;
+             healthC2.width = healthC2.width * 2/3;
+             gameSceneUpdate.addChild(healthC2);
+     
+             healthC3=  PIXI.Sprite.from(app.loader.resources.healthC2.url);
+             healthC3.x = sword1.x+ sword1.width/2;
+             healthC3.y = sword1.y + sceneHeight/9;
+             healthC3.width = healthC3.width * 2/3;
+             gameSceneUpdate.addChild(healthC3);
+     
+             healthC4=  PIXI.Sprite.from(app.loader.resources.healthC3.url);
+             healthC4.x = sword1.x + sword1.width/2;
+             healthC4.y = sword1.y + sceneHeight/9;
+             healthC4.width = healthC4.width * 2/3;
+             gameSceneUpdate.addChild(healthC4);
+     
+             healthC5=  PIXI.Sprite.from(app.loader.resources.healthC4.url);
+             healthC5.x = sword1.x+ sword1.width/2;
+             healthC5.y = sword1.y + sceneHeight/9;
+             healthC5.width = healthC5.width * 2/3;
+             gameSceneUpdate.addChild(healthC5);
+       
+             //health 
         health1=  PIXI.Sprite.from(app.loader.resources.healthUI.url);
-        health1.x = sword2.x
+        health1.x = sword1.x
         health1.y = sword1.y + sceneHeight/10;
         health1.scale.set(3);
         gameSceneUpdate.addChild(health1);
 
         health2=  PIXI.Sprite.from(app.loader.resources.healthUI2.url);
-        health2.x = sword2.x
+        health2.x = sword1.x
         health2.y = sword1.y + sceneHeight/10;
         health2.scale.set(3);
         gameSceneUpdate.addChild(health2);
 
         health3=  PIXI.Sprite.from(app.loader.resources.healthUI3.url);
-        health3.x = sword2.x
+        health3.x = sword1.x
         health3.y = sword1.y + sceneHeight/10;
         health3.scale.set(3);
         gameSceneUpdate.addChild(health3);
 
         health4=  PIXI.Sprite.from(app.loader.resources.healthUI4.url);
-        health4.x = sword2.x
+        health4.x = sword1.x
         health4.y = sword1.y + sceneHeight/10;
         health4.scale.set(3);
         gameSceneUpdate.addChild(health4);
 
         health5=  PIXI.Sprite.from(app.loader.resources.healthUI5.url);
-        health5.x = sword2.x
+        health5.x = sword1.x
         health5.y = sword1.y + sceneHeight/10;
         health5.scale.set(3);
         gameSceneUpdate.addChild(health5);
+
+
+
 
    
 
@@ -675,12 +728,15 @@ function updateButtonsAndText(){
         sword1.visible = true;
         sword2.visible = false;
         sword3.visible = false;
+        sword4.visible = false;
         if(player.charges >=2){
             sword1.visible = true;
             sword2.visible = true;
             if(player.charges >= 3){
                sword3.visible = true;
-
+               if(player.charges >= 4){
+                sword4.visible = true;
+             }
             }
         }
     }
@@ -690,11 +746,14 @@ function updateButtonsAndText(){
         shield1.visible = true;
         shield2.visible = false;
         shield3.visible = false;
+        shield4.visible = false;
         if(player.shieldCharge >=4){
-            shield1.visible = true;
             shield2.visible = true;
             if(player.shieldCharge >= 6){
                shield3.visible = true;
+               if(player.shieldCharge >=8){
+                shield4.visible = true;
+               }
             }
         }
     }
@@ -734,6 +793,44 @@ function updateButtonsAndText(){
         health3.visible = false;
         health4.visible = false;
         health5.visible = true;
+    }
+
+    //update the healing charge sprite
+  
+    if (player.healTimetoNext > 40){
+        healthC1.visible = false;
+        healthC2.visible = false;
+        healthC3.visible = false;
+        healthC4.visible = false;
+        healthC5.visible = true;
+    }
+    else if(player.healTimetoNext > 30){
+        healthC1.visible = true;
+        healthC2.visible = false;
+        healthC3.visible = false;
+        healthC4.visible = true;
+        healthC5.visible = false;
+    }
+    else if (player.healTimetoNext > 20){
+        healthC1.visible = false;
+        healthC2.visible = false;
+        healthC3.visible = true;
+        healthC4.visible = false;
+        healthC5.visible = false;
+    }
+    else if (player.healTimetoNext > 10){
+        healthC1.visible = false;
+        healthC2.visible = true;
+        healthC3.visible = false;
+        healthC4.visible = false;
+        healthC5.visible = false;
+    }
+    else if (player.healTimetoNext > 0){
+        healthC1.visible = true;
+        healthC2.visible = false;
+        healthC3.visible = false;
+        healthC4.visible = false;
+        healthC5.visible = false;
     }
 }
 
