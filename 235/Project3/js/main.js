@@ -7,8 +7,8 @@ let bgX = 0;
 let paused = true;
 
     const app = new PIXI.Application({
-        width: 1000,
-        height: 675
+        width: 1200,
+        height: 720
     });
     document.body.appendChild(app.view);
     
@@ -118,9 +118,11 @@ let healthKits = [];
 let bgMusic;
 let ambience;
 let score = 0;
+let endScore;
 let scoreText;
 
 
+//this will get called at avery point the game resets, resets charges, health, score, and respawns enemies
 function startGame(){
     startScene.visible = false;
     endScene.visible = false;
@@ -172,7 +174,7 @@ function createBg(texture) {
 function updateBG(dt){
     let bGSpeed = -player.dx * dt;
     if(player.state == "roll"){
-        bGSpeed = -(player.dx-200)/1.5 * dt;
+        bGSpeed = -(player.dx/3) * dt;
     }
     bgX = bgX + bGSpeed;
     eightParallax.tilePosition.x = bgX;
@@ -543,6 +545,7 @@ function createButtonsAndText(){
      title.y = 125;
      startScene.addChild(title);
 
+     //button to start
      let instructions = new PIXI.Text("Click here to begin!");
      instructions.style = style;
      instructions.x = sceneWidth / 2 - instructions.width / 2;
@@ -555,7 +558,7 @@ function createButtonsAndText(){
      startScene.addChild(instructions);
 
 
-     
+     //image for directions
      let directions = new PIXI.Sprite.from(app.loader.resources.directionsUI.url);
      directions.x = sceneWidth / 2 - directions.width/9;
      directions.y = 175 + title.y;
@@ -563,7 +566,7 @@ function createButtonsAndText(){
      startScene.addChild(directions);
 
 
-         //shields
+         //shield charge ui
     shield1=  PIXI.Sprite.from(app.loader.resources.shieldUI.url);
     shield1.x = sceneWidth/20;
     shield1.y = sceneHeight/10;
@@ -590,7 +593,7 @@ function createButtonsAndText(){
  
  
     
-    //swords 
+    //sword charge ui
      sword1=  PIXI.Sprite.from(app.loader.resources.swordUI.url);
      sword1.x = sceneWidth/20;
      sword1.y = sceneHeight/10;
@@ -616,7 +619,7 @@ function createButtonsAndText(){
      gameSceneUpdate.addChild(sword4);
 
 
-             //health 
+             //health charge to heal ui
              healthC1=  PIXI.Sprite.from(app.loader.resources.healthC.url);
              healthC1.x =sword1.x+ sword1.width/2;
              healthC1.y = sword1.y + sceneHeight/9;
@@ -647,7 +650,7 @@ function createButtonsAndText(){
              healthC5.width = healthC5.width * 2/3;
              gameSceneUpdate.addChild(healthC5);
        
-             //health 
+             //health  ui
         health1=  PIXI.Sprite.from(app.loader.resources.healthUI.url);
         health1.x = sword1.x
         health1.y = sword1.y + sceneHeight/10;
@@ -679,7 +682,13 @@ function createButtonsAndText(){
         gameSceneUpdate.addChild(health5);
 
 
-
+        //score
+        endScore = new PIXI.Text();
+        endScore.style = style;
+        endScore.x = sceneWidth / 2;
+        endScore.y =  240;
+        endScene.addChild(endScore);
+   
 
    
 
@@ -695,7 +704,13 @@ function createButtonsAndText(){
 
     //game over
     let endMessage = new PIXI.Text("YOU DIED!");
-     endMessage.style = style;
+     endMessage.style = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 60,
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+        
+    });
      endMessage.x = sceneWidth / 2 - endMessage.width / 2;
      endMessage.y = 125;
      endScene.addChild(endMessage);
@@ -703,7 +718,7 @@ function createButtonsAndText(){
      let instructionsEnd = new PIXI.Text("Click Here to Begin Anew!");
      instructionsEnd.style = style
      instructionsEnd.x = sceneWidth / 2 - instructionsEnd.width / 2;
-     instructionsEnd.y = 100 + endMessage.y;
+     instructionsEnd.y = 200 + endMessage.y;
      instructionsEnd.interactive = true;
      instructions.buttonMode = true;
      instructionsEnd.on("pointerup",startGame);
@@ -719,6 +734,9 @@ function createButtonsAndText(){
 function increaseScoreBy(value){
     score += value;
     scoreText.text = `Score:${Math.floor(score)}`;
+    endScore.text = `Final Score:${Math.floor(score)}`;
+    endScore.x = sceneWidth / 2 - endScore.width/2;
+
 }
 
 

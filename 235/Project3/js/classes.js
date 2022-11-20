@@ -285,7 +285,8 @@ class Player extends PIXI.AnimatedSprite{
                 this.dx += this.rollDirection * 1.5;
 
                 if(this.rollTime > 3.5 * this.animationSpeed){
-                    this.rollTime = 0; 
+                    this.rollTime = 0;
+                    this.dx -= this.rollDirection * 1.5; 
                     this.textures = this.animations.idle;
                     this.state = "idle"; 
                     this.loop = true;
@@ -500,7 +501,13 @@ class Player extends PIXI.AnimatedSprite{
  
             case "runLeft":
                 this.dx += -200;
-                this.dx -= player.dx;
+                if(player.state != "roll"){
+                    this.dx -= player.dx;
+                }
+                else{
+                    this.dx += - 1/3 * player.dx;
+                }
+                
                 this.scale.x = -2.5;
                 break;
 
@@ -557,7 +564,13 @@ class Player extends PIXI.AnimatedSprite{
                 }
                 break;
                 case "dead":
-                    this.dx += - 4 * player.dx;
+                    if(player.state != "roll"){
+                        this.dx += - 4 * player.dx;
+                    }
+                    else{
+                        this.dx += - 4/3 * player.dx;
+                    }
+                    
                     break;
 
         }
