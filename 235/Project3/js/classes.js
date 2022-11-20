@@ -341,7 +341,10 @@ class Player extends PIXI.AnimatedSprite{
         }
 
         this.play();
-        increaseScoreBy(this.dx/10000);
+        if(this.state != "roll"){
+            increaseScoreBy(this.dx/1000);
+        }
+        
       // this.x += this.dx * dt;
     }
 }
@@ -371,11 +374,14 @@ class Player extends PIXI.AnimatedSprite{
         if(this.time >= 10){
             this.x +=   this.wind * this.xSpeed * dt;
             
+            if(this.xSpeed > 0){
+                this.xSpeed *=-1;
+            }
             if(this.time > 15){
-                this.wind -= 1 * dt;
+                this.wind -= 4 * dt;
             }
             else{
-                this.wind += 1 * dt;
+                this.wind += 4 * dt;
             }
             if(this.time > 20 ){
                 this.time = 0;

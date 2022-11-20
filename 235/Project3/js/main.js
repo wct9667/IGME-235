@@ -1,5 +1,5 @@
 "use strict";
-let container, particles, numberOfParticles = 900;
+let container, particles, numberOfParticles = 1000;
 let particleTexture =  PIXI.Texture.from('images/particle-6x6.png');
 let lifetime = 0;
 let player;
@@ -424,7 +424,6 @@ function loadSpriteSheet(numFrames, sprite){
 
 //check collisions between enemies and player
 function CheckCollisions(dt){
-    console.log(player.state);
     for(let enemy of enemies){
         if(player.state != "hurt" && player.state != "dead" && player.state != "death" && enemy.state != "dead"&& enemy.state != "death" && enemy.state != "hurt"){
 
@@ -865,15 +864,12 @@ window.onkeyup = (e) => {
 
     if (c == "a" || c == "A") {
         keys[keyboard.LEFT] = false;
-        console.log("stop");
     }
     if (c == "d" || c == "D") {
         keys[keyboard.RIGHT] = false;
-        console.log("stop");
     }
     if (e.keyCode == 32) {
         keys[keyboard.SPACE] = false;
-        console.log("stopAttack");
     }
     if (c == "s" || c == "S") {
         keys[keyboard.S] = false;
@@ -895,11 +891,9 @@ window.onkeydown = (e) => {
 
     if (c == "a" || c == "A") {
         keys[keyboard.LEFT] = true;
-        console.log("go");
     }
     if (c == "d" || c == "D") {
         keys[keyboard.RIGHT] = true;
-        console.log("go");
     }
     if (e.keyCode == 32) {
         keys[keyboard.SPACE] = true;
