@@ -287,8 +287,8 @@ class Player extends PIXI.AnimatedSprite{
                 if(this.rollTime > 3.5 * this.animationSpeed){
                     this.rollTime = 0;
                     this.dx -= this.rollDirection * 1.5; 
-                    this.textures = this.animations.idle;
-                    this.state = "idle"; 
+                    this.textures = this.animations.run;
+                    this.state = "runRight"; 
                     this.loop = true;
                 }
             break;
@@ -537,7 +537,7 @@ class Player extends PIXI.AnimatedSprite{
             this.loop = false;
             if(player.state == "roll"){
                 this.dx -=  player.dx;
-                this.loop = true;
+                this.loop = true; 
             } 
             if(this.attackTime > 5* this.animationSpeed){               
                 this.attackTime = 0; 
@@ -591,6 +591,7 @@ class Player extends PIXI.AnimatedSprite{
     reset(){
         this.x = getRandom(sceneWidth + 100, 100000);
         this.state = "runLeft";
+        this.diff = 0;
         this.textures = this.animations.run;
         this.loop = true;
         this.health = getRandom(0,2 + this.diff)

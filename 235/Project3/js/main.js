@@ -68,7 +68,6 @@ app.loader.add("roll", "images/playerAnimations/roll.png");
 app.loader.add("hurt", "images/playerAnimations/hurt.png");
 app.loader.add("death", "images/playerAnimations/death.png");
 app.loader.add("heal", "images/playerAnimations/heal.png");
-app.loader.add("campfire", "images/otherAnim/campire.png");
 
 
 /////////////////////load sounds
@@ -135,7 +134,6 @@ function startGame(){
     paused = false;
     for(let enemy of enemies){
         enemy.reset();
-        enemy.diff = 0;
     }
     score = 0;
 }
@@ -328,7 +326,6 @@ function setup(){
     textures["heal"] = loadSpriteSheet(8, "heal");
 
     let healthTexture = []
-    healthTexture["idle"] = loadSpriteSheet(11, "health");
 
     //SpawnHealth(300, healthTexture);
     //player creation
@@ -397,18 +394,11 @@ function loadSpriteSheet(numFrames, sprite){
     else if (sprite == "heal"){
        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.heal.url);
    }
-    else if (sprite == "health"){
-        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.campfire.url);
-    }
     else{
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.idleSprites.url);
     }
     let width = 512
     let height  = 512;
-    if(sprite == "health"){
-        width = 1122/numFrames;
-        height = 102;
-    }
 
     let textures = [];
     for(let i=0;i<numFrames;i++)
@@ -537,9 +527,17 @@ function createButtonsAndText(){
         fontStyle: 'bold'
         
     });
+
+    let headStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 60,
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+        
+    });
      // 1 - set up startscene
      let title = new PIXI.Text("Winter's Dawn");
-     title.style = style;
+     title.style = headStyle;
      title.x = sceneWidth / 2 - title.width / 2;
      title.y = 125;
      startScene.addChild(title);
@@ -696,20 +694,14 @@ function createButtonsAndText(){
     scoreText.style.fill = 0xADD8E6;
     scoreText.style = style;
     scoreText.x = sword1.x;
-    scoreText.y = 5;
+    scoreText.y = 10;
     gameSceneUpdate.addChild(scoreText);
     increaseScoreBy(0);
 
 
     //game over
     let endMessage = new PIXI.Text("YOU DIED!");
-     endMessage.style = new PIXI.TextStyle({
-        fill: 0xFFFFFF,
-        fontSize: 60,
-        fontFamily: 'Arial',
-        fontStyle: 'bold'
-        
-    });
+     endMessage.style = headStyle;
      endMessage.x = sceneWidth / 2 - endMessage.width / 2;
      endMessage.y = 125;
      endScene.addChild(endMessage);
@@ -722,7 +714,7 @@ function createButtonsAndText(){
      instructions.buttonMode = true;
      instructionsEnd.on("pointerup",startGame);
      instructionsEnd.on('pointerover', e=>e.target.alpha =.7);
-     instructionsEnd.on('pointerout', e=>e.currentTarget.alpha = 1.0);
+     instructionsEnd.on('pointerout', e=>e.currentTarget.alpha = .9);
 
      endScene.addChild(instructionsEnd);
 
