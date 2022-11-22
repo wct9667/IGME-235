@@ -10,8 +10,11 @@ canvas
     canvas
 {
     display: block;
-    transform: scale(1);
     margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
     border: solid gray 10px;
 }
