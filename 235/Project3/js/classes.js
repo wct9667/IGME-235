@@ -388,12 +388,10 @@ class Player extends PIXI.AnimatedSprite{
                 this.wind = 1;
             }
         }
-        else{
             if(player.state != "roll")
             this.x -= player.dx * 1/100;
             else{
                 this.x -= player.dx * 1/500;
-            }
         }
 		this.x += this.xSpeed * dt;
 		this.y += this.ySpeed * dt;
