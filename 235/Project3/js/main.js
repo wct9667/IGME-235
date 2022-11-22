@@ -278,7 +278,7 @@ function setup(){
     });
     sounds["hurt"] = new Howl({
         src: [app.loader.resources.hurtS.url],
-        volume: 0.25
+        volume: 0.15
     });
     sounds["hurtEnemy"] = new Howl({
         src: [app.loader.resources.hurtEnemyS.url],
