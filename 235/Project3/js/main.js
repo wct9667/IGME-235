@@ -75,7 +75,6 @@ app.loader.add("heal", "images/playerAnimations/heal.png");
 app.loader.add("attack1S",  "sounds/attack1.wav");
 app.loader.add("attack2S",  "sounds/attack2.wav");
 app.loader.add("attack3S",  "sounds/attack3.wav");
-app.loader.add("blockS",  "sounds/block.wav");
 app.loader.add("deathS",  "sounds/death.wav");
 app.loader.add("hurtS", "sounds/hurt.wav" );
 app.loader.add("hurtEnemyS", "sounds/hurtEnemy.wav");
@@ -83,6 +82,8 @@ app.loader.add("foot1S", "sounds/foot1.wav" );
 app.loader.add("foot2S", "sounds/foot2.wav");
 app.loader.add("rollS", "sounds/roll.wav");
 app.loader.add("healS", "sounds/heal.wav");
+app.loader.add("blockS", "sounds/block.mp3");
+app.loader.add("blockS3", "sounds/block3.mp3")
 app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
 app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
 /////////////////////////////ui
@@ -267,10 +268,6 @@ function setup(){
         src: [app.loader.resources.attack3S.url],
         volume: 0.25
     });
-    sounds["block"] = new Howl({
-        src: [app.loader.resources.blockS.url],
-        volume: 0.25
-    });
     sounds["death"] = new Howl({
         src: [app.loader.resources.deathS.url],
         volume: 0.25
@@ -298,6 +295,14 @@ function setup(){
     sounds["heal"] = new Howl({
         src: [app.loader.resources.healS.url],
         volume: 0.25
+    });
+    sounds["block"] = new Howl({
+        src: [app.loader.resources.blockS.url],
+        volume: 0.05
+    });
+    sounds["block3"] = new Howl({
+        src: [app.loader.resources.blockS3.url],
+        volume: 0.05
     });
     bgMusic = new Howl({
         src: [app.loader.resources.guitar.url],
@@ -423,7 +428,6 @@ function CheckCollisions(dt){
             }
             else if(enemy.state != "blocked"){     
                 enemy.attack();          
-                enemy.AttackSound();
                 if(player.state != "attack" && player.state != "shield"){
                     player.hurt();
                 }

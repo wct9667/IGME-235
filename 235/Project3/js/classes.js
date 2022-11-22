@@ -389,7 +389,7 @@ class Player extends PIXI.AnimatedSprite{
             }
         }
             if(player.state != "roll"){
-                this.x -= player.dx * 1/50;
+                this.x -= player.dx * 1/100;
             }
             else{
                 this.x -= player.dx * 1/500;
@@ -505,6 +505,15 @@ class Player extends PIXI.AnimatedSprite{
         else if(this.rng == 1){
             this.sounds["attack2"].play();
             this.textures = this.animations.attack2;
+        }
+        if(player.state == "shield"){
+           
+            if(this.rng == 0){
+                this.sounds["block"].play();
+            }
+            else if (this.rng == 1){
+                this.sounds["block3"].play();
+            }
         }
         console.log("X");
         }

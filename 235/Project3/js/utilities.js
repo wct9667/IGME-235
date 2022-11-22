@@ -7,6 +7,8 @@
 //https://fliflifly.itch.io/hearts-and-health-bar
 //https://wenrexa.itch.io/ui-different02
 //https://oco.itch.io/medieval-fantasy-props-pack?download
+//https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack
+//https://freesfx.co.uk/Category/Shield/551
 
 
 
