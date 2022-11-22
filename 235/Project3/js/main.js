@@ -320,7 +320,7 @@ function setup(){
     deathMusic = new Howl({
         src: [app.loader.resources.deathTrack.url],
         html5: true,
-        volume: .1
+        volume: .05
     })
 
     //load up the sprites

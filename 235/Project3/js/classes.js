@@ -560,7 +560,7 @@ class Player extends PIXI.AnimatedSprite{
                     this.loop = false;
                     if(this.textures != this.animations.idle)
                     this.textures = this.animations.idle;
-                    if(this.immunity > 7  * this.animationSpeed){ 
+                    if(this.immunity > 6.5  * this.animationSpeed){ 
                        this.run();
                         this.immunity = 0;
                     }
@@ -586,7 +586,7 @@ class Player extends PIXI.AnimatedSprite{
                if(this.attackTime >= this.animationSpeed * 5){
                 this.attackTime = 0; 
                 this.state = "idle";
-                this.loop = true;
+                this.loop = true; 
                } 
            }
             break;
