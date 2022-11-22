@@ -388,6 +388,13 @@ class Player extends PIXI.AnimatedSprite{
                 this.wind = 1;
             }
         }
+        else{
+            if(player.state != "roll")
+            this.x -= player.dx * 1/100;
+            else{
+                this.x -= player.dx * 1/500;
+            }
+        }
 		this.x += this.xSpeed * dt;
 		this.y += this.ySpeed * dt;
         
@@ -629,29 +636,22 @@ class Player extends PIXI.AnimatedSprite{
 }
 
 //health powerup class
-class HealthKit extends PIXI.AnimatedSprite{
-    constructor(animations,x,y){
+class Prop extends PIXI.Sprite{
+    constructor(x,y,texture){
 
-        super(animations.idle)
+        super()
         this.anchor.set(.5,.5);
-        this.animations = animations;
-        this.scale.set(2.5);
-        this.animationSpeed = 0.15;
-        this.loop = true;
-        this.scale.set(1);
+        this.scale.set(2);
         this.x = x;
         this.y = y;
-        this.frameNumber = 1;
+        this.texture = texture;
     }
-
     reset(){
         this.x = getRandom(sceneWidth + 100, 100000);
     }
-    collide(){
-        
-    }
-    healthUpdate(dt){
-        this.x -= player.dx * dt;
+
+    Update(dt){
+        this.x -=  player.dx * dt;
 
         if(this.x < -1000){
             this.reset();

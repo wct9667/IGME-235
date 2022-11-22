@@ -69,7 +69,6 @@ app.loader.add("hurt", "images/playerAnimations/hurt.png");
 app.loader.add("death", "images/playerAnimations/death.png");
 app.loader.add("heal", "images/playerAnimations/heal.png");
 
-
 /////////////////////load sounds
 //app.loader.add("idle",  "../sounds/playerAnimations/hurtEnemy.wav");
 //app.loader.add("run",  "../sounds/playerAnimations/hurtEnemy.wav");
@@ -113,7 +112,6 @@ let gameScene;
 let endScene;
 let gameSceneUpdate
 let enemies = [];
-let healthKits = [];
 let bgMusic;
 let ambience;
 let score = 0;
@@ -325,9 +323,6 @@ function setup(){
     textures["death"] = loadSpriteSheet(8, "death");
     textures["heal"] = loadSpriteSheet(8, "heal");
 
-    let healthTexture = []
-
-    //SpawnHealth(300, healthTexture);
     //player creation
     player = new Player(textures, sceneWidth/2, 600, sounds);
     player.interactive = true;
@@ -453,13 +448,7 @@ function CheckCollisions(dt){
                 }
             }
 
-           /* for(let hk of healthKits){
-                if(!player.hasHealed){
-                    if(CircleIntersect(player.x,player.y,player.hitBoxRadius ,hk.x,hk.y,20)){
-                        player.heal();
-                    }
-                }
-            }*/
+
     }
 }
 
@@ -496,10 +485,7 @@ updateButtonsAndText();
  for(let enemy of enemies){
   enemy.enemyUpdate(dt);
  }
- for (let hk of healthKits){
-    hk.healthUpdate(dt);
- }
-
+ 
 
  CheckCollisions(dt);
 
