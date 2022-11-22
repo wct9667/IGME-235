@@ -8,7 +8,8 @@ let paused = true;
 
     const app = new PIXI.Application({
         width: 1200,
-        height: 720
+        height: 720,
+        
     });
     document.body.appendChild(app.view);
     
