@@ -308,7 +308,7 @@ class Player extends PIXI.AnimatedSprite{
                     }
                     else if(this.textures != this.animations.idle)this.textures = this.animations.idle;
                     
-                    if(this.immunity >= 5   * this.animationSpeed){
+                    if(this.immunity >= 5 * this.animationSpeed){
                         this.immunity = 0;
 
                         this.state = "idle";
@@ -430,6 +430,7 @@ class Player extends PIXI.AnimatedSprite{
         this.health = getRandom(0,2);
         console.log(this.health);
         this.sounds = sounds;
+        this.rng =  Math.floor(Math.random() * 2);
     }
 
     //sets the hurt state/check for death
@@ -479,8 +480,26 @@ class Player extends PIXI.AnimatedSprite{
     //sets attack state
     attack(){
         if(this.state != "attack"){
-            this.state = "attack";
+        let x = Math.floor(Math.random() * 2);
+        if(x == this.rng){
+            this.rng += 1;
+            if(this.rng > 1){
+                this.rng = 0;
+            }
+        }
+        else{
+            this.rng = x;
+        }
+        this.state = "attack";
+
+        if(this.rng == 0){
+            this.sounds["attack1"].play();
             this.textures = this.animations.attack1;
+        }
+        else if(this.rng == 1){
+            this.sounds["attack2"].play();
+            this.textures = this.animations.attack2;
+        }
         }
     }
     //goes to idle animation but not state
@@ -539,11 +558,21 @@ class Player extends PIXI.AnimatedSprite{
                 this.dx -=  player.dx;
                 this.loop = true; 
             } 
-            if(this.attackTime > 5* this.animationSpeed){               
+            this.attackTime += dt;
+           if(this.rng == 0){
+               if(this.attackTime >= this.animationSpeed * 5){
                 this.attackTime = 0; 
+                this.state = "idle";
                 this.loop = false;
-                this.textures = this.animations.attack2;               
-            }
+               } 
+           }
+           else if (this.rng == 1){
+               if(this.attackTime >= this.animationSpeed * 5){
+                this.attackTime = 0; 
+                this.state = "idle";
+                this.loop = false;
+               } 
+           }
             break;
         
             case "blocked":
