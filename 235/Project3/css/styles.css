@@ -1,13 +1,5 @@
+
 canvas
-{
-    transform: scale(.8);
-    display: block;
-    margin: auto;
-    overflow: hidden;
-    border: solid gray 10px;
-}
-@media screen and (min-height: 800px) {
-    canvas
 {
     display: block;
     margin: auto;
@@ -16,9 +8,11 @@ canvas
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
+    width: 50%;
+    height: 50;
     border: solid gray 10px;
 }
-}
+
 body {
 /*background-image: url("../images/Sunset/expanded.png");*/
 background-color: lightgray;
