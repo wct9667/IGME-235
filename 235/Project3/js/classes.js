@@ -388,8 +388,9 @@ class Player extends PIXI.AnimatedSprite{
                 this.wind = 1;
             }
         }
-            if(player.state != "roll")
-            this.x -= player.dx * 1/100;
+            if(player.state != "roll"){
+                this.x -= player.dx * 1/50;
+            }
             else{
                 this.x -= player.dx * 1/500;
         }
@@ -505,6 +506,7 @@ class Player extends PIXI.AnimatedSprite{
             this.sounds["attack2"].play();
             this.textures = this.animations.attack2;
         }
+        console.log("X");
         }
     }
     //goes to idle animation but not state

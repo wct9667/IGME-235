@@ -414,7 +414,7 @@ function CheckCollisions(dt){
 
         if(CircleIntersect(player.x,player.y,player.hitBoxRadius,enemy.x,enemy.y,50)){
             //change player state and animation
-            if((player.state == "shield" || player.state == "roll")){
+            if((player.state == "roll")){
                 //change enemy state to blocked
                 if(enemy.state != "blocked"){
                    enemy.blocked(false);
@@ -424,7 +424,7 @@ function CheckCollisions(dt){
             else if(enemy.state != "blocked"){     
                 enemy.attack();          
                 enemy.AttackSound();
-                if(player.state != "attack"){
+                if(player.state != "attack" && player.state != "shield"){
                     player.hurt();
                 }
             }
