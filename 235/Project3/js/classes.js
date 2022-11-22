@@ -579,14 +579,14 @@ class Player extends PIXI.AnimatedSprite{
                if(this.attackTime >= this.animationSpeed * 5){
                 this.attackTime = 0; 
                 this.state = "idle";
-                this.loop = false;
+                this.loop = true;
                } 
            }
            else if (this.rng == 1){
                if(this.attackTime >= this.animationSpeed * 5){
                 this.attackTime = 0; 
                 this.state = "idle";
-                this.loop = false;
+                this.loop = true;
                } 
            }
             break;

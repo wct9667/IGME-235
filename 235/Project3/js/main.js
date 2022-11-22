@@ -86,6 +86,7 @@ app.loader.add("blockS", "sounds/block.mp3");
 app.loader.add("blockS3", "sounds/block3.mp3")
 app.loader.add("guitar", "sounds/Guitar_instrumental.mp3");
 app.loader.add("outdoorWinter", "sounds/outdoorWinter.mp3");
+app.loader.add("deathTrack", "sounds/deathMusic.mp3");
 /////////////////////////////ui
 app.loader.add("swordUI", "images/ui/Sword.png");
 app.loader.add("directionsUI", "images/ui/directions.png");
@@ -115,6 +116,7 @@ let gameSceneUpdate
 let enemies = [];
 let bgMusic;
 let ambience;
+let deathMusic;
 let score = 0;
 let endScore;
 let scoreText;
@@ -122,6 +124,7 @@ let scoreText;
 
 //this will get called at avery point the game resets, resets charges, health, score, and respawns enemies
 function startGame(){
+    if(deathMusic.playing) deathMusic.stop();
     startScene.visible = false;
     endScene.visible = false;
     player.resetAttack();
@@ -294,15 +297,15 @@ function setup(){
     });
     sounds["heal"] = new Howl({
         src: [app.loader.resources.healS.url],
-        volume: 0.25
+        volume: 0.2
     });
     sounds["block"] = new Howl({
         src: [app.loader.resources.blockS.url],
-        volume: 0.05
+        volume: 0.03
     });
     sounds["block3"] = new Howl({
         src: [app.loader.resources.blockS3.url],
-        volume: 0.05
+        volume: 0.03
     });
     bgMusic = new Howl({
         src: [app.loader.resources.guitar.url],
@@ -313,6 +316,11 @@ function setup(){
         src: [app.loader.resources.outdoorWinter.url],
         html5: true,
         volume: .8
+    })
+    deathMusic = new Howl({
+        src: [app.loader.resources.deathTrack.url],
+        html5: true,
+        volume: .1
     })
 
     //load up the sprites
@@ -499,8 +507,13 @@ updateButtonsAndText();
 //change to gameover scene
 function endSceneSwap(){
     endScene.visible = true;
+    paused = true;
+    bgMusic.stop();
+    deathMusic.play();
     gameSceneUpdate.visible = false;
 }
+
+
 let sword3;
 let sword1;
 let sword2, sword4;
