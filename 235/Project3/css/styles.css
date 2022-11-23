@@ -8,8 +8,8 @@ canvas
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
-    width: 50%;
-    height: 50;
+    width: 60%;
+    height: 60;
     border: solid gray 10px;
 }
 
