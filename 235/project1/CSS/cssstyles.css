@@ -185,32 +185,33 @@ width:25%;
 .box p{
     background-color: lightgrey;
     opacity: .9;
-    margin: 10%;
+    margin: 9%;
+    margin-top: 5%;
     padding: 15px;
-    line-height:17px;
+    line-height:20px;
 }
 
 
 #topright{
-    background-image: url("../images/backgroundProj1.png"); 
     grid-area: topright;
+    background-color: gray;
 }
 
 
 #topLeft{
-    background-image: url("../images/TestOfWills.png");
+    grid-area: topleft;
+    background-color: gray;
 }
 
 #BottomRight{
     grid-area:bottomright;
-    background-image: url("../images/TestOfWills.png");
+    background-color: grey;
 }
 
 
 #BottomLeft{
     grid-area: bottomleft;
-    background-image: url("../images/TestOfWills.png");
-
+    background-color: grey;
 }
 
 
@@ -262,6 +263,30 @@ width:25%;
 }
 #contact p{
     font-size: 1.1rem;
+}
+
+@media screen and (min-width: 1000px){
+    #contact{
+        /*height: 130px;*/
+        text-align: center;
+        color: white;
+        background-color: grey;
+        border: 5px solid darkgrey;
+    }
+    #contact h2{
+        font-size: 4rem;
+        margin-top: 20px;
+        margin-bottom: 1%;
+    }
+    #contact #links{
+        display: flex;
+        flex-direction: column;
+        gap: 20%;
+        height: 125px;
+    }
+    #contact p{
+        font-size: 1.5rem;
+    }
 }
 
 /*Link*/
