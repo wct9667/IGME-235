@@ -321,8 +321,7 @@ function setup(){
     deathMusic = new Howl({
         src: [app.loader.resources.deathTrack.url],
         html5: true,
-        volume: .05
-    })
+        volume: .2    })
 
     //load up the sprites
     let textures = [];
