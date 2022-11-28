@@ -13,7 +13,22 @@ canvas
     border: solid gray 10px;
 }
 
+#content{
+   padding-Left: 10%;
+   padding-right: 10%;
+}
 body {
 /*background-image: url("../images/Sunset/expanded.png");*/
 background-color: lightgray;
+display: grid;
+}
+
+ul{
+    list-style:  none;
+}
+section, h1{
+    margin: 0, auto;
+}
+p{
+   max-width:  70vh;
 }

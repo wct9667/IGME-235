@@ -434,7 +434,6 @@ class Player extends PIXI.AnimatedSprite{
         this.radius = 70;
         this.dxs = 0;
         this.health = getRandom(0,2);
-        console.log(this.health);
         this.sounds = sounds;
         this.rng =  Math.floor(Math.random() * 2);
     }
@@ -515,7 +514,6 @@ class Player extends PIXI.AnimatedSprite{
                 this.sounds["block3"].play();
             }
         }
-        console.log("X");
         }
     }
     //goes to idle animation but not state

@@ -48,7 +48,7 @@ let sixParallax;
 let sevenParallax;
 let eightParallax;
 
-
+//load a bunch of assets
 app.loader
         .add("background", "images/Sunset/Background.png")
         .add("1", "images/Sunset/1.png")
@@ -103,7 +103,6 @@ app.loader.add("healthC2", "images/ui/health/hCharge2.png");
 app.loader.add("healthC3", "images/ui/health/hCharge3.png");
 app.loader.add("healthC4", "images/ui/health/hCharge4.png");
 
-app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
 app.loader.load();
 
@@ -211,7 +210,7 @@ function updateBG(dt){
     }
 }
 
-
+//sets up everything(sounds, textures, other assets and scenes)
 function setup(){
 
     stage = app.stage;
@@ -362,14 +361,7 @@ function SpawnEnemies(number, textures, sounds){
     }
 }
 
-function SpawnHealth(number, texture){
-    for(let i = 0; i < number; i++){
-        let healthKit= new HealthKit(texture, getRandom(sceneWidth + 100, 100000), 600);
-        healthKit.play();
-        healthKits.push(healthKit);
-        gameScene.addChild(healthKit);
-    }
-}
+
 
 //loads sprites from a sheet
 function loadSpriteSheet(numFrames, sprite){
@@ -465,6 +457,7 @@ function CheckCollisions(dt){
 }
 
 
+
 function gameLoop(){
  // #1 - Calculate "delta time"
  let dt = 1/app.ticker.FPS;
@@ -513,13 +506,14 @@ function endSceneSwap(){
     gameSceneUpdate.visible = false;
 }
 
-
+//made the fields here, idk
 let sword3;
 let sword1;
 let sword2, sword4;
 let shield1, shield2,shield3, shield4;
 let health1, health2, health3, health4, health5;
 let healthC1,healthC2,healthC3,healthC4,healthC5;
+//sets up all of the iu, will be called in setup
 function createButtonsAndText(){
 
     //save style 
@@ -736,7 +730,7 @@ function increaseScoreBy(value){
 
 
 
-//update the labels
+//update the labels and ui elements per player action and health
 function updateButtonsAndText(){
     //this is not as complicated as it seems
     sword1.visible = false;
