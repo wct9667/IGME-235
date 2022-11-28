@@ -1,16 +1,3 @@
-//sources
-//https://kayillustrations.itch.io/parallax-sunset-mountains/download/eyJpZCI6MTA3NDkwMiwiZXhwaXJlcyI6MTY2ODQ4OTg1OX0%3d.OCJYnPETBg8gmX8CpsJkK5241ho%3d
-//https://astrobob.itch.io/animated-pixel-art-skeleton/download/eyJpZCI6OTE0NjQ4LCJleHBpcmVzIjoxNjY4NTUwOTkxfQ%3d%3d.cRV1InQdwksePg%2f9tG3ROq0H3bI%3d
-//https://andelrodis.itch.io/pixel-health-bar/download/eyJleHBpcmVzIjoxNjY4NjYxNjIxLCJpZCI6MTA3MzUxOH0%3d.%2bDsruHlleGAHwdgMMiMtSEJVFmQ%3d
-//https://garr19.itch.io/12-free-swords
-//https://sprpie.itch.io/pixelflans-darkfantasyshields/download/eyJpZCI6MTQ5MjA0NCwiZXhwaXJlcyI6MTY2ODcyNDcxNn0%3d.oeDuMwlcGora4zsMtP1QhN%2fOY9I%3d
-//https://fliflifly.itch.io/hearts-and-health-bar
-//https://wenrexa.itch.io/ui-different02
-//https://oco.itch.io/medieval-fantasy-props-pack?download
-//https://leohpaz.itch.io/minifantasy-dungeon-sfx-pack
-//https://freesfx.co.uk/Category/Shield/551
-//https://pixabay.com/music/search/mood/sad/
-
 
 
 // bounding box collision detection - it compares PIXI.Rectangles
