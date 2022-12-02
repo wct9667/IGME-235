@@ -9,7 +9,6 @@ canvas
     transform: translate(-50%, -50%);
     overflow: hidden;
     width: 60%;
-    height: 60;
     border: solid gray 10px;
 }
 
