@@ -712,35 +712,35 @@ function updateButtonsAndText(){
     }
 
     //update health sprite
-    if(player.health == 5){
+    if(player.healTimetoNext >40){
         health1.visible = true;
         health2.visible = false;
         health3.visible = false;
         health4.visible = false;
         health5.visible = false;
     }
-    else if (player.health == 4){
+    else if (player.healTimetoNext >30){
         health1.visible = false;
         health2.visible = true;
         health3.visible = false;
         health4.visible = false;
         health5.visible = false;
     }
-    else if (player.health == 3){
+    else if (player.healTimetoNext >20){
         health1.visible = false;
         health2.visible = false;
         health3.visible = true;
         health4.visible = false;
         health5.visible = false;
     }
-    else if (player.health == 2){
+    else if (player.healTimetoNext >10){
         health1.visible = false;
         health2.visible = false;
         health3.visible = false;
         health4.visible = true;
         health5.visible = false;
     }
-    else if (player.health == 1){
+    else if (player.healTimetoNext >0){
         health1.visible = false;
         health2.visible = false;
         health3.visible = false;
@@ -750,35 +750,35 @@ function updateButtonsAndText(){
 
     //update the healing charge sprite
   
-    if (player.healTimetoNext > 40){
+    if (player.health == 5){
         healthC1.visible = false;
         healthC2.visible = false;
         healthC3.visible = false;
         healthC4.visible = false;
         healthC5.visible = true;
     }
-    else if(player.healTimetoNext > 30){
+    else if(player.health == 4){
         healthC1.visible = true;
         healthC2.visible = false;
         healthC3.visible = false;
         healthC4.visible = true;
         healthC5.visible = false;
     }
-    else if (player.healTimetoNext > 20){
+    else if (player.health == 3){
         healthC1.visible = false;
         healthC2.visible = false;
         healthC3.visible = true;
         healthC4.visible = false;
         healthC5.visible = false;
     }
-    else if (player.healTimetoNext > 10){
+    else if (player.health == 2){
         healthC1.visible = false;
         healthC2.visible = true;
         healthC3.visible = false;
         healthC4.visible = false;
         healthC5.visible = false;
     }
-    else if (player.healTimetoNext > 0){
+    else if (player.health == 1){
         healthC1.visible = true;
         healthC2.visible = false;
         healthC3.visible = false;
