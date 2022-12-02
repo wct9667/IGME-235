@@ -16,6 +16,7 @@ app.loader
         .add("8", "images/Sunset/8.png")
 app.loader.add("idleSprites", "images/playerAnimations/idle.png");
 app.loader.add("runSprites", "images/playerAnimations/run.png");
+app.loader.add("runSpritesReverse", "images/playerAnimations/runLeft.png");
 app.loader.add("attack1", "images/playerAnimations/attack1.png");
 app.loader.add("attack2", "images/playerAnimations/attack2.png");
 app.loader.add("attack3", "images/playerAnimations/attack3.png");

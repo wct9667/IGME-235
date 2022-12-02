@@ -37,6 +37,7 @@ class Player extends PIXI.AnimatedSprite{
     healthTime = 0;
     shieldCharge = 6;
     healTimetoNext = 40;
+    runReverse = false;
 
     //checks if the player can attack before attackinh
     attackCharge(){
@@ -134,7 +135,12 @@ class Player extends PIXI.AnimatedSprite{
     //sets the player to a roll right state
     runRight(){
         this.state = "runRight";
-        this.textures = this.animations.run;
+            this.textures = this.animations.run;
+    }
+    //sets the player to a roll right state
+    runLeft(){
+        this.state = "runLeft";
+            this.textures = this.animations.runLeft;
     }
     //call in gameloop
     playerUpdate(dt){
@@ -159,23 +165,23 @@ class Player extends PIXI.AnimatedSprite{
             case "idle":
 
  
+
                 if(keys[keyboard.SPACE]){
                     this.attackCharge();
                 }
                 else if (keys[keyboard.SHIFT]){
                     this.shield();
                 }
-                /*
-                else if (keys[keyboard.LEFT]){
-                    this.state = "runLeft";
-                    this.textures = this.animations.run;
-                    }*/
-                else if(keys[keyboard.RIGHT]){
+                
+                else if (keys[keyboard.LEFT]&& !keys[keyboard.RIGHT]){
+                    this.runLeft();
+                    }
+                else if(keys[keyboard.RIGHT] && !keys[keyboard.LEFT ]){
                     this.runRight();
                 }
                 else if (keys[keyboard.S]){
                 this.roll();}
-                else if (keys[keyboard.A]){
+                else if (keys[keyboard.W]){
                     this.heal();
                 }
                 break;
@@ -200,46 +206,73 @@ class Player extends PIXI.AnimatedSprite{
                 this.scale.x = 2.5;
 
                 //breaks out
-
-                /*if (keys[keyboard.LEFT] && !keys[keyboard.RIGHT]){
-                this.state = "runLeft";
-                this.textures = this.animations.run;
-                }*/
-                 if(!keys[keyboard.RIGHT]){
+                if(keys[keyboard.RIGHT] && keys[keyboard.LEFT]){
+                    this.state = "idle";
+                    this.textures = this.animations.idle;
+                }
+                else if(!keys[keyboard.RIGHT]){
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
                 else if (keys[keyboard.S]){
                     this.roll();
                 }
+                else if (keys[keyboard.SHIFT]){
+                    this.shield();
+                }
                 else if(keys[keyboard.SPACE]){
                     this.attackCharge();
                 }
-                else if (keys[keyboard.A]){
+                else if (keys[keyboard.W]){
                     this.heal();
                 }
+                else if (keys[keyboard.LEFT]){
+                    this.runLeft();
+                    }
 
                 break;
 
             case "runLeft":
-                this.scale.x = -2.5;
                 this.dx -= 100;
 
-                if(keys[keyboard.RIGHT] && !keys[keyboard.LEFT]){
-                    this.state = "runRight";
-                    this.textures = this.animations.run;
+                this.runTime += dt;
+                if(this.runTime > .35){
+
+                    if(this.prevSound == 0){
+                        this.sounds["foot1"].play();
+                        this.prevSound = 1;
+                    }
+                    else{
+                        this.sounds["foot2"].play();
+                        this.prevSound = 0;
+                    }
+                    this.runTime = 0;
                 }
-                else if(!keys[keyboard.LEFT]){
+                //breaks out
+                  //breaks out
+                  if(keys[keyboard.RIGHT] && keys[keyboard.LEFT]){
+                    this.state = "idle";
+                    this.textures = this.animations.idle;
+                }
+               else if(!keys[keyboard.LEFT]){
                     this.state = "idle";
                     this.textures = this.animations.idle;
                 }
                 else if (keys[keyboard.S]){
-                    this.state = "roll";
-                    this.textures = this.animations.roll;
-                    this.rollDirection = -100;
+                    this.roll();
                 }
-
-
+                else if (keys[keyboard.SHIFT]){
+                    this.shield();
+                }
+                else if(keys[keyboard.SPACE]){
+                    this.attackCharge();
+                }
+                else if (keys[keyboard.W]){
+                    this.heal();
+                } 
+                else if (keys[keyboard.RIGHT]){
+                    this.runLeft();
+                    }
                 break;
 
             case "attack":
@@ -436,6 +469,8 @@ class Player extends PIXI.AnimatedSprite{
         this.health = getRandom(0,2);
         this.sounds = sounds;
         this.rng =  Math.floor(Math.random() * 2);
+        this.tint = 0xffcccb;
+
     }
 
     //sets the hurt state/check for death

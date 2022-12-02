@@ -12,7 +12,6 @@ let paused = true;
         
     });
     document.body.appendChild(app.view);
-    
     // constants
     const sceneWidth = app.view.width;
     const sceneHeight = app.view.height;	
@@ -32,8 +31,8 @@ const keyboard = Object.freeze({
     RIGHT: 39,
     DOWN: 40,
     S: 83,
-    A:65
-
+    A:65,
+    W:87
 });
 
 // pre-load the images
@@ -269,6 +268,7 @@ function setup(){
     let textures = [];
     textures["idle"] = loadSpriteSheet(4, "idle");
     textures["run"] = loadSpriteSheet(6,"run");
+    textures["runLeft"] = loadSpriteSheet(6,"runLeft");
     textures["attack1"] = loadSpriteSheet(5, "attack1");
     textures["attack2"] = loadSpriteSheet(7, "attack2");
     textures["attack3"] = loadSpriteSheet(9, "attack3");
@@ -312,6 +312,9 @@ function loadSpriteSheet(numFrames, sprite){
     //will likely refactor this eventually
     if(sprite == "run"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.runSprites.url);
+    }
+    else if(sprite == "runLeft"){
+        spriteSheet = PIXI.BaseTexture.from(app.loader.resources.runSpritesReverse.url);
     }
     else if (sprite == "attack1"){
         spriteSheet = PIXI.BaseTexture.from(app.loader.resources.attack1.url);
@@ -812,6 +815,9 @@ window.onkeyup = (e) => {
     if(c == "A" || c == "a"){
         keys[keyboard.A] = false;
     }
+    if(c == "W" || c == "w"){
+        keys[keyboard.W] = false;
+    }
 };
 
 //pressed
@@ -838,6 +844,9 @@ window.onkeydown = (e) => {
     }
     if(c == "A" || c == "a"){
         keys[keyboard.A] = true;
+    }
+    if(c == "W" || c == "w"){
+        keys[keyboard.W] = true;
     }
 
 };
