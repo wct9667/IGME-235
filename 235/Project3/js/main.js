@@ -297,7 +297,7 @@ function setup(){
 //function to spawn a bunch of enemies
 function SpawnEnemies(number, textures, sounds){
     for(let i = 0; i < number; i++){
-        let enemy= new Enemy(textures, getRandom(sceneWidth + 100, 100000), 600, sounds);
+        let enemy= new Enemy(textures, getRandom(sceneWidth + 100, 90000), 600, sounds);
         enemy.play();
         enemies.push(enemy);
         gameScene.addChild(enemy);
