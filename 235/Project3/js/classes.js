@@ -330,16 +330,23 @@ class Player extends PIXI.AnimatedSprite{
                 this.immunity += dt;
                 if (keys[keyboard.S]){
                     this.roll();
+                    this.immunity = 0;
                 }
                 else if(this.immunity > 3 * this.animationSpeed){
                     this.loop = true;
                      if(keys[keyboard.SPACE]){
+                        this.immunity = 0;
                         this.attackCharge();
                     }
                     else if(keys[keyboard.SHIFT]){
+                        this.immunity = 0;
                         this.shield();
                     }
-                    else if(this.textures != this.animations.idle)this.textures = this.animations.idle;
+                    else if(this.textures != this.animations.idle)
+                    {
+                        this.immunity = 0;
+                        this.textures = this.animations.idle;
+                    }
                     
                     if(this.immunity >= 5 * this.animationSpeed){
                         this.immunity = 0;
@@ -586,7 +593,7 @@ class Player extends PIXI.AnimatedSprite{
                 break;
 
             case "hurt":        
-            this.dx -= player.dx;                
+                this.dx -= player.dx;                
                 this.loop = false;
                 this.immunity += dt;
                 if(this.immunity > 3 * this.animationSpeed){
